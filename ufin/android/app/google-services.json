@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1055730088459",
+    "project_id": "ufin-4195c",
+    "storage_bucket": "ufin-4195c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055730088459:android:0a87cea9d842882236250e",
+        "android_client_info": {
+          "package_name": "com.example.ufin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055730088459-amnr6ml8lfje86dior796nh2hgjdvglq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDThtSEwKg4tZm-WFMYfRsMYKU73wzvMoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055730088459-amnr6ml8lfje86dior796nh2hgjdvglq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1055730088459-574eng69hp0atdq7dl1tp079q4hktql6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ufin.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

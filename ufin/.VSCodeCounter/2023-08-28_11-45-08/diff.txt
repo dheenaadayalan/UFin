@@ -1,0 +1,53 @@
+Date : 2023-08-28 11:45:08
+Directory : c:\Users\dheen\Desktop\UFin\ufin
+Total : 13 files,  320 codes, 594 comments, 67 blanks, all 981 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         12 |        319 |        594 |         67 |        980 |
+| YAML     |          1 |          1 |          0 |          0 |          1 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                               |         13 |        320 |        594 |         67 |        981 |
+| . (Files)                                                                                                       |          1 |          1 |          0 |          0 |          1 |
+| lib                                                                                                             |         12 |        319 |        594 |         67 |        980 |
+| lib\screens                                                                                                     |         12 |        319 |        594 |         67 |        980 |
+| lib\screens\planner-screen                                                                                      |          7 |        250 |        609 |         58 |        917 |
+| lib\screens\planner-screen (Files)                                                                              |          3 |         52 |          4 |          4 |         60 |
+| lib\screens\planner-screen\budget                                                                               |          4 |        198 |        605 |         54 |        857 |
+| lib\screens\planner-screen\budget\barchart                                                                      |          4 |        198 |        605 |         54 |        857 |
+| lib\screens\planner-screen\budget\barchart (Files)                                                              |          2 |        198 |          1 |         15 |        214 |
+| lib\screens\planner-screen\budget\barchart\BarChart example                                                     |          2 |          0 |        604 |         39 |        643 |
+| lib\screens\setting-screens                                                                                     |          3 |         38 |        -15 |          7 |         30 |
+| lib\screens\setting-screens\commitments                                                                         |          2 |         26 |        -15 |          7 |         18 |
+| lib\screens\setting-screens\income                                                                              |          1 |         12 |          0 |          0 |         12 |
+| lib\screens\setup-screens                                                                                       |          2 |         31 |          0 |          2 |         33 |
+| lib\screens\setup-screens (Files)                                                                               |          1 |          2 |          0 |          2 |          4 |
+| lib\screens\setup-screens\commitment                                                                            |          1 |         29 |          0 |          0 |         29 |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                        | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\BarChart example\app_resources.dart | Dart     |          0 |          0 |          1 |          1 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\BarChart example\bar_example.dart   | Dart     |          0 |        604 |         38 |        642 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\budget_barchart.dart                | Dart     |        175 |          1 |         12 |        188 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\color_extension.dart                | Dart     |         23 |          0 |          3 |         26 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\commit_builder.dart                                 | Dart     |         23 |          2 |          0 |         25 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\planner_screen.dart                                 | Dart     |          2 |          2 |          0 |          4 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text_ingtits.dart                                   | Dart     |         27 |          0 |          4 |         31 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\commitments\commitments_edit.dart                  | Dart     |         18 |        -15 |          7 |         10 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\commitments\commitments_setting.dart               | Dart     |          8 |          0 |          0 |          8 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\income\income_setting.dart                         | Dart     |         12 |          0 |          0 |         12 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\new_commitment.dart                       | Dart     |         29 |          0 |          0 |         29 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\income_info.dart                                     | Dart     |          2 |          0 |          2 |          4 |
+| c:\Users\dheen\Desktop\UFin\ufin\pubspec.yaml                                                                   | YAML     |          1 |          0 |          0 |          1 |
+| Total                                                                                                           |          |        320 |        594 |         67 |        981 |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

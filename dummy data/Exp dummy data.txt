@@ -1,0 +1,502 @@
+[
+	{
+		"title": "Home",
+		"Amount": 254,
+		"date": "15/03/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 802,
+		"date": "11/07/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 345,
+		"date": "21/05/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 177,
+		"date": "22/05/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 466,
+		"date": "27/08/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 825,
+		"date": "28/10/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 302,
+		"date": "02/06/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 251,
+		"date": "29/05/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 299,
+		"date": "01/04/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 931,
+		"date": "26/06/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 126,
+		"date": "31/08/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 847,
+		"date": "13/03/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 801,
+		"date": "31/07/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 34,
+		"date": "20/08/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 76,
+		"date": "08/09/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 236,
+		"date": "19/06/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 946,
+		"date": "23/08/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 281,
+		"date": "17/09/2022"
+	},
+	{
+		"title": "Food",
+		"Amount": 783,
+		"date": "19/08/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 393,
+		"date": "20/09/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 80,
+		"date": "09/02/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 99,
+		"date": "15/03/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 552,
+		"date": "26/09/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 625,
+		"date": "13/12/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 160,
+		"date": "05/06/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 666,
+		"date": "21/09/2022"
+	},
+	{
+		"title": "Food",
+		"Amount": 702,
+		"date": "21/12/2022"
+	},
+	{
+		"title": "Food",
+		"Amount": 917,
+		"date": "20/05/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 676,
+		"date": "26/05/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 633,
+		"date": "25/04/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 988,
+		"date": "30/12/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 837,
+		"date": "26/06/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 36,
+		"date": "29/08/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 103,
+		"date": "20/06/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 980,
+		"date": "20/08/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 6,
+		"date": "09/01/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 775,
+		"date": "26/05/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 6,
+		"date": "20/03/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 766,
+		"date": "09/08/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 693,
+		"date": "31/07/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 91,
+		"date": "13/01/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 502,
+		"date": "02/07/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 799,
+		"date": "29/07/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 662,
+		"date": "28/05/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 973,
+		"date": "30/01/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 606,
+		"date": "22/01/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 504,
+		"date": "15/02/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 497,
+		"date": "26/01/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 219,
+		"date": "24/02/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 82,
+		"date": "28/10/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 433,
+		"date": "11/09/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 309,
+		"date": "13/02/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 197,
+		"date": "24/04/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 516,
+		"date": "12/01/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 132,
+		"date": "25/09/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 420,
+		"date": "04/09/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 898,
+		"date": "12/09/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 611,
+		"date": "01/01/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 262,
+		"date": "29/08/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 623,
+		"date": "29/06/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 921,
+		"date": "20/10/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 118,
+		"date": "25/04/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 736,
+		"date": "12/12/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 991,
+		"date": "18/11/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 236,
+		"date": "25/10/2022"
+	},
+	{
+		"title": "Food",
+		"Amount": 672,
+		"date": "22/08/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 451,
+		"date": "05/04/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 403,
+		"date": "29/10/2022"
+	},
+	{
+		"title": "Food",
+		"Amount": 256,
+		"date": "30/03/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 582,
+		"date": "23/01/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 140,
+		"date": "28/03/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 832,
+		"date": "30/03/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 842,
+		"date": "07/11/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 841,
+		"date": "25/10/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 556,
+		"date": "30/11/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 412,
+		"date": "28/08/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 739,
+		"date": "22/08/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 220,
+		"date": "09/05/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 695,
+		"date": "25/12/2022"
+	},
+	{
+		"title": "Food",
+		"Amount": 448,
+		"date": "01/09/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 327,
+		"date": "03/08/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 823,
+		"date": "05/02/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 576,
+		"date": "02/12/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 60,
+		"date": "25/04/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 15,
+		"date": "03/11/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 46,
+		"date": "13/11/2022"
+	},
+	{
+		"title": "Home",
+		"Amount": 926,
+		"date": "03/06/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 631,
+		"date": "17/03/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 606,
+		"date": "10/01/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 572,
+		"date": "27/10/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 823,
+		"date": "22/02/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 556,
+		"date": "09/04/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 192,
+		"date": "20/08/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 639,
+		"date": "10/09/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 828,
+		"date": "10/02/2023"
+	},
+	{
+		"title": "Home",
+		"Amount": 449,
+		"date": "11/11/2022"
+	},
+	{
+		"title": "Travel",
+		"Amount": 472,
+		"date": "13/10/2022"
+	},
+	{
+		"title": "Food",
+		"Amount": 962,
+		"date": "23/08/2023"
+	},
+	{
+		"title": "Food",
+		"Amount": 543,
+		"date": "01/02/2023"
+	},
+	{
+		"title": "Travel",
+		"Amount": 6,
+		"date": "16/08/2023"
+	}
+]

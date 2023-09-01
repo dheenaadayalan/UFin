@@ -1,0 +1,91 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+//CommitmentsEdit
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:ufin/models/commitmet_model.dart';
+import 'package:ufin/screens/setup-screens/commitment/new_commitment.dart';
+import 'package:ufin/screens/setup-screens/budget/saving_cal.dart';
+
+var f = NumberFormat('##,##,###');
+
+class CommitmentsEdit extends StatefulWidget {
+  const CommitmentsEdit({super.key, required this.userMailId});
+
+  final String userMailId;
+
+  @override
+  State<CommitmentsEdit> createState() => _CommitmentsEditState();
+}
+
+class _CommitmentsEditState extends State<CommitmentsEdit> {
+  final _form = GlobalKey<FormState>();
+
+  final List<Commitment> _newCommitment = [];
+  int toggleValue = 0;
+  num _lablityCommit = 0;
+  num _assetsCommit = 0;
+
+  void openCommitDiglog() {
+    showDialog(
+      context: context,
+      builder: (context) => NewCommitment(onAddCommit: _addCommit),
+    );
+  }
+
+  void _addCommit(Commitment commit) {
+    setState(() {
+      _newCommitment.add(commit);
+      if (commit.commitType == 'Assets') {
+        _assetsCommit += commit.amount;
+      } else if (commit.commitType == 'Liability') {
+        _lablityCommit += commit.amount;
+      }
+    });
+  }
+
+  void _removeCommit(Commitment commit) {
+    setState(() {
+      _newCommitment.remove(commit);
+      if (commit.commitType == 'Assets') {
+        _assetsCommit -= commit.amount;
+      } else if (commit.commitType == 'Liability') {
+        _lablityCommit -= commit.amount;
+      }
+    });
+  }
+
+  void summit() async {
+    final isValid = _form.currentState!.validate();
+
+    if (!isValid) {
+      return;
+    }
+    final balanceBugetBeforSaving =
+        widget.totalIncome - (_assetsCommit + _lablityCommit);
+    _form.currentState!.save();
+
+    var date = {for (var index in _newCommitment) index.title: index.date};
+    var amount = {for (var index in _newCommitment) index.title: index.amount};
+    var type = {for (var index in _newCommitment) index.title: index.title};
+
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => SavingCal(
+          userMailId: widget.userMailId, balanceBuget: balanceBugetBeforSaving),
+    ));
+
+    await FirebaseFirestore.instance
+        .collection('users Monthly Commitment')
+        .doc(widget.userMailId)
+        .set(
+      {
+        'lablity commitment': _lablityCommit,
+        'assets commitment': _assetsCommit,
+        'balance budget befor saving': balanceBugetBeforSaving,
+        'total commitments': _assetsCommit + _lablityCommit,
+        'commit Date': date,
+        'commit Amount': amount,
+        'commit Type': type,
+      },
+    );
+  }

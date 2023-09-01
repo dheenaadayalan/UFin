@@ -1,0 +1,8 @@
+stream: FirebaseFirestore.instance
+              .collection('usersIncomeData')
+              .doc(widget.userMailId)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.data == null) const Text('Wlcome');
+
+            final totalIncome = snapshot.data!['total Incom'];

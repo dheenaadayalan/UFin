@@ -1,0 +1,7 @@
+final db = await FirebaseFirestore.instance
+        .collection('usersIncomeData')
+        .doc(widget.userMailId)
+        .get();
+
+    final _totalIncome = db.data()!['total Incom'];
+    print(_totalIncome);

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)https://api.flutter.dev/flutter/widgets/NavigatorState/pushAndRemoveUntil.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the pushAndRemoveUntil method from the NavigatorState class, for the Dart programming language.">
+  <title>pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API</title>
+
+  <!-- required because all the links are pseudo-absolute -->
+  <!--<base href="../../">--><base href=".">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <link href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/css2" rel="stylesheet">
+  <link href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/css2(1)" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/github.css">
+  <link rel="stylesheet" href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/styles.css">
+  <link rel="icon" href="https://api.flutter.dev/flutter/static-assets/favicon.png?v1">
+
+  <!-- style overrides for dartdoc -->
+<style>
+@import 'https://fonts.googleapis.com/css?family=Roboto:500,400italic,300,400,100i';
+@import 'https://fonts.googleapis.com/css?family=Google+Sans:500,400italic,300,400,100i';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:500,400italic,300,400,100i';
+@import 'https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Sharp|Material+Icons+Round';
+</style>
+
+<link href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/cupertino.css" rel="stylesheet" type="text/css">
+
+<link href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/overrides.css" rel="stylesheet" type="text/css">
+
+<link href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/icon" rel="stylesheet">
+<style>
+  /* Rule for sizing the icon. */
+  .md-36 { font-size: 36px; }
+</style>
+
+<script async="" src="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/analytics.js.download"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67589403-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script async="" defer="" src="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/api_survey.js.download"></script>
+
+<!-- Styles and scripting for handling custom code snippets -->
+<link href="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/snippets.css" rel="stylesheet" type="text/css">
+<script src="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/snippets.js.download"></script>
+
+<link rel="search" type="application/opensearchdescription+xml" title="Flutter API" href="https://api.flutter.dev/opensearch.xml">
+
+<script src="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/api_survey_docs.html"></script></head>
+
+
+<body data-base-href="../../" data-using-base-href="true" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://api.flutter.dev/flutter/index.html">Flutter</a></li>
+    <li><a href="https://api.flutter.dev/flutter/widgets/widgets-library.html">widgets</a></li>
+    <li><a href="https://api.flutter.dev/flutter/widgets/NavigatorState-class.html">NavigatorState</a></li>
+    <li class="self-crumb">pushAndRemoveUntil&lt;<wbr><span class="type-parameter">T extends Object?</span>&gt; method</li>
+  </ol>
+  <div class="self-name">pushAndRemoveUntil</div>
+  <form class="search navbar-right" role="search">
+    <div class="tt-wrapper"><input type="text" id="search-box" autocomplete="off" class="form-control typeahead tt-input" placeholder="Search API Docs" spellcheck="false"><div role="listbox" aria-expanded="false" class="tt-menu" style="display: none;"><div class="enter-search-message"></div><div class="tt-search-results"></div></div></div>
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content" data-above-sidebar="widgets/NavigatorState-class-sidebar.html" data-below-sidebar="">
+      <div>
+  <div id="external-links" class="btn-group"><a title="View source code" class="source-link" href="https://github.com/flutter/flutter/blob/efbf63d9c6/packages/flutter/lib/src/widgets/navigator.dart#L4756"><span class="material-symbols-outlined">description</span></a></div>
+<h1><span class="kind-method">pushAndRemoveUntil&lt;<wbr><span class="type-parameter">T extends Object?</span>&gt;</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/meta/optionalTypeArgs-constant.html">optionalTypeArgs</a></li>
+    </ol>
+  </div>
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">T?</span>&gt;</span></span>
+<span class="name ">pushAndRemoveUntil</span>&lt;<wbr><span class="type-parameter">T extends Object?</span>&gt;(<wbr><ol class="parameter-list"><li><span class="parameter" id="pushAndRemoveUntil-param-newRoute"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Route-class.html">Route</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">newRoute</span>, </span></li>
+<li><span class="parameter" id="pushAndRemoveUntil-param-predicate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/RoutePredicate.html">RoutePredicate</a></span> <span class="parameter-name">predicate</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Push the given route onto the navigator, and then remove all the previous
+routes until the <code>predicate</code> returns true.</p>
+<p>The predicate may be applied to the same route more than once if
+<a href="https://api.flutter.dev/flutter/widgets/Route/willHandlePopInternally.html">Route.willHandlePopInternally</a> is true.</p>
+<p>To remove routes until a route with a certain name, use the
+<a href="https://api.flutter.dev/flutter/widgets/RoutePredicate.html">RoutePredicate</a> returned from <a href="https://api.flutter.dev/flutter/widgets/ModalRoute/withName.html">ModalRoute.withName</a>.</p>
+<p>To remove all the routes below the pushed route, use a <a href="https://api.flutter.dev/flutter/widgets/RoutePredicate.html">RoutePredicate</a>
+that always returns false (e.g. <code>(Route&lt;dynamic&gt; route) =&gt; false</code>).</p>
+<p>The removed routes are removed without being completed, so this method
+does not take a return value argument.</p>
+<p>The newly pushed route and its preceding route are notified for
+<a href="https://api.flutter.dev/flutter/widgets/Route/didPush.html">Route.didPush</a>. After removal, the new route and its new preceding route,
+(the route below the bottommost removed route) are notified through
+<a href="https://api.flutter.dev/flutter/widgets/Route/didChangeNext.html">Route.didChangeNext</a>). If the <a href="https://api.flutter.dev/flutter/widgets/Navigator-class.html">Navigator</a> has any <a href="https://api.flutter.dev/flutter/widgets/Navigator/observers.html">Navigator.observers</a>,
+they will be notified as well (see <a href="https://api.flutter.dev/flutter/widgets/NavigatorObserver/didPush.html">NavigatorObserver.didPush</a> and
+<a href="https://api.flutter.dev/flutter/widgets/NavigatorObserver/didRemove.html">NavigatorObserver.didRemove</a>). The removed routes are disposed of and
+notified, once the new route has finished animating. The futures that had
+been returned from pushing those routes will not complete.</p>
+<p>Ongoing gestures within the current route are canceled when a new route is
+pushed.</p>
+<p>The <code>T</code> type argument is the type of the return value of the new route.</p>
+<p>Returns a <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a> that completes to the <code>result</code> value passed to <a href="https://api.flutter.dev/flutter/widgets/NavigatorState/pop.html">pop</a>
+when the pushed route is popped off the navigator.</p>
+<p>
+<a name="widgets.NavigatorState.pushAndRemoveUntil.1"></a>
+</p><div class="snippet snippet-container anchor-container">
+  <div class="snippet-description">
+Typical usage is as follows:
+</div>
+  <a class="anchor-button-overlay anchor-button" title="Copy link to clipboard" onmouseenter="fixHref(this, &#39;widgets.NavigatorState.pushAndRemoveUntil.1&#39;);" onclick="fixHref(this, &#39;widgets.NavigatorState.pushAndRemoveUntil.1&#39;); copyStringToClipboard(this.href);" href="https://api.flutter.dev/flutter/#">
+    <i class="material-icons anchor-image">link</i>
+  </a>
+  <div class="copyable-container">
+    <button class="copy-button-overlay copy-button" title="Copy to clipboard" onclick="copyTextToClipboard(findSiblingWithId(this, &#39;sample-code&#39;));">
+      <i class="material-icons copy-image">content_copy</i>
+    </button>
+    <pre class="language-dart" id="sample-code"><code class="language-dart hljs" data-highlighted="yes"><span class="hljs-keyword">void</span> _resetAndOpenPage() {
+  navigator.pushAndRemoveUntil&lt;<span class="hljs-keyword">void</span>&gt;(
+    MaterialPageRoute&lt;<span class="hljs-keyword">void</span>&gt;(builder: (BuildContext context) =&gt; <span class="hljs-keyword">const</span> MyHomePage()),
+    ModalRoute.withName(<span class="hljs-string">'/'</span>),
+  );
+}</code></pre>
+  </div>
+</div>
+<p></p>
+<p>See also:</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/NavigatorState/restorablePushAndRemoveUntil.html">restorablePushAndRemoveUntil</a>, which pushes a route that can be
+restored during state restoration.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart hljs" data-highlighted="yes"><span class="hljs-meta">@optionalTypeArgs</span>
+Future&lt;T?&gt; pushAndRemoveUntil&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Object?</span>&gt;(Route&lt;T&gt; newRoute, RoutePredicate predicate) {
+  <span class="hljs-keyword">assert</span>(newRoute._navigator == <span class="hljs-keyword">null</span>);
+  <span class="hljs-keyword">assert</span>(newRoute.overlayEntries.isEmpty);
+  _pushEntryAndRemoveUntil(_RouteEntry(newRoute, pageBased: <span class="hljs-keyword">false</span>, initialState: _RouteLifecycle.push), predicate);
+  <span class="hljs-keyword">return</span> newRoute.popped;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <div class="tt-wrapper"><input type="text" id="search-sidebar" autocomplete="off" class="form-control typeahead tt-input" placeholder="Search API Docs" spellcheck="false"><div role="listbox" aria-expanded="false" class="tt-menu" style="display: none;"><div class="enter-search-message"></div><div class="tt-search-results"></div></div></div>
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://api.flutter.dev/flutter/index.html">Flutter</a></li>
+    <li><a href="https://api.flutter.dev/flutter/widgets/widgets-library.html">widgets</a></li>
+    <li><a href="https://api.flutter.dev/flutter/widgets/NavigatorState-class.html">NavigatorState</a></li>
+    <li class="self-crumb">pushAndRemoveUntil&lt;<wbr><span class="type-parameter">T extends Object?</span>&gt; method</li>
+</ol>
+
+
+    <h5>NavigatorState class</h5>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">Flutter 3.13.0 • 2023-08-16 10:19 • efbf63d9c6 • stable</span>
+
+  <script src="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/footer.js.download"></script>
+</footer>
+
+
+
+<script src="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/highlight.pack.js.download"></script>
+<script src="./pushAndRemoveUntil method - NavigatorState class - widgets library - Dart API_files/docs.dart.js.download"></script>
+
+
+
+
+
+
+
+</body></html>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufin/screens/payment-screen/addbudget/add_budget_dropdown.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -10,8 +11,10 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Logged into expencess scree'),
+    return const Column(
+      children: [
+        AddNewExpences(),
+      ],
     );
   }
 }

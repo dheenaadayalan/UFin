@@ -23,90 +23,152 @@ class _TextIngsitiesState extends State<TextIngsities> {
               ),
             ],
           ),
-          const SizedBox(height: 15),
-          Card(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(8, 20, 8, 15),
-              height: 250,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start, // dummy data
-                      children: [
-                        Text(
-                          "\u2022",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ), //bullet text
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            "You have spent 80% of your budget on FOOD, Still have 9 days left in this month.",
+          const SizedBox(height: 5),
+          Container(
+            // decoration: BoxDecoration(
+            //   border: Border.all(
+            //     color: Theme.of(context).colorScheme.primary,
+            //   ),
+            // ),
+            margin: const EdgeInsets.fromLTRB(8, 8, 8, 15),
+            height: 300,
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start, // dummy data
+                        children: [
+                          Text(
+                            "\u2022",
                             style: Theme.of(context).textTheme.titleLarge,
-                          ), //text
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start, // dummy data
-                      children: [
-                        Text(
-                          "\u2022",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ), //bullet text
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            "You have spent ₹15,000 so far this month and still have to pay ₹4,000 EMI on 26 of this month.",
+                          ), //bullet text
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Card(
+                              color: Colors.red[400],
+                              //color: Theme.of(context).colorScheme.primary,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "You have overspent on TRAVEL, But you can still achive your savings target by using budget planner ",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                ),
+                              ),
+                            ), //text
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start, // dummy data
+                        children: [
+                          Text(
+                            "\u2022",
                             style: Theme.of(context).textTheme.titleLarge,
-                          ), //text
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start, // dummy data
-                      children: [
-                        Text(
-                          "\u2022",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ), //bullet text
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            "You have overspent on TRAVEL, But you can still achive your savings target by using budget planner ",
+                          ), //bullet text
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Card(
+                              color: Theme.of(context).colorScheme.primary,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "You have spent 80% of your budget on FOOD, Still have 9 days left in this month.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                ),
+                              ),
+                            ), //text
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start, // dummy data
+                        children: [
+                          Text(
+                            "\u2022",
                             style: Theme.of(context).textTheme.titleLarge,
-                          ), //text
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start, // dummy data
-                      children: [
-                        Text(
-                          "\u2022",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ), //bullet text
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            "You are only spending 50% of your Home budget for last 2 months. Do you increase your savings ",
+                          ), //bullet text
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Card(
+                              color: Theme.of(context).colorScheme.primary,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "You have spent ₹15,000 so far this month and still have to pay ₹4,000 EMI on 26 of this month.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                ),
+                              ),
+                            ), //text
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start, // dummy data
+                        children: [
+                          Text(
+                            "\u2022",
                             style: Theme.of(context).textTheme.titleLarge,
-                          ), //text
-                        ),
-                      ],
-                    ),
-                  ],
+                          ), //bullet text
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Card(
+                              color: Colors.green[400],
+                              //color: Theme.of(context).colorScheme.primary,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "You are only spending 50% of your Home budget for last 2 months. Do you increase your savings ",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                ),
+                              ),
+                            ), //text
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://dco-assets.everestads.net/ics-campaign//5031/t/10740/1/300x250.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Ad</title>
+    <link rel="stylesheet" href="./style.min.css">
+    <script type="text/javascript" src="./AMOLibrary.js.download"></script>
+    <script src="./script.min.js.download" charset="utf-8"></script>
+    <style media="screen">
+      @font-face {
+          font-family: SegoePro-Semibold;
+          src: url('fonts/SegoePro-Semibold.woff') format("woff");
+      }
+      .segoeProSemibold { font-family: SegoePro-Semibold; }
+    </style>
+    <!--
+      Available Classes:-
+        For Images :-
+          .asset        -Image Center Align(Image can shrink according to the container but will expand beyond its original size)
+          .asset-top    -Image Top Center Align(Image can shrink according to the container but will expand beyond its original size)
+          .asset-left
+
+    -->
+    <style media="screen">
+      #ad {
+        width: 300px;
+        height: 250px;
+        font-family: Arial,Helvetica,sans-serif;
+        background-color: #ffffff;
+      }
+      #cta { color: #0078d4; }
+      #cta:hover { color: #1384da; }
+    </style>
+  </head>
+  <body>
+    <div class="ad" id="ad" style="background-color: rgb(255, 255, 255);"><div id="backgroundImage" class="asset" style="width:inherit; height:inherit;"><img src="./de2d330ad55b62abf495b80f0ec5db9d.png"></div><div id="textfields" dir="auto" class="text-top-left segoeProSemibold" style="top: 50px; left: 15px; width: 265px; height: 140px; font-size: 17px; line-height: 1.2; color: rgb(0, 0, 0); letter-spacing: -0.2px;"><span><font id="headlineText" style="display:inline-block;min-height:20px;padding-bottom:9px;width:100%;">Future-proof what you build</font><font id="subheadlineText" style="display: inline-block; font-size: 83%;">Meet any challenge with Azure – your partner in the cloud</font></span></div><div id="cta" dir="auto" class="segoeProSemibold text" data-style="text-align:left;" style="top: 214px; left: 0px; width: 130px; height: 36px; font-size: 13px; line-height: 1; white-space: nowrap; color: rgb(255, 255, 255);"><span style="text-align: left; padding: 5px 10px;">Try Azure free&nbsp;❯</span></div><div id="overlay" style="top: 0px; left: 0px; width: inherit; height: inherit; background-color: rgb(255, 255, 255); opacity: 0; transition: all 0.5s ease 0s; visibility: hidden;"></div><div class="ad-borders"><div class="ad-border-top" style="position:absolute;display:inline-block;width:300px;border-top:2px solid #d1d1d1;top:0px;left:0px;"></div><div class="ad-border-right" style="position:absolute;display:inline-block;height:250px;border-left:2px solid #d1d1d1;top:0px;left:298px;"></div><div class="ad-border-bottom" style="position:absolute;display:inline-block;width:300px;border-top:2px solid #d1d1d1;top:248px;left:0px;"></div><div class="ad-border-left" style="position:absolute;display:inline-block;height:250px;border-left:2px solid #d1d1d1;top:0px;left:0px;"></div></div></div>
+    <div id="loadFont" style="width:0;height:0;overflow:hidden;">
+      <div class="segoeProSemibold" style="color:transparent;">segoeProSemibold</div>
+    </div>
+    <script type="text/javascript">
+      var ad = new Ad({
+        root: document.querySelector('#ad'),
+        width: 300,
+        height: 250,
+        borderWidth: 2,
+        borderColor: '#d1d1d1'
+      });
+      setTimeout(function() {
+        ad.contentSetup({
+          cam: {
+            //headlineText: 'Build containerized apps with tools you love',
+            headlineText: 'Build containerized apps with tools you love',
+            layout: 'TPV7',
+            subheadlineText:  'Get 25+ always-free services',
+            //subheadlineText: 'na',
+            backgroundImage: 'assets/300x250_Free-Account_UI_EndFr.png',
+            //backgroundImage: 'assets/300x250_Free Account_UI_EndFr.png',
+            ctaText: 'Try Azure free',
+            clickURL: 'https://azure.microsoft.com/',
+            impressionTracker: 'images/1x1.png'
+          },
+          feed: [
+            {
+              name: 'ms'
+            }
+          ],
+          staticData: {
+            // ref:'ref.png',
+          },
+          beforeLoad: function(data){
+            var replaceMacro = function(text, data) {
+              var macros = text.match(/\!\{(.*?)\}/g);
+              if(macros) {
+                macros.forEach(function(macro){
+                  var macroText = macro.split('!{').join('').split('}').join('');
+                  for(var key in data) { if(key == macroText) { macroText = data[key]; } }
+                  text = text.split(macro).join(macroText);
+                });
+              }
+              return text;
+            }
+            data.map(function(content){
+              content.ctaText +='&nbsp;&#x276F;';
+              if(content.layout.toLowerCase() === 'tpv7') {
+                ad.root.style.backgroundColor = '#fff';
+              }
+              if(content.headlineText.split('|').length > 1) {
+                  var fontSize = content.headlineText.split('|')[1];
+                  content.headlineText = content.headlineText.split('|')[0];
+                  if(fontSize) ad.root.querySelector('#headlineText').style.fontSize = fontSize + 'px';
+              }
+              if(content.subheadlineText.split('|').length > 1) {
+                  var fontSize = content.subheadlineText.split('|')[1];
+                  content.subheadlineText = content.subheadlineText.split('|')[0];
+                  if(fontSize) ad.root.querySelector('#subheadlineText').style.fontSize = fontSize + 'px';
+              }
+              if(content.headlineText.toLowerCase() === 'na') {
+                ad.root.querySelector('#headlineText').style.display = 'none';
+              }
+              if(content.subheadlineText.toLowerCase() === 'na') {
+                ad.root.querySelector('#subheadlineText').style.display = 'none';
+              }
+              if(content.layout.toLowerCase() === 'tpv4') {
+                ad.root.querySelector('#cta').style.whiteSpace = 'nowrap';
+              } else {
+                ad.root.querySelector('#cta').classList.remove('text-left');
+                ad.root.querySelector('#cta').classList.add('text');
+                ad.root.querySelector('#cta').style.color = '#fff';
+                ad.root.querySelector('#cta').style.left = '0';
+                ad.root.querySelector('#cta').style.top = '214px';
+                ad.root.querySelector('#cta').style.width = '130px';
+                ad.root.querySelector('#cta').style.height = '36px';
+                
+                ad.root.querySelector('#textfields').style.width = '265px';
+                ad.root.querySelector('#textfields').style.height = '140px';
+                ad.root.querySelector('#textfields').style.top = '50px';
+                ad.root.querySelector('#textfields').style.fontSize = '17px';
+                ad.root.querySelector('#textfields').style.letterSpacing = '-0.2px';
+                ad.root.querySelector('#textfields #subheadlineText').style.fontSize = '83%';
+              }
+            });
+            return data;
+          }
+        }, function(data){
+          var adData = data[0], adClickUrl = adData['clickURL'];
+          ad.root.addEventListener("click", function(e) {
+            if('button' in e.target.dataset) { } else { amo.onDynAdClick(adData.feedData, "CLICK", adClickUrl); }
+          });
+          if(adData.impressionTracker.toLowerCase() != 'na'){
+            var impressionTracker = adData.impressionTracker.split('^')[0];
+            var isn = 'data' in amo && 'isn' in amo.data ? amo.data.isn : '';
+            var trackingCode = 'data' in amo && 'data' in amo.data && 'atsParams' in amo.data.data && 'x2_tracking_code_5' in amo.data.data.atsParams ? amo.data.data.atsParams.x2_tracking_code_5 : '';
+            if(isn.length) { impressionTracker = impressionTracker.replace('(t_td_isn)', isn); }
+            if(trackingCode.length){ impressionTracker = impressionTracker.replace('$(t_qp_TC_5)', trackingCode); }
+            ad.loadAssets(impressionTracker, function(assets){ });
+          }
+          if(adData.impressionTracker.indexOf('^') != -1){
+            var impressionTrackerAAM = adData.impressionTracker.split('^')[1];
+            var isn = 'data' in amo && 'isn' in amo.data ? amo.data.isn : '';
+            var trackingCode = 'data' in amo && 'data' in amo.data && 'atsParams' in amo.data.data && 'x2_tracking_code_5' in amo.data.data.atsParams ? amo.data.data.atsParams.x2_tracking_code_5 : '';
+            if(isn.length) { impressionTrackerAAM = impressionTrackerAAM.replace('(t_td_isn)', isn); }
+            if(trackingCode.length){ impressionTrackerAAM = impressionTrackerAAM.replace('$(t_qp_TC_5)', trackingCode); }
+            ad.loadAssets(impressionTrackerAAM, function(assets){ });
+          }
+          if(adData.layout.toLowerCase() === 'tpv4') {
+            ad.layers.cta.style.webkitTransform = '';
+            ad.layers.cta.style.transform = '';
+          }
+          if(adData.layout.toLowerCase() === 'tpv7') {
+            ad.layers.cta.querySelector('span').style.padding = '5px 10px';
+            if(adData['subheadlineText'].toLowerCase() == 'na' || adData['subheadlineText'].toLowerCase() == '&#32;') {
+              ad.layers.textfields.querySelector('span font:nth-child(2)').style.display = 'none';
+            } 
+          }
+        });
+      }, 100);
+    </script>
+  
+
+</body></html>

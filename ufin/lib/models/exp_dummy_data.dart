@@ -1,9 +1,13 @@
 class ExpDummyData {
   static const List<dynamic> expencesData = [
-    {"title": "Home", "Amount": 2100, "date": "15/03/2023"},
-    {"title": "Travel", "Amount": 3300, "date": "11/07/2023"},
-    {"title": "Food", "Amount": 4200, "date": "21/05/2023"},
-    {"title": "Living", "Amount": 3500, "date": "22/05/2023"},
+    {"title": "Home", "Amount": 1100, "date": "15/03/2023"},
+    {"title": "Travel", "Amount": 2300, "date": "11/07/2023"},
+    {"title": "Food", "Amount": 3000, "date": "21/05/2023"},
+    {"title": "Living", "Amount": 2400, "date": "22/05/2023"},
+    {"title": "Home", "Amount": 900, "date": "15/03/2023"},
+    {"title": "Travel", "Amount": 1000, "date": "11/07/2023"},
+    {"title": "Food", "Amount": 1200, "date": "21/05/2023"},
+    {"title": "Living", "Amount": 1100, "date": "22/05/2023"},
   ];
 }
 

@@ -1,0 +1,3 @@
+var TEAD={getParamByName:function(b,a){b=b.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var d=new RegExp("[\\?&]"+b+"=([^&#]*)");
+var c=d.exec(a);if(c==null){return""}else{return decodeURIComponent(c[1].replace(/\+/g," "))}}};TEAD.baseURL=((window.location.protocol=="http:")?"https://choices.trustarc.com/":"https://choices.trustarc.com/".replace("http:","https:"))+"ca?aid=xandr01&pid=xandr01&sz=300x250&c=1446471146&cid=3165206_21603641_446889468&language=en&sid=_LBsidLB_";
+TEAD.getCont=function(){return TEAD.getParamByName("c",TEAD.baseURL)};document.write('<span id="te-clearads-js-'+TEAD.getCont()+'"><script type="text/javascript" src="'+TEAD.baseURL+'"><\/script></span>');

@@ -32,7 +32,7 @@ class _HomeTabsScreenState extends State<HomeTabsScreen> {
     if (selectedPageIndex == 0) {
       activeScreen = const PaymentScreen();
     } else if (selectedPageIndex == 2) {
-      activeScreen = SettingScreen();
+      activeScreen = const SettingScreen();
     }
 
     return Scaffold(
@@ -45,7 +45,7 @@ class _HomeTabsScreenState extends State<HomeTabsScreen> {
             onPressed: () {
               FirebaseAuth.instance.signOut();
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AuthScreen(),
+                builder: (context) => const AuthScreen(),
               ));
             },
             icon: Icon(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ufin/screens/planner-screen/budget/barchart/budget_barChart.dart';
+import 'package:ufin/screens/planner-screen/budget/barchart/budget_barchart.dart';
 //import 'package:ufin/screens/planner-screen/budget/budget_builder.dart';
 
 //import 'package:firebase_auth/firebase_auth.dart';

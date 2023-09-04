@@ -105,6 +105,7 @@ class _AddNewExpencesState extends State<AddNewExpences> {
         Container(
           margin: const EdgeInsets.all(8),
           child: Card(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -113,7 +114,12 @@ class _AddNewExpencesState extends State<AddNewExpences> {
                     children: [
                       Text(
                         'Enter your expences',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                ),
                       ),
                       const Spacer(),
                     ],
@@ -125,8 +131,22 @@ class _AddNewExpencesState extends State<AddNewExpences> {
                         child: Form(
                           key: _form,
                           child: TextFormField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                ),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                ),
+                              ),
                               labelText: 'Amount',
                             ),
                             keyboardType: TextInputType.number,
@@ -175,7 +195,17 @@ class _AddNewExpencesState extends State<AddNewExpences> {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Text('Budget'),
+                              Text(
+                                'Budget',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer,
+                                    ),
+                              ),
                               Card(
                                 color: Theme.of(context)
                                     .colorScheme
@@ -204,7 +234,15 @@ class _AddNewExpencesState extends State<AddNewExpences> {
                   const SizedBox(height: 15),
                   Row(
                     children: [
-                      const Text('Pick a data'),
+                      Text(
+                        'Pick a data',
+                        style:
+                            Theme.of(context).textTheme.labelMedium!.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                ),
+                      ),
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () => _selectDate(context),

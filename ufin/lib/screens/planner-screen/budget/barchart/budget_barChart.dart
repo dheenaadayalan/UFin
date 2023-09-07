@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/budget_model.dart';
+import 'package:ufin/models/expences_modes.dart';
 import 'package:ufin/screens/planner-screen/budget/barchart/color_extension.dart';
 import 'package:ufin/screens/planner-screen/budget/budget_builder.dart';
 
@@ -21,6 +22,62 @@ class BudgetBarChart extends StatefulWidget {
 class _BudgetBarChartState extends State<BudgetBarChart> {
   List<Budget> userBudget = [];
   final userEmail = FirebaseAuth.instance.currentUser!.email;
+  List<BudgetTotalExp> budgetTotalExpences = [];
+  List<String> budgetType = [];
+  List budgetMaxExpences = [];
+
+  @override
+  void initState() {
+    initialize();
+    initialize1();
+    super.initState();
+  }
+
+  void initialize() async {
+    FirebaseFirestore.instance
+        .collection('UserExpencesData')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) {
+      List commitMap = doc['Current Expences data'];
+
+      budgetTotalExpences = convertListOfMapsToList(commitMap);
+      budgetType = convertListOfMapsToList1(commitMap);
+    });
+  }
+
+  void initialize1() async {
+    FirebaseFirestore.instance
+        .collection('usersBudget')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) {
+      List commitMap = doc['budget type'];
+
+      budgetMaxExpences = convertListOfMapsToList2(commitMap);
+    });
+  }
+
+  List<BudgetTotalExp> convertListOfMapsToList(listOfMaps) {
+    return List.generate(listOfMaps.length, (index) {
+      return BudgetTotalExp(
+        newBudgetType: listOfMaps[index]['Budget'],
+        amount: listOfMaps[index]['Amount'],
+      );
+    });
+  }
+
+  List<String> convertListOfMapsToList1(listOfMaps) {
+    return List.generate(listOfMaps.length, (index) {
+      return listOfMaps[index]['Budget'];
+    });
+  }
+
+  List convertListOfMapsToList2(listOfMaps) {
+    return List.generate(listOfMaps.length, (index) {
+      return listOfMaps[index]['amount'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +96,41 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
             );
             if (snapshot.hasData) {
               List _userBudget = snapshot.data!['budget type'];
+
+              Map<String, double> totalAmounts = {};
+
+              List<String> targetBudgetTypes = budgetType; //as List<String>;
+
+              for (String budgetType in targetBudgetTypes) {
+                double totalAmount = budgetTotalExpences
+                    .where((item) => item.newBudgetType == budgetType)
+                    .map((item) => item.amount)
+                    .fold(
+                        0.0, (previousValue, amount) => previousValue + amount);
+
+                totalAmounts[budgetType] = totalAmount;
+              }
+
+              print(totalAmounts);
+
+              List<BudgetTotalExp> budgetTotalExpData = totalAmounts.entries
+                  .map((entry) => BudgetTotalExp(
+                      newBudgetType: entry.key, amount: entry.value))
+                  .toList();
+
+              print(budgetTotalExpData);
+
+              List maxData = [1, 2, 3, 4, 5];
+              var largestGeekValue = maxData[0];
+
+              for (var i = 0; i < budgetMaxExpences.length; i++) {
+                if (budgetMaxExpences[i] > largestGeekValue) {
+                  largestGeekValue = budgetMaxExpences[i];
+                }
+              }
+
+              print(largestGeekValue);
+
               final num userTotalBudget = snapshot.data!['userTotalBudget'];
               contex = Card(
                 color: Theme.of(context).colorScheme.onPrimary,
@@ -65,8 +157,10 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => BudgetBuilder(
-                                      userMailId: userEmail.toString(),
-                                      userTotalBudget: userTotalBudget),
+                                    userMailId: userEmail.toString(),
+                                    userTotalBudget: userTotalBudget,
+                                    userBudgetExp: budgetTotalExpData,
+                                  ),
                                 ),
                               );
                             },
@@ -74,7 +168,7 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.blueGrey),
+                                  const Color.fromARGB(255, 2, 46, 69)),
                               padding: const MaterialStatePropertyAll(
                                 EdgeInsets.all(10),
                               ),
@@ -110,7 +204,6 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                                       axisSide: meta.axisSide,
                                       child: Text(date),
                                     );
-                                    //return Text(_userBudget[value.toInt()]['title']);
                                   },
                                 ),
                               ),
@@ -126,28 +219,35 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                             ),
                             borderData: borderData,
                             barGroups: [
-                              for (int i = 0; i < _userBudget.length; i++)
+                              if (budgetTotalExpData.isEmpty)
                                 BarChartGroupData(
-                                  x: i,
-                                  barsSpace: 15,
-                                  barRods: [
-                                    BarChartRodData(
-                                        toY: _userBudget[i]['amount'] + 0.0,
-                                        width: 10,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primaryContainer),
-                                    BarChartRodData(toY: 2500)
-                                  ],
-                                  showingTooltipIndicators: [0, 1],
-                                ),
-                            ], //  barGroups, // userb,
+                                  x: 0,
+                                )
+                              else
+                                for (int i = 0; i < _userBudget.length; i++)
+                                  BarChartGroupData(
+                                    x: i,
+                                    barsSpace: 15,
+                                    barRods: [
+                                      BarChartRodData(
+                                          toY: _userBudget[i]['amount'] + 0.0,
+                                          width: 10,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primaryContainer),
+                                      BarChartRodData(
+                                          toY: budgetTotalExpData[i].amount
+                                              as double)
+                                    ],
+                                    showingTooltipIndicators: [0, 1],
+                                  ),
+                            ],
                             backgroundColor: Theme.of(context)
                                 .colorScheme
                                 .onPrimaryContainer,
                             gridData: const FlGridData(show: false),
                             alignment: BarChartAlignment.spaceAround,
-                            maxY: 5500,
+                            maxY: largestGeekValue + 1300.0,
                           ),
                         ),
                       ),

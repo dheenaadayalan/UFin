@@ -68,6 +68,15 @@ class _BudgetScreenState extends State<BudgetScreen> {
         }
     ];
 
+    List<Map<String, Object>> data1 = [
+      for (var index in _budget)
+        {
+          'Budget': index.title,
+          'Amount': 0,
+          'Date': DateTime.now(),
+        }
+    ];
+
     await FirebaseFirestore.instance
         .collection('usersBudget')
         .doc(widget.userMailId)
@@ -77,6 +86,13 @@ class _BudgetScreenState extends State<BudgetScreen> {
         'userTotalBudget': totalBudgetAmount,
       },
     );
+
+    await FirebaseFirestore.instance
+        .collection('UserExpencesData')
+        .doc(widget.userMailId)
+        .set({
+      'Current Expences data': data1,
+    });
   }
 
   @override

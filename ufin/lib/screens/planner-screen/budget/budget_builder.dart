@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:ufin/models/expences_modes.dart';
 import 'package:ufin/screens/planner-screen/budget/budget_edit.dart';
 
 //import 'package:ufin/models/exp_dummy_data.dart';
@@ -14,10 +16,12 @@ class BudgetBuilder extends StatefulWidget {
     super.key,
     required this.userMailId,
     required this.userTotalBudget,
+    required this.userBudgetExp,
   });
 
   final String userMailId;
   final num userTotalBudget;
+  final List<BudgetTotalExp> userBudgetExp;
 
   @override
   State<BudgetBuilder> createState() => _BudgetBuilderState();
@@ -48,6 +52,11 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
 
   @override
   Widget build(BuildContext context) {
+    num totalBudgetUsed = 0;
+    for (var i = 0; i < widget.userBudgetExp.length; i++) {
+      totalBudgetUsed += widget.userBudgetExp[i].amount;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('UFin'),
@@ -118,7 +127,7 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            '₹ ${f.format(widget.userTotalBudget)}',
+                            '₹ ${f.format(totalBudgetUsed)}',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
@@ -144,7 +153,7 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            '₹ ${f.format(widget.userTotalBudget)}',
+                            '₹ ${f.format(widget.userTotalBudget - totalBudgetUsed)}',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
@@ -320,7 +329,7 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                   ),
                   const Spacer(),
                   Text(
-                    'Budget Amount',
+                    'Budget Used Amount',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(width: 40),
@@ -358,12 +367,12 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                               ),
                               const Spacer(),
                               Text(
-                                '₹ ${f.format(userBudget[index]['amount']).toString()}',
+                                '₹ ${f.format(widget.userBudgetExp[index].amount).toString()}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const SizedBox(width: 40),
                               Text(
-                                userBudget[index]['amount'].toString(),
+                                '₹ ${f.format(userBudget[index]['amount'] - widget.userBudgetExp[index].amount).toString()}',
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ],

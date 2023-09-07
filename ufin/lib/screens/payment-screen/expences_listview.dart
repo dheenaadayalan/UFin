@@ -35,35 +35,45 @@ class _ExpencesListViewState extends State<ExpencesListView> {
           );
           if (snapshot.hasData) {
             List userExpences = snapshot.data!['Current Expences data'];
-            contex = ListView.builder(
-              itemCount: userExpences.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+            List amount = [];
+            List commitMap = snapshot.data!['Current Expences data'];
+            amount = List.generate(commitMap.length, (index) {
+              return commitMap[index]['Amount'];
+            });
+            print(amount);
+
+            contex = Card(
+              child: ListView.builder(
+                itemCount: userExpences.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
                     child: Row(
                       children: [
-                        Text(
-                          userExpences[index]['Budget'].toString(),
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                        if (userExpences[index]['Amount'] > 1)
+                          Text(
+                            userExpences[index]['Budget'].toString(),
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
                         const SizedBox(width: 40),
-                        Text(
-                          '₹ ${f.format(userExpences[index]['Amount']).toString()}',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                        if (userExpences[index]['Amount'] > 1)
+                          Text(
+                            '₹ ${f.format(amount[index]).toString()}',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
                         const SizedBox(width: 30),
-                        Text(
-                          DateFormat.yMMMMd('en_US')
-                              .format(userExpences[index]['Date'].toDate())
-                              .toString(),
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
+                        if (userExpences[index]['Amount'] > 1)
+                          Text(
+                            DateFormat.yMMMMd('en_US')
+                                .format(userExpences[index]['Date'].toDate())
+                                .toString(),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                       ],
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           }
           return contex;

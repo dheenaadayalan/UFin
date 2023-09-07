@@ -21,6 +21,7 @@ class _AddNewExpencesState extends State<AddNewExpences> {
   final userEmail = FirebaseAuth.instance.currentUser!.email;
   String selectedBudget = '0';
   num enteredAmount = 0;
+  List<Map> budgetTotalExpences = [];
 
   @override
   void initState() {
@@ -36,8 +37,9 @@ class _AddNewExpencesState extends State<AddNewExpences> {
         .then((DocumentSnapshot doc) {
       List commitMap = doc['Current Expences data'];
 
+      // budgetTotalExpences = [for (var i in doc['Current Expences data']) {}];
       _newExpences = convertListOfMapsToList(commitMap);
-      print(_newExpences);
+      // print(_newExpences);
     });
   }
 
@@ -220,7 +222,7 @@ class _AddNewExpencesState extends State<AddNewExpences> {
                                       setState(() {
                                         selectedBudget = value;
                                       });
-                                      print(value);
+                                      //print(value);
                                     },
                                   ),
                                 ),

@@ -20,7 +20,7 @@ class _TextIngsitiesState extends State<TextIngsities> {
             children: [
               Text(
                 'Insight',
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
           ),

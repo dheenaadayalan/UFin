@@ -297,6 +297,8 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                                     MaterialPageRoute(
                                       builder: (context) => BudgetEdit(
                                         userMailId: widget.userMailId,
+                                        userexstingExpences:
+                                            widget.userBudgetExp,
                                       ),
                                     ),
                                   );

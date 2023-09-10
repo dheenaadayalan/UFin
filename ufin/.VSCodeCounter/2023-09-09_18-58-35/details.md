@@ -1,10 +1,10 @@
 # Details
 
-Date : 2023-08-28 11:45:08
+Date : 2023-09-09 18:58:35
 
 Directory c:\\Users\\dheen\\Desktop\\UFin\\ufin
 
-Total : 89 files,  6255 codes, 947 comments, 672 blanks, all 7874 lines
+Total : 93 files,  7463 codes, 1068 comments, 755 blanks, all 9286 lines
 
 [Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
 
@@ -35,23 +35,27 @@ Total : 89 files,  6255 codes, 947 comments, 672 blanks, all 7874 lines
 | [ios/Runner/Runner-Bridging-Header.h](/ios/Runner/Runner-Bridging-Header.h) | C++ | 1 | 0 | 1 | 2 |
 | [ios/firebase_app_id_file.json](/ios/firebase_app_id_file.json) | JSON | 7 | 0 | 0 | 7 |
 | [lib/firebase_options.dart](/lib/firebase_options.dart) | Dart | 65 | 12 | 6 | 83 |
-| [lib/main.dart](/lib/main.dart) | Dart | 41 | 2 | 7 | 50 |
+| [lib/main.dart](/lib/main.dart) | Dart | 44 | 1 | 6 | 51 |
 | [lib/models/budget_model.dart](/lib/models/budget_model.dart) | Dart | 18 | 1 | 3 | 22 |
-| [lib/models/commitmet_model.dart](/lib/models/commitmet_model.dart) | Dart | 12 | 0 | 2 | 14 |
-| [lib/models/exp_dummy_data.dart](/lib/models/exp_dummy_data.dart) | Dart | 104 | 0 | 1 | 105 |
-| [lib/screens/auth.dart](/lib/screens/auth.dart) | Dart | 193 | 1 | 18 | 212 |
+| [lib/models/commitmet_model.dart](/lib/models/commitmet_model.dart) | Dart | 13 | 0 | 2 | 15 |
+| [lib/models/exp_dummy_data.dart](/lib/models/exp_dummy_data.dart) | Dart | 20 | 96 | 3 | 119 |
+| [lib/models/expences_modes.dart](/lib/models/expences_modes.dart) | Dart | 24 | 0 | 3 | 27 |
+| [lib/screens/auth.dart](/lib/screens/auth.dart) | Dart | 204 | 1 | 20 | 225 |
 | [lib/screens/home_tabs.dart](/lib/screens/home_tabs.dart) | Dart | 69 | 1 | 10 | 80 |
-| [lib/screens/payment-screen/payment_screen.dart](/lib/screens/payment-screen/payment_screen.dart) | Dart | 14 | 0 | 4 | 18 |
+| [lib/screens/payment-screen/addbudget/add_expences.dart](/lib/screens/payment-screen/addbudget/add_expences.dart) | Dart | 277 | 3 | 20 | 300 |
+| [lib/screens/payment-screen/expences_listview.dart](/lib/screens/payment-screen/expences_listview.dart) | Dart | 77 | 0 | 8 | 85 |
+| [lib/screens/payment-screen/payment_screen.dart](/lib/screens/payment-screen/payment_screen.dart) | Dart | 22 | 0 | 5 | 27 |
 | [lib/screens/planner-screen/budget/barchart/BarChart example/app_resources.dart](/lib/screens/planner-screen/budget/barchart/BarChart%20example/app_resources.dart) | Dart | 0 | 0 | 1 | 1 |
 | [lib/screens/planner-screen/budget/barchart/BarChart example/bar_example.dart](/lib/screens/planner-screen/budget/barchart/BarChart%20example/bar_example.dart) | Dart | 0 | 604 | 38 | 642 |
-| [lib/screens/planner-screen/budget/barchart/budget_barchart.dart](/lib/screens/planner-screen/budget/barchart/budget_barchart.dart) | Dart | 175 | 1 | 12 | 188 |
+| [lib/screens/planner-screen/budget/barchart/budget_barchart.dart](/lib/screens/planner-screen/budget/barchart/budget_barchart.dart) | Dart | 328 | 0 | 29 | 357 |
 | [lib/screens/planner-screen/budget/barchart/color_extension.dart](/lib/screens/planner-screen/budget/barchart/color_extension.dart) | Dart | 23 | 0 | 3 | 26 |
-| [lib/screens/planner-screen/budget/budget_builder.dart](/lib/screens/planner-screen/budget/budget_builder.dart) | Dart | 95 | 2 | 7 | 104 |
+| [lib/screens/planner-screen/budget/budget_builder.dart](/lib/screens/planner-screen/budget/budget_builder.dart) | Dart | 373 | 8 | 14 | 395 |
+| [lib/screens/planner-screen/budget/budget_edit.dart](/lib/screens/planner-screen/budget/budget_edit.dart) | Dart | 279 | 2 | 22 | 303 |
 | [lib/screens/planner-screen/commit_builder.dart](/lib/screens/planner-screen/commit_builder.dart) | Dart | 185 | 2 | 8 | 195 |
 | [lib/screens/planner-screen/planner_header.dart](/lib/screens/planner-screen/planner_header.dart) | Dart | 258 | 0 | 6 | 264 |
 | [lib/screens/planner-screen/planner_screen.dart](/lib/screens/planner-screen/planner_screen.dart) | Dart | 27 | 5 | 8 | 40 |
-| [lib/screens/planner-screen/text_ingtits.dart](/lib/screens/planner-screen/text_ingtits.dart) | Dart | 27 | 0 | 4 | 31 |
-| [lib/screens/setting-screens/commitments/commitments_edit.dart](/lib/screens/setting-screens/commitments/commitments_edit.dart) | Dart | 417 | 5 | 28 | 450 |
+| [lib/screens/planner-screen/text_ingtits.dart](/lib/screens/planner-screen/text_ingtits.dart) | Dart | 169 | 15 | 4 | 188 |
+| [lib/screens/setting-screens/commitments/commitments_edit.dart](/lib/screens/setting-screens/commitments/commitments_edit.dart) | Dart | 425 | 5 | 28 | 458 |
 | [lib/screens/setting-screens/commitments/commitments_setting.dart](/lib/screens/setting-screens/commitments/commitments_setting.dart) | Dart | 130 | 3 | 9 | 142 |
 | [lib/screens/setting-screens/income/income_edit.dart](/lib/screens/setting-screens/income/income_edit.dart) | Dart | 225 | 0 | 12 | 237 |
 | [lib/screens/setting-screens/income/income_setting.dart](/lib/screens/setting-screens/income/income_setting.dart) | Dart | 192 | 4 | 9 | 205 |
@@ -64,11 +68,11 @@ Total : 89 files,  6255 codes, 947 comments, 672 blanks, all 7874 lines
 | [lib/screens/setup-screens/budget/add-newBudget/new_budget.dart](/lib/screens/setup-screens/budget/add-newBudget/new_budget.dart) | Dart | 272 | 1 | 21 | 294 |
 | [lib/screens/setup-screens/budget/add-newBudget/slider/budget_slider.dart](/lib/screens/setup-screens/budget/add-newBudget/slider/budget_slider.dart) | Dart | 44 | 12 | 12 | 68 |
 | [lib/screens/setup-screens/budget/add-newBudget/subtype_budget.dart](/lib/screens/setup-screens/budget/add-newBudget/subtype_budget.dart) | Dart | 105 | 0 | 9 | 114 |
-| [lib/screens/setup-screens/budget/budget_info.dart](/lib/screens/setup-screens/budget/budget_info.dart) | Dart | 240 | 0 | 18 | 258 |
+| [lib/screens/setup-screens/budget/budget_info.dart](/lib/screens/setup-screens/budget/budget_info.dart) | Dart | 254 | 0 | 20 | 274 |
 | [lib/screens/setup-screens/budget/saving_cal.dart](/lib/screens/setup-screens/budget/saving_cal.dart) | Dart | 195 | 2 | 11 | 208 |
-| [lib/screens/setup-screens/commitment/commitments_info.dart](/lib/screens/setup-screens/commitment/commitments_info.dart) | Dart | 353 | 2 | 16 | 371 |
+| [lib/screens/setup-screens/commitment/commitments_info.dart](/lib/screens/setup-screens/commitment/commitments_info.dart) | Dart | 354 | 2 | 16 | 372 |
 | [lib/screens/setup-screens/commitment/new_commit_dropdown.dart](/lib/screens/setup-screens/commitment/new_commit_dropdown.dart) | Dart | 41 | 0 | 7 | 48 |
-| [lib/screens/setup-screens/commitment/new_commitment.dart](/lib/screens/setup-screens/commitment/new_commitment.dart) | Dart | 186 | 0 | 12 | 198 |
+| [lib/screens/setup-screens/commitment/new_commitment.dart](/lib/screens/setup-screens/commitment/new_commitment.dart) | Dart | 202 | 1 | 12 | 215 |
 | [lib/screens/setup-screens/income_info.dart](/lib/screens/setup-screens/income_info.dart) | Dart | 232 | 0 | 14 | 246 |
 | [lib/screens/setup-screens/persoanl/dropdown/gender_dropdown.dart](/lib/screens/setup-screens/persoanl/dropdown/gender_dropdown.dart) | Dart | 42 | 1 | 7 | 50 |
 | [lib/screens/setup-screens/persoanl/dropdown/living_dropdown.dart](/lib/screens/setup-screens/persoanl/dropdown/living_dropdown.dart) | Dart | 42 | 0 | 7 | 49 |

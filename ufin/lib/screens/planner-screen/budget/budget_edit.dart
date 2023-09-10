@@ -5,15 +5,17 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/budget_model.dart';
-import 'package:ufin/screens/home_tabs.dart';
+import 'package:ufin/models/expences_modes.dart';
 import 'package:ufin/screens/setup-screens/budget/add-newBudget/new_budget.dart';
 
 var f = NumberFormat('##,##,###');
 
 class BudgetEdit extends StatefulWidget {
-  const BudgetEdit({super.key, required this.userMailId});
+  const BudgetEdit(
+      {super.key, required this.userMailId, required this.userexstingExpences});
 
   final String userMailId;
+  final List<BudgetTotalExp> userexstingExpences;
 
   @override
   State<BudgetEdit> createState() => _BudgetEditState();
@@ -93,13 +95,7 @@ class _BudgetEditState extends State<BudgetEdit> {
   }
 
   void saveBudget() async {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) {
-          return const HomeTabsScreen();
-        },
-      ),
-    );
+    Navigator.of(context).pop();
 
     num totalBudgetAmount = 0;
     for (int index = 0; index < _budget.length; index++) {
@@ -115,6 +111,23 @@ class _BudgetEditState extends State<BudgetEdit> {
         }
     ];
 
+    List<Map<String, Object>> data1 = [
+          for (var index in _budget)
+            {
+              'Budget': index.title,
+              'Amount': 0,
+              'Date': DateTime.now(),
+            }
+        ] +
+        [
+          for (var index in widget.userexstingExpences)
+            {
+              'Budget': index.newBudgetType,
+              'Amount': index.amount,
+              'Date': DateTime.now(),
+            }
+        ];
+
     await FirebaseFirestore.instance
         .collection('usersBudget')
         .doc(widget.userMailId)
@@ -124,6 +137,13 @@ class _BudgetEditState extends State<BudgetEdit> {
         'userTotalBudget': totalBudgetAmount,
       },
     );
+
+    await FirebaseFirestore.instance
+        .collection('UserExpencesData')
+        .doc(widget.userMailId)
+        .set({
+      'Current Expences data': data1,
+    });
   }
 
   @override

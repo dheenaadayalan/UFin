@@ -25,6 +25,7 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
   List<BudgetTotalExp> budgetTotalExpences = [];
   List<String> budgetType = [];
   List budgetMaxExpences = [];
+  List<BudgetTotalExp> budgetTotalExpData = [];
 
   @override
   void initState() {
@@ -34,11 +35,11 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
   }
 
   void initialize() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('UserExpencesData')
         .doc(userEmail)
         .get()
-        .then((DocumentSnapshot doc) {
+        .then((DocumentSnapshot doc) async {
       List commitMap = doc['Current Expences data'];
 
       budgetTotalExpences = convertListOfMapsToList(commitMap);
@@ -47,7 +48,7 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
   }
 
   void initialize1() async {
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('usersBudget')
         .doc(userEmail)
         .get()
@@ -81,6 +82,27 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> convertListOfMapsToListbudget(listOfMaps) {
+      return List.generate(listOfMaps.length, (index) {
+        return listOfMaps[index]['Budget'];
+      });
+    }
+
+    List<BudgetTotalExp> convertListOfMapsToListTotalExpences(listOfMaps) {
+      return List.generate(listOfMaps.length, (index) {
+        return BudgetTotalExp(
+          newBudgetType: listOfMaps[index]['Budget'],
+          amount: listOfMaps[index]['Amount'],
+        );
+      });
+    }
+
+    List convertListOfMapsToList2(listOfMaps) {
+      return List.generate(listOfMaps.length, (index) {
+        return listOfMaps[index]['amount'];
+      });
+    }
+
     return Center(
       child: Container(
         margin: const EdgeInsets.all(10),
@@ -97,39 +119,7 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
             if (snapshot.hasData) {
               List _userBudget = snapshot.data!['budget type'];
 
-              Map<String, double> totalAmounts = {};
-
-              List<String> targetBudgetTypes = budgetType; //as List<String>;
-
-              for (String budgetType in targetBudgetTypes) {
-                double totalAmount = budgetTotalExpences
-                    .where((item) => item.newBudgetType == budgetType)
-                    .map((item) => item.amount)
-                    .fold(
-                        0.0, (previousValue, amount) => previousValue + amount);
-
-                totalAmounts[budgetType] = totalAmount;
-              }
-
-              print(totalAmounts);
-
-              List<BudgetTotalExp> budgetTotalExpData = totalAmounts.entries
-                  .map((entry) => BudgetTotalExp(
-                      newBudgetType: entry.key, amount: entry.value))
-                  .toList();
-
-              print(budgetTotalExpData);
-
-              List maxData = [1, 2, 3, 4, 5];
-              var largestGeekValue = maxData[0];
-
-              for (var i = 0; i < budgetMaxExpences.length; i++) {
-                if (budgetMaxExpences[i] > largestGeekValue) {
-                  largestGeekValue = budgetMaxExpences[i];
-                }
-              }
-
-              print(largestGeekValue);
+              budgetMaxExpences = convertListOfMapsToList2(_userBudget);
 
               final num userTotalBudget = snapshot.data!['userTotalBudget'];
               contex = Card(
@@ -184,71 +174,134 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                       ),
                       const SizedBox(height: 10),
                       Expanded(
-                        child: BarChart(
-                          BarChartData(
-                            barTouchData: barTouchData,
-                            titlesData: FlTitlesData(
-                              show: true,
-                              bottomTitles: AxisTitles(
-                                axisNameSize: 30,
-                                sideTitles: SideTitles(
-                                  showTitles: true,
-                                  reservedSize: 30,
-                                  interval: 1,
-                                  getTitlesWidget: (value, meta) {
-                                    var date = value.toInt() >=
-                                            userBudget.length
-                                        ? _userBudget[value.toInt()]['title']
-                                        : "hello";
-                                    return SideTitleWidget(
-                                      axisSide: meta.axisSide,
-                                      child: Text(date),
-                                    );
-                                  },
-                                ),
-                              ),
-                              leftTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false),
-                              ),
-                              topTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false),
-                              ),
-                              rightTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false),
-                              ),
-                            ),
-                            borderData: borderData,
-                            barGroups: [
-                              if (budgetTotalExpData.isEmpty)
-                                BarChartGroupData(
-                                  x: 0,
-                                )
-                              else
-                                for (int i = 0; i < _userBudget.length; i++)
-                                  BarChartGroupData(
-                                    x: i,
-                                    barsSpace: 15,
-                                    barRods: [
-                                      BarChartRodData(
-                                          toY: _userBudget[i]['amount'] + 0.0,
-                                          width: 10,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primaryContainer),
-                                      BarChartRodData(
-                                          toY: budgetTotalExpData[i].amount
-                                              as double)
-                                    ],
-                                    showingTooltipIndicators: [0, 1],
+                        child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('UserExpencesData')
+                              .doc(userEmail)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            Widget contex = const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                            if (snapshot.hasData) {
+                              Map<String, double> totalAmounts = {};
+                              List data =
+                                  snapshot.data!['Current Expences data'];
+
+                              List<String> targetBudgetTypes =
+                                  convertListOfMapsToListbudget(data);
+
+                              budgetTotalExpences =
+                                  convertListOfMapsToListTotalExpences(data);
+
+                              print(targetBudgetTypes);
+                              for (String budgetType in targetBudgetTypes) {
+                                double totalAmount = budgetTotalExpences
+                                    .where((item) =>
+                                        item.newBudgetType == budgetType)
+                                    .map((item) => item.amount)
+                                    .fold(
+                                        0.0,
+                                        (previousValue, amount) =>
+                                            previousValue + amount);
+
+                                totalAmounts[budgetType] = totalAmount;
+                              }
+
+                              print(totalAmounts);
+
+                              budgetTotalExpData = totalAmounts.entries
+                                  .map((entry) => BudgetTotalExp(
+                                      newBudgetType: entry.key,
+                                      amount: entry.value))
+                                  .toList();
+
+                              print(budgetTotalExpData);
+                              List maxData = [1, 2, 3, 4, 5];
+                              var largestGeekValue = maxData[0];
+
+                              for (var i = 0;
+                                  i < budgetMaxExpences.length;
+                                  i++) {
+                                if (budgetMaxExpences[i] > largestGeekValue) {
+                                  largestGeekValue = budgetMaxExpences[i];
+                                }
+                              }
+
+                              print(largestGeekValue);
+                              contex = BarChart(
+                                BarChartData(
+                                  barTouchData: barTouchData,
+                                  titlesData: FlTitlesData(
+                                    show: true,
+                                    bottomTitles: AxisTitles(
+                                      axisNameSize: 30,
+                                      sideTitles: SideTitles(
+                                        showTitles: true,
+                                        reservedSize: 30,
+                                        interval: 1,
+                                        getTitlesWidget: (value, meta) {
+                                          var date =
+                                              value.toInt() >= userBudget.length
+                                                  ? _userBudget[value.toInt()]
+                                                      ['title']
+                                                  : "hello";
+                                          return SideTitleWidget(
+                                            axisSide: meta.axisSide,
+                                            child: Text(date),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    leftTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
+                                    topTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
+                                    rightTitles: const AxisTitles(
+                                      sideTitles: SideTitles(showTitles: false),
+                                    ),
                                   ),
-                            ],
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                            gridData: const FlGridData(show: false),
-                            alignment: BarChartAlignment.spaceAround,
-                            maxY: largestGeekValue + 1300.0,
-                          ),
+                                  borderData: borderData,
+                                  barGroups: [
+                                    if (budgetTotalExpData.isEmpty)
+                                      BarChartGroupData(
+                                        x: 0,
+                                      )
+                                    else
+                                      for (int i = 0;
+                                          i < _userBudget.length;
+                                          i++)
+                                        BarChartGroupData(
+                                          x: i,
+                                          barsSpace: 15,
+                                          barRods: [
+                                            BarChartRodData(
+                                                toY: _userBudget[i]['amount'] +
+                                                    0.0,
+                                                width: 10,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primaryContainer),
+                                            BarChartRodData(
+                                                toY: budgetTotalExpData[i]
+                                                    .amount as double)
+                                          ],
+                                          showingTooltipIndicators: [0, 1],
+                                        ),
+                                  ],
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                  gridData: const FlGridData(show: false),
+                                  alignment: BarChartAlignment.spaceAround,
+                                  maxY: largestGeekValue + 1300.0,
+                                ),
+                              );
+                            }
+                            return contex;
+                          },
                         ),
                       ),
                     ],

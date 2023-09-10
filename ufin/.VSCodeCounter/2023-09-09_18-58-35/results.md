@@ -1,17 +1,17 @@
 # Summary
 
-Date : 2023-08-28 11:45:08
+Date : 2023-09-09 18:58:35
 
 Directory c:\\Users\\dheen\\Desktop\\UFin\\ufin
 
-Total : 89 files,  6255 codes, 947 comments, 672 blanks, all 7874 lines
+Total : 93 files,  7463 codes, 1068 comments, 755 blanks, all 9286 lines
 
 Summary / [Details](details.md) / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
 
 ## Languages
 | language | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| Dart | 41 | 4,706 | 673 | 401 | 5,780 |
+| Dart | 45 | 5,914 | 794 | 484 | 7,192 |
 | C++ | 16 | 540 | 118 | 181 | 839 |
 | XML | 10 | 463 | 48 | 12 | 523 |
 | JSON | 7 | 308 | 0 | 4 | 312 |
@@ -25,7 +25,7 @@ Summary / [Details](details.md) / [Diff Summary](diff.md) / [Diff Details](diff-
 ## Directories
 | path | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| . | 89 | 6,255 | 947 | 672 | 7,874 |
+| . | 93 | 7,463 | 1,068 | 755 | 9,286 |
 | . (Files) | 2 | 36 | 80 | 22 | 138 |
 | android | 13 | 204 | 51 | 33 | 288 |
 | android (Files) | 3 | 38 | 0 | 10 | 48 |
@@ -52,34 +52,36 @@ Summary / [Details](details.md) / [Diff Summary](diff.md) / [Diff Details](diff-
 | ios\\Runner\\Assets.xcassets\\AppIcon.appiconset | 1 | 122 | 0 | 1 | 123 |
 | ios\\Runner\\Assets.xcassets\\LaunchImage.imageset | 2 | 26 | 0 | 3 | 29 |
 | ios\\Runner\\Base.lproj | 2 | 61 | 2 | 2 | 65 |
-| lib | 40 | 4,692 | 663 | 394 | 5,749 |
-| lib (Files) | 2 | 106 | 14 | 13 | 133 |
-| lib\\models | 3 | 134 | 1 | 6 | 141 |
-| lib\\screens | 34 | 4,397 | 647 | 364 | 5,408 |
-| lib\\screens (Files) | 2 | 262 | 2 | 28 | 292 |
-| lib\\screens\\payment-screen | 1 | 14 | 0 | 4 | 18 |
-| lib\\screens\\planner-screen | 9 | 790 | 614 | 87 | 1,491 |
-| lib\\screens\\planner-screen (Files) | 4 | 497 | 7 | 26 | 530 |
-| lib\\screens\\planner-screen\\budget | 5 | 293 | 607 | 61 | 961 |
-| lib\\screens\\planner-screen\\budget (Files) | 1 | 95 | 2 | 7 | 104 |
-| lib\\screens\\planner-screen\\budget\\barchart | 4 | 198 | 605 | 54 | 857 |
-| lib\\screens\\planner-screen\\budget\\barchart (Files) | 2 | 198 | 1 | 15 | 214 |
+| lib | 44 | 5,900 | 784 | 477 | 7,161 |
+| lib (Files) | 2 | 109 | 13 | 12 | 134 |
+| lib\\models | 4 | 75 | 97 | 11 | 183 |
+| lib\\screens | 37 | 5,661 | 673 | 443 | 6,777 |
+| lib\\screens (Files) | 2 | 273 | 2 | 30 | 305 |
+| lib\\screens\\payment-screen | 3 | 376 | 3 | 33 | 412 |
+| lib\\screens\\payment-screen (Files) | 2 | 99 | 0 | 13 | 112 |
+| lib\\screens\\payment-screen\\addbudget | 1 | 277 | 3 | 20 | 300 |
+| lib\\screens\\planner-screen | 10 | 1,642 | 636 | 133 | 2,411 |
+| lib\\screens\\planner-screen (Files) | 4 | 639 | 22 | 26 | 687 |
+| lib\\screens\\planner-screen\\budget | 6 | 1,003 | 614 | 107 | 1,724 |
+| lib\\screens\\planner-screen\\budget (Files) | 2 | 652 | 10 | 36 | 698 |
+| lib\\screens\\planner-screen\\budget\\barchart | 4 | 351 | 604 | 71 | 1,026 |
+| lib\\screens\\planner-screen\\budget\\barchart (Files) | 2 | 351 | 0 | 32 | 383 |
 | lib\\screens\\planner-screen\\budget\\barchart\\BarChart example | 2 | 0 | 604 | 39 | 643 |
-| lib\\screens\\setting-screens | 10 | 1,414 | 13 | 101 | 1,528 |
+| lib\\screens\\setting-screens | 10 | 1,422 | 13 | 101 | 1,536 |
 | lib\\screens\\setting-screens (Files) | 2 | 126 | 0 | 13 | 139 |
-| lib\\screens\\setting-screens\\commitments | 2 | 547 | 8 | 37 | 592 |
+| lib\\screens\\setting-screens\\commitments | 2 | 555 | 8 | 37 | 600 |
 | lib\\screens\\setting-screens\\income | 2 | 417 | 4 | 21 | 442 |
 | lib\\screens\\setting-screens\\personal | 4 | 324 | 1 | 30 | 355 |
 | lib\\screens\\setting-screens\\personal (Files) | 2 | 240 | 0 | 16 | 256 |
 | lib\\screens\\setting-screens\\personal\\dropdown | 2 | 84 | 1 | 14 | 99 |
-| lib\\screens\\setup-screens | 12 | 1,917 | 18 | 144 | 2,079 |
+| lib\\screens\\setup-screens | 12 | 1,948 | 19 | 146 | 2,113 |
 | lib\\screens\\setup-screens (Files) | 1 | 232 | 0 | 14 | 246 |
-| lib\\screens\\setup-screens\\budget | 5 | 856 | 15 | 71 | 942 |
-| lib\\screens\\setup-screens\\budget (Files) | 2 | 435 | 2 | 29 | 466 |
+| lib\\screens\\setup-screens\\budget | 5 | 870 | 15 | 73 | 958 |
+| lib\\screens\\setup-screens\\budget (Files) | 2 | 449 | 2 | 31 | 482 |
 | lib\\screens\\setup-screens\\budget\\add-newBudget | 3 | 421 | 13 | 42 | 476 |
 | lib\\screens\\setup-screens\\budget\\add-newBudget (Files) | 2 | 377 | 1 | 30 | 408 |
 | lib\\screens\\setup-screens\\budget\\add-newBudget\\slider | 1 | 44 | 12 | 12 | 68 |
-| lib\\screens\\setup-screens\\commitment | 3 | 580 | 2 | 35 | 617 |
+| lib\\screens\\setup-screens\\commitment | 3 | 597 | 3 | 35 | 635 |
 | lib\\screens\\setup-screens\\persoanl | 3 | 249 | 1 | 24 | 274 |
 | lib\\screens\\setup-screens\\persoanl (Files) | 1 | 165 | 0 | 10 | 175 |
 | lib\\screens\\setup-screens\\persoanl\\dropdown | 2 | 84 | 1 | 14 | 99 |

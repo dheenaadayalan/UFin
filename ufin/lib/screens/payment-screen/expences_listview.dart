@@ -40,40 +40,37 @@ class _ExpencesListViewState extends State<ExpencesListView> {
             amount = List.generate(commitMap.length, (index) {
               return commitMap[index]['Amount'];
             });
-            print(amount);
 
-            contex = Card(
-              child: ListView.builder(
-                itemCount: userExpences.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
-                    child: Row(
-                      children: [
-                        if (userExpences[index]['Amount'] > 1)
-                          Text(
-                            userExpences[index]['Budget'].toString(),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        const SizedBox(width: 40),
-                        if (userExpences[index]['Amount'] > 1)
-                          Text(
-                            '₹ ${f.format(amount[index]).toString()}',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        const SizedBox(width: 30),
-                        if (userExpences[index]['Amount'] > 1)
-                          Text(
-                            DateFormat.yMMMMd('en_US')
-                                .format(userExpences[index]['Date'].toDate())
-                                .toString(),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+            contex = ListView.builder(
+              itemCount: userExpences.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
+                  child: Row(
+                    children: [
+                      if (userExpences[index]['Amount'] > 1)
+                        Text(
+                          userExpences[index]['Budget'].toString(),
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      const Spacer(),
+                      if (userExpences[index]['Amount'] > 1)
+                        Text(
+                          '₹ ${f.format(amount[index]).toString()}',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      const Spacer(),
+                      if (userExpences[index]['Amount'] > 1)
+                        Text(
+                          DateFormat.yMMMMd('en_US')
+                              .format(userExpences[index]['Date'].toDate())
+                              .toString(),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                    ],
+                  ),
+                );
+              },
             );
           }
           return contex;

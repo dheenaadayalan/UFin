@@ -15,6 +15,7 @@ class PlanerHeader extends StatefulWidget {
 
 class _HeaderState extends State<PlanerHeader> {
   final userEmail = FirebaseAuth.instance.currentUser!.email;
+  num totalExp = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -88,50 +89,63 @@ class _HeaderState extends State<PlanerHeader> {
               margin: const EdgeInsets.fromLTRB(5, 15, 10, 15),
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection('usersIncomeData')
+                    .collection('UserExpencesData')
                     .doc(userEmail)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  return Row(
-                    children: [
-                      if (snapshot.data == null) const Text('Wlcome'),
-                      if (snapshot.hasData)
-                        SizedBox(
-                          width: 170,
-                          child: Card(
-                            color: Colors.red[500],
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Total Expences',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimary),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    '₹ ${f.format(snapshot.data!['total Incom'])}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimary),
-                                  ),
-                                ],
+                  Widget contex = const Center(
+                    child: CircularProgressIndicator(),
+                  );
+
+                  if (snapshot.hasData) {
+                    List data = snapshot.data!['Current Expences data'];
+
+                    for (var i = 0; i < data.length; i++) {
+                      totalExp += data[i]['Amount'];
+                    }
+
+                    contex = Row(
+                      children: [
+                        if (snapshot.data == null) const Text('Wlcome'),
+                        if (snapshot.hasData)
+                          SizedBox(
+                            width: 170,
+                            child: Card(
+                              color: Colors.red[500],
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Total Expences',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      '₹ ${f.format(totalExp)}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                    ],
-                  );
+                          )
+                      ],
+                    );
+                  }
+                  return contex;
                 },
               ),
             ),
@@ -235,14 +249,15 @@ class _HeaderState extends State<PlanerHeader> {
                                         ),
                                         const SizedBox(height: 10),
                                         Text(
-                                          '₹ ${f.format(snapshot1.data!['total Incom'])}',
+                                          '₹ ${f.format(snapshot1.data!['total Incom'] - totalExp)}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall!
                                               .copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onPrimary),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
+                                              ),
                                         ),
                                       ],
                                     ),

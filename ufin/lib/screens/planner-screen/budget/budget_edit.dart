@@ -124,7 +124,7 @@ class _BudgetEditState extends State<BudgetEdit> {
             {
               'Budget': index.newBudgetType,
               'Amount': index.amount,
-              'Date': DateTime.now(),
+              //'Date': DateTime.now(),
             }
         ];
 

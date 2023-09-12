@@ -345,7 +345,7 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
             ),
             Container(
               margin: const EdgeInsets.all(12),
-              height: 220,
+              height: 250,
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('usersBudget')
@@ -389,137 +389,137 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                 },
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 90,
-              margin: const EdgeInsets.fromLTRB(5, 15, 5, 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('users Saving Amount')
-                        .doc(userEmail)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      return Card(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        child: Row(
-                          children: [
-                            if (snapshot.data == null) const Text('Wlcome'),
-                            if (snapshot.hasData)
-                              SizedBox(
-                                width: 170,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        'Savings Target',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium!
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimary),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        '₹ ${f.format(snapshot.data!['saving Amount'])}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimary),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(width: 20),
-                  StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('UserExpencesData')
-                        .doc(userEmail)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      Widget contex = const Center(
-                        child: CircularProgressIndicator(),
-                      );
+            // Container(
+            //   width: double.infinity,
+            //   height: 90,
+            //   margin: const EdgeInsets.fromLTRB(5, 15, 5, 15),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       StreamBuilder(
+            //         stream: FirebaseFirestore.instance
+            //             .collection('users Saving Amount')
+            //             .doc(userEmail)
+            //             .snapshots(),
+            //         builder: (context, snapshot) {
+            //           return Card(
+            //             color: Theme.of(context).colorScheme.onPrimaryContainer,
+            //             child: Row(
+            //               children: [
+            //                 if (snapshot.data == null) const Text('Wlcome'),
+            //                 if (snapshot.hasData)
+            //                   SizedBox(
+            //                     width: 170,
+            //                     child: Padding(
+            //                       padding: const EdgeInsets.all(10.0),
+            //                       child: Column(
+            //                         children: [
+            //                           Text(
+            //                             'Savings Target',
+            //                             style: Theme.of(context)
+            //                                 .textTheme
+            //                                 .titleMedium!
+            //                                 .copyWith(
+            //                                     color: Theme.of(context)
+            //                                         .colorScheme
+            //                                         .onPrimary),
+            //                           ),
+            //                           const SizedBox(height: 10),
+            //                           Text(
+            //                             '₹ ${f.format(snapshot.data!['saving Amount'])}',
+            //                             style: Theme.of(context)
+            //                                 .textTheme
+            //                                 .headlineSmall!
+            //                                 .copyWith(
+            //                                     color: Theme.of(context)
+            //                                         .colorScheme
+            //                                         .onPrimary),
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ),
+            //                   ),
+            //               ],
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //       const SizedBox(width: 20),
+            //       StreamBuilder(
+            //         stream: FirebaseFirestore.instance
+            //             .collection('UserExpencesData')
+            //             .doc(userEmail)
+            //             .snapshots(),
+            //         builder: (context, snapshot) {
+            //           Widget contex = const Center(
+            //             child: CircularProgressIndicator(),
+            //           );
 
-                      if (snapshot.hasData) {
-                        List data = snapshot.data!['Current Expences data'];
+            //           if (snapshot.hasData) {
+            //             List data = snapshot.data!['Current Expences data'];
 
-                        for (var i = 0; i < data.length; i++) {
-                          totalExp += data[i]['Amount'];
-                        }
+            //             for (var i = 0; i < data.length; i++) {
+            //               totalExp += data[i]['Amount'];
+            //             }
 
-                        contex = StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('usersIncomeData')
-                                .doc(userEmail)
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              return Row(
-                                children: [
-                                  if (snapshot.data == null)
-                                    const Text('Wlcome'),
-                                  if (snapshot.hasData)
-                                    SizedBox(
-                                      width: 170,
-                                      child: Card(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimaryContainer,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                'Savings So far',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium!
-                                                    .copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onPrimary),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Text(
-                                                '₹ ${f.format(snapshot.data!['total Incom'] - totalExp)}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headlineSmall!
-                                                    .copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimary,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              );
-                            });
-                      }
-                      return contex;
-                    },
-                  ),
-                ],
-              ),
-            ),
+            //             contex = StreamBuilder(
+            //                 stream: FirebaseFirestore.instance
+            //                     .collection('usersIncomeData')
+            //                     .doc(userEmail)
+            //                     .snapshots(),
+            //                 builder: (context, snapshot) {
+            //                   return Row(
+            //                     children: [
+            //                       if (snapshot.data == null)
+            //                         const Text('Wlcome'),
+            //                       if (snapshot.hasData)
+            //                         SizedBox(
+            //                           width: 170,
+            //                           child: Card(
+            //                             color: Theme.of(context)
+            //                                 .colorScheme
+            //                                 .onPrimaryContainer,
+            //                             child: Padding(
+            //                               padding: const EdgeInsets.all(10.0),
+            //                               child: Column(
+            //                                 children: [
+            //                                   Text(
+            //                                     'Savings So far',
+            //                                     style: Theme.of(context)
+            //                                         .textTheme
+            //                                         .titleMedium!
+            //                                         .copyWith(
+            //                                             color: Theme.of(context)
+            //                                                 .colorScheme
+            //                                                 .onPrimary),
+            //                                   ),
+            //                                   const SizedBox(height: 10),
+            //                                   Text(
+            //                                     '₹ ${f.format(snapshot.data!['total Incom'] - totalExp)}',
+            //                                     style: Theme.of(context)
+            //                                         .textTheme
+            //                                         .headlineSmall!
+            //                                         .copyWith(
+            //                                           color: Theme.of(context)
+            //                                               .colorScheme
+            //                                               .onPrimary,
+            //                                         ),
+            //                                   ),
+            //                                 ],
+            //                               ),
+            //                             ),
+            //                           ),
+            //                         ),
+            //                     ],
+            //                   );
+            //                 });
+            //           }
+            //           return contex;
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

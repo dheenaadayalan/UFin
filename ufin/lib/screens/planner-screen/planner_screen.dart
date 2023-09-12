@@ -8,7 +8,7 @@ import 'package:ufin/screens/planner-screen/commit_builder.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/screens/planner-screen/planner_header.dart';
-import 'package:ufin/screens/planner-screen/text_ingtits.dart';
+import 'package:ufin/screens/planner-screen/text-ingsit/text_ingtits.dart';
 
 var f = NumberFormat('##,##,###');
 

@@ -26,11 +26,6 @@ class _TextIngsitiesState extends State<TextIngsities> {
           ),
           const SizedBox(height: 5),
           Container(
-            // decoration: BoxDecoration(
-            //   border: Border.all(
-            //     color: Theme.of(context).colorScheme.primary,
-            //   ),
-            // ),
             margin: const EdgeInsets.fromLTRB(8, 8, 8, 15),
             height: 300,
             child: Padding(
@@ -64,17 +59,9 @@ class _TextIngsitiesState extends State<TextIngsities> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                // Theme.of(context)
-                                //     .textTheme
-                                //     .titleLarge!
-                                //     .copyWith(
-                                //       color: Theme.of(context)
-                                //           .colorScheme
-                                //           .onPrimary,
-                                //     ),
                               ),
                             ),
-                          ), //text
+                          ),
                         ),
                       ],
                     ),

@@ -67,11 +67,11 @@ class _AuthScreenState extends State<AuthScreen> {
             .child('user_images')
             .child('${userCredentials.user!.uid}.jpg');
 
-        String imageUrl =
-            'https://firebasestorage.googleapis.com/v0/b/ufin-4195c.appspot.com/o/user_images%2FD5IF2DWfYvQdpu91cjQeE4XcLB82.jpg?alt=media&token=aa36add8-e901-4f02-a30e-3c5ef5390fa6';
+        String imageUrl = '';
 
         if (_selectedImage == null) {
-          await storageRef.putFile(File('assets/user.png'));
+          imageUrl =
+              'https://firebasestorage.googleapis.com/v0/b/ufin-4195c.appspot.com/o/user_images%2FD5IF2DWfYvQdpu91cjQeE4XcLB82.jpg?alt=media&token=aa36add8-e901-4f02-a30e-3c5ef5390fa6';
         } else {
           await storageRef.putFile(_selectedImage!);
           imageUrl = await storageRef.getDownloadURL();

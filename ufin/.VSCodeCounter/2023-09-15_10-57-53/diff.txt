@@ -1,0 +1,36 @@
+Date : 2023-09-15 10:57:53
+Directory : c:\Users\dheen\Desktop\UFin\ufin
+Total : 6 files,  209 codes, 123 comments, 24 blanks, all 356 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |          6 |        209 |        123 |         24 |        356 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                           | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                              |          6 |        209 |        123 |         24 |        356 |
+| lib                                                                                            |          6 |        209 |        123 |         24 |        356 |
+| lib\screens                                                                                    |          6 |        209 |        123 |         24 |        356 |
+| lib\screens\planner-screen                                                                     |          6 |        209 |        123 |         24 |        356 |
+| lib\screens\planner-screen (Files)                                                             |          2 |       -163 |         -8 |         -1 |       -172 |
+| lib\screens\planner-screen\budget                                                              |          2 |         -6 |        128 |          3 |        125 |
+| lib\screens\planner-screen\text-ingsit                                                         |          2 |        378 |          3 |         22 |        403 |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                       | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget_builder.dart         | Dart     |          1 |        128 |          3 |        132 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget_edit.dart            | Dart     |         -7 |          0 |          0 |         -7 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\planner_header.dart                | Dart     |          6 |          7 |          3 |         16 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text-ingsit\text_ingites_data.dart | Dart     |        197 |          0 |         17 |        214 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text-ingsit\text_ingtits.dart      | Dart     |        181 |          3 |          5 |        189 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text_ingtits.dart                  | Dart     |       -169 |        -15 |         -4 |       -188 |
+| Total                                                                                          |          |        209 |        123 |         24 |        356 |
++------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

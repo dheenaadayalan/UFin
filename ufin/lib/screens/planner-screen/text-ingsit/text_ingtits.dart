@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:ufin/screens/planner-screen/text-ingsit/text_ingites_data.dart';
+
 class TextIngsities extends StatefulWidget {
   const TextIngsities({super.key});
 
@@ -22,6 +24,18 @@ class _TextIngsitiesState extends State<TextIngsities> {
                 'Insight',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
+              TextButton(
+                // remove this later
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TextIngsitiesData(),
+                    ),
+                  );
+                },
+                child: const Text('Delete me later'),
+              )
             ],
           ),
           const SizedBox(height: 5),

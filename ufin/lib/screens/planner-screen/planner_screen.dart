@@ -29,9 +29,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
         children: [
           PlanerHeader(),
           TextIngsities(),
+          BudgetBarChart(),
           CommitBuilder(),
           //BudgetBuilder(),
-          BudgetBarChart()
         ],
       ),
     );

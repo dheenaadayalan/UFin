@@ -20,11 +20,11 @@ class _CommitBuilderState extends State<CommitBuilder> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Your Monthly Commitments',
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        const SizedBox(height: 10),
+        // Text(
+        //   'Your Monthly Commitments',
+        //   style: Theme.of(context).textTheme.headlineSmall,
+        // ),
+        // const SizedBox(height: 10),
         Container(
           height: 90,
           margin: const EdgeInsets.all(8),

@@ -26,6 +26,8 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
   List<String> budgetType = [];
   List budgetMaxExpences = [];
   List<BudgetTotalExp> budgetTotalExpData = [];
+  var now = DateTime.now();
+  var formatter = DateFormat('MM');
 
   @override
   void initState() {
@@ -89,12 +91,20 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
     }
 
     List<BudgetTotalExp> convertListOfMapsToListTotalExpences(listOfMaps) {
-      return List.generate(listOfMaps.length, (index) {
-        return BudgetTotalExp(
-          newBudgetType: listOfMaps[index]['Budget'],
-          amount: listOfMaps[index]['Amount'],
-        );
-      });
+      List<BudgetTotalExp> budgetTotalExpences1 = [];
+      for (var index = 0; index < listOfMaps.length; index++) {
+        String currentmonth = formatter.format(now);
+        if (formatter.format(listOfMaps[index]['Date'].toDate()) ==
+            currentmonth) {
+          budgetTotalExpences1.add(
+            BudgetTotalExp(
+              newBudgetType: listOfMaps[index]['Budget'],
+              amount: listOfMaps[index]['Amount'],
+            ),
+          );
+        }
+      }
+      return budgetTotalExpences1;
     }
 
     List convertListOfMapsToList2(listOfMaps) {

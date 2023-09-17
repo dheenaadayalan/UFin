@@ -135,12 +135,12 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
           Center(
             child: SingleChildScrollView(
               child: Container(
-                margin: const EdgeInsets.fromLTRB(2.5, 6, 2.5, 0),
+                margin: const EdgeInsets.all(10),
                 child: Card(
                   child: Form(
                     key: _form,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+                      padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
                       child: SizedBox(
                         height: 500,
                         width: double.infinity,
@@ -152,123 +152,101 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 15),
-                            Column(
-                              children: [
-                                Row(
+                            Card(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
                                   children: [
-                                    Card(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryContainer,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              'Monthly Income',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium!
-                                                  .copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primaryContainer),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                '₹ ${f.format(widget.totalIncome)}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium!
-                                                    .copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .primaryContainer),
-                                              ),
-                                            ),
-                                          ],
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Monthly Income',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primaryContainer),
                                         ),
-                                      ),
+                                        const Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            '₹ ${f.format(widget.totalIncome)}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primaryContainer),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const Spacer(),
-                                    Card(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryContainer,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              'Commintments',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium!
-                                                  .copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primaryContainer),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                '₹${f.format(_assetsCommit + _lablityCommit)}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium!
-                                                    .copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .primaryContainer),
-                                              ),
-                                            ),
-                                          ],
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Commintments',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primaryContainer),
                                         ),
-                                      ),
+                                        const Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            '₹${f.format(_assetsCommit + _lablityCommit)}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primaryContainer),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const Spacer(),
-                                    Card(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryContainer,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              'Balance',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium!
-                                                  .copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primaryContainer),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                '₹${f.format(widget.totalIncome - (_assetsCommit + _lablityCommit))}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium!
-                                                    .copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .primaryContainer),
-                                              ),
-                                            ),
-                                          ],
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Balance',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primaryContainer),
                                         ),
-                                      ),
+                                        const Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            '₹${f.format(widget.totalIncome - (_assetsCommit + _lablityCommit))}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primaryContainer),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
                             const SizedBox(height: 20),
                             Row(
@@ -281,14 +259,14 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
                                 const Spacer(),
                                 ElevatedButton(
                                   onPressed: openCommitDiglog,
-                                  child: const Icon(Icons.add),
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.blue[100]),
+                                  child: const Icon(Icons.add),
                                 )
                               ],
                             ),
                             SizedBox(
-                              height: 220,
+                              height: 180,
                               child: ListView.builder(
                                 itemCount: _newCommitment.length,
                                 itemBuilder: (context, index) {

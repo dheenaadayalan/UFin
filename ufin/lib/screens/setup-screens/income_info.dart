@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:ufin/screens/setup-screens/commitment/commitments_info.dart';
+import 'package:ufin/screens/setup-screens/commitment/commit_welcom.dart';
 
 var f = NumberFormat('##,##,###');
 
@@ -39,7 +39,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
         salaryValue + businessValue + investimentValue + otherValue;
     _form.currentState!.save();
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => CommitmentsScreen(
+      builder: (context) => CommitWelcome(
           userMailId: widget.userMailId, totalIncome: totalIncome),
     ));
 

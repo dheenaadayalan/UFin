@@ -1,0 +1,86 @@
+  // SizedBox(
+  //         height: 100,
+  //         child: ListView.builder(
+  //           itemCount: budgetList.length,
+  //           itemBuilder: (context, index) {
+  //             return Row(
+  //               children: [
+  //                 Text(
+  //                   budgetList[index].title,
+  //                 ),
+  //                 const SizedBox(width: 20),
+  //                 Text(
+  //                   budgetList[index].amount.toString(),
+  //                 ),
+  //               ],
+  //             );
+  //           },
+  //         ),
+  //       ),
+  //       SizedBox(
+  //         height: 70,
+  //         child: ListView.builder(
+  //           itemCount: commitmentList.length,
+  //           itemBuilder: (context, index) {
+  //             return Row(
+  //               children: [
+  //                 Text(
+  //                   commitmentList[index].title,
+  //                 ),
+  //                 const SizedBox(width: 20),
+  //                 Text(
+  //                   commitmentList[index].amount.toString(),
+  //                 ),
+  //                 const SizedBox(width: 20),
+  //                 Text(
+  //                   formatterMonthYear
+  //                       .format(commitmentList[index].date)
+  //                       .toString(),
+  //                 ),
+  //               ],
+  //             );
+  //           },
+  //         ),
+  //       ),
+  //       Text(totalIncome.toString()),
+  //       Text(savingTraget.round().toString()),
+  //       SizedBox(
+  //         height: 100,
+  //         child: ListView.builder(
+  //           itemCount: budgetTotalExpData.length,
+  //           itemBuilder: (context, index) {
+  //             return Row(
+  //               children: [
+  //                 Text(
+  //                   budgetTotalExpData[index].newBudgetType,
+  //                 ),
+  //                 const SizedBox(width: 20),
+  //                 Text(
+  //                   budgetTotalExpData[index].amount.round().toString(),
+  //                 ),
+  //               ],
+  //             );
+  //           },
+  //         ),
+  //       ),
+  //       Text(totalExp.round().toString()),
+  //       Text(blanceAmount.round().toString()), // balanceBudgetAmount
+  //       SizedBox(
+  //         height: 100,
+  //         child: ListView.builder(
+  //           itemCount: balanceBudgetAmount.length,
+  //           itemBuilder: (context, index) {
+  //             return Row(
+  //               children: [
+  //                 Text(
+  //                   balanceBudgetAmount[index].newBudgetType,
+  //                 ),
+  //                 const SizedBox(width: 20),
+  //                 Text(
+  //                   balanceBudgetAmount[index].amount.round().toString(),
+  //                 ),
+  //               ],
+  //             );
+  //           },
+  //         ),
+  //       ),

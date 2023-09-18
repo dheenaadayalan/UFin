@@ -32,7 +32,8 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
   List<BudgetTotalExp> balanceBudgetAmount = [];
   List<TextInsigits> textInsigitsData = [];
   var now = DateTime.now();
-  var formatter = DateFormat('MM');
+  var formatterMonth = DateFormat('MM');
+  var formatterMonthYear = DateFormat('d');
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
         .doc(userEmail)
         .get()
         .then(
-      (DocumentSnapshot doc) {
+      (DocumentSnapshot doc) async {
         List budgetMap = doc['budget type'];
         setState(() {
           budgetList = convertListOfMapsToListBudget(budgetMap);
@@ -78,11 +79,25 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
         .doc(userEmail)
         .get()
         .then(
-      (DocumentSnapshot doc) {
+      (DocumentSnapshot doc) async {
         List commitmentMap = doc['commitemt'];
         setState(() {
           commitmentList = convertListOfMapsToListCommitment(commitmentMap);
         });
+        for (var i = 0; i < commitmentList.length; i++) {
+          int balancedate =
+              int.parse(formatterMonthYear.format(commitmentList[i].date)) -
+                  int.parse(formatterMonthYear.format(now));
+          if (balancedate <= 5 && balancedate >= 0) {
+            textInsigitsData.add(
+              TextInsigits(
+                data:
+                    'You still have $balancedate days lest for your ${commitmentList[i].title} payment',
+                colorType: Colors.orange,
+              ),
+            );
+          }
+        }
       },
     );
   }
@@ -96,7 +111,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           commitType: listOfMaps[index]['type'],
           amount: listOfMaps[index]['amount'],
           commitdatetype: listOfMaps[index]['commitDateType'],
-          date: listOfMaps[index]['date'],
+          date: listOfMaps[index]['date'].toDate(),
         );
       },
     );
@@ -108,8 +123,20 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
         .doc(userEmail)
         .get()
         .then(
-      (DocumentSnapshot doc) {
-        totalIncome = doc['total Incom'];
+      (DocumentSnapshot doc) async {
+        setState(() {
+          totalIncome = doc['total Incom'];
+        });
+
+        if (totalExp >= (totalIncome * 80 / 100)) {
+          textInsigitsData.add(
+            TextInsigits(
+              data:
+                  'You have spent $totalExp, that is more than ${(totalExp / totalIncome) * 100} of your Total Income $totalIncome',
+              colorType: Colors.red,
+            ),
+          );
+        }
       },
     );
   }
@@ -137,22 +164,15 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
         targetBudgetTypes = convertListOfMapsToListbudget(commitMap);
 
-        for (var i = 0; i < commitMap.length; i++) {
-          totalExp += commitMap[i]['Amount'];
-        }
-        if (totalExp >= (totalIncome * 80 / 100)) {
-          textInsigitsData.add(
-            TextInsigits(
-              data:
-                  'You have spent $totalExp, that is more than 80% of your Total Income $totalIncome',
-              colorType: Colors.red,
-            ),
-          );
-        }
+        // for (var i = 0; i < commitMap.length; i++) {
+        //   totalExp += commitMap[i]['Amount'];
+        // }
+
         for (var index = 0; index < commitMap.length; index++) {
-          String currentmonth = formatter.format(now);
-          if (formatter.format(commitMap[index]['Date'].toDate()) ==
+          String currentmonth = formatterMonth.format(now);
+          if (formatterMonth.format(commitMap[index]['Date'].toDate()) ==
               currentmonth) {
+            totalExp += commitMap[index]['Amount'];
             budgetTotalExpences.add(
               BudgetTotalExp(
                 newBudgetType: commitMap[index]['Budget'],
@@ -160,6 +180,77 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
               ),
             );
           }
+        }
+
+        Map<String, double> totalAmounts = {};
+
+        for (String budgetType in targetBudgetTypes) {
+          double totalAmount = budgetTotalExpences
+              .where((item) => item.newBudgetType == budgetType)
+              .map((item) => item.amount)
+              .fold(0.0, (previousValue, amount) => previousValue + amount);
+
+          totalAmounts[budgetType] = totalAmount;
+        }
+
+        budgetTotalExpData = totalAmounts.entries
+            .map((entry) =>
+                BudgetTotalExp(newBudgetType: entry.key, amount: entry.value))
+            .toList();
+
+        setState(() {
+          blanceAmount = totalIncome - totalExp;
+        });
+
+        for (var i = 0; i < budgetList.length; i++) {
+          balanceBudgetAmount.add(BudgetTotalExp(
+            newBudgetType: budgetList[i].title,
+            amount: budgetList[i].amount - budgetTotalExpData[i].amount,
+          ));
+        }
+
+        for (var i = 0; i < budgetTotalExpData.length; i++) {
+          if (budgetTotalExpData[i].amount >=
+                  (budgetList[i].amount * 80 / 100) &&
+              budgetTotalExpData[i].amount <= (budgetList[i].amount)) {
+            textInsigitsData.add(
+              TextInsigits(
+                data:
+                    'You have spent ${(budgetTotalExpData[i].amount / budgetList[i].amount) * 100} of your budget on ${budgetList[i].title}',
+                colorType: Theme.of(context).colorScheme.secondary,
+              ),
+            );
+          }
+        }
+
+        for (var i = 0; i < budgetTotalExpData.length; i++) {
+          if (budgetTotalExpData[i].amount >= (budgetList[i].amount)) {
+            textInsigitsData.add(
+              TextInsigits(
+                data:
+                    'You have spent 100% of your budget on ${budgetList[i].title}',
+                colorType: Colors.red,
+              ),
+            );
+          }
+        }
+
+        if (blanceAmount > (totalExp * 50 / 100)) {
+          textInsigitsData.add(
+            TextInsigits(
+              data:
+                  'You have spent less than 50% your Income, Your saving is $blanceAmount',
+              colorType: Colors.green,
+            ),
+          );
+        } else if (totalIncome == totalExp) {
+          textInsigitsData.add(
+            TextInsigits(
+              data:
+                  'You have spent all of your Income, Your saving is 0 this month',
+              colorType: Colors.red,
+            ),
+          );
         }
       },
     );
@@ -182,204 +273,55 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, double> totalAmounts = {};
-    // String currentmonth = formatter.format(now);
-
-    for (String budgetType in targetBudgetTypes) {
-      double totalAmount = budgetTotalExpences
-          .where((item) => item.newBudgetType == budgetType)
-          .map((item) => item.amount)
-          .fold(0.0, (previousValue, amount) => previousValue + amount);
-
-      totalAmounts[budgetType] = totalAmount;
-    }
-
-    budgetTotalExpData = totalAmounts.entries
-        .map((entry) =>
-            BudgetTotalExp(newBudgetType: entry.key, amount: entry.value))
-        .toList();
-
-    blanceAmount = totalIncome - totalExp;
-
-    for (var i = 0; i < budgetList.length; i++) {
-      balanceBudgetAmount.add(BudgetTotalExp(
-        newBudgetType: budgetList[i].title,
-        amount: budgetList[i].amount - budgetTotalExpData[i].amount,
-      ));
-    }
-
-    for (var i = 0; i < budgetTotalExpData.length; i++) {
-      if (budgetTotalExpData[i].amount >= (budgetList[i].amount * 80 / 100) &&
-          budgetTotalExpData[i].amount <= (budgetList[i].amount)) {
-        textInsigitsData.add(
-          TextInsigits(
-            data: 'You have spent 80% of your budget on ${budgetList[i].title}',
-            colorType: Theme.of(context).colorScheme.secondary,
-          ),
-        );
-      }
-    }
-
-    for (var i = 0; i < budgetTotalExpData.length; i++) {
-      if (budgetTotalExpData[i].amount >= (budgetList[i].amount)) {
-        textInsigitsData.add(
-          TextInsigits(
-            data:
-                'You have spent 100% of your budget on ${budgetList[i].title}',
-            colorType: Colors.red,
-          ),
-        );
-      }
-    }
-
-    if (blanceAmount < totalExp) {
-      textInsigitsData.add(
-        TextInsigits(
-          data:
-              'You have spent all of your Income, Your saving is $blanceAmount',
-          colorType: Colors.red,
-        ),
-      );
-    } else if (blanceAmount > (totalExp * 50 / 100)) {
-      textInsigitsData.add(
-        TextInsigits(
-          data:
-              'You have spent less than 50% your Income, Your saving is $blanceAmount',
-          colorType: Colors.green,
-        ),
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('UFin'),
+    return ExpansionTile(
+      title: Text(
+        'Insights',
+        style: Theme.of(context).textTheme.titleLarge,
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 8, 8, 8),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                itemCount: budgetList.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Text(
-                        budgetList[index].title,
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        budgetList[index].amount.toString(),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              height: 20,
-              child: ListView.builder(
-                itemCount: commitmentList.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Text(
-                        commitmentList[index].title,
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        commitmentList[index].amount.toString(),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-            Text(totalIncome.toString()),
-            Text(savingTraget.round().toString()),
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                itemCount: budgetTotalExpData.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Text(
-                        budgetTotalExpData[index].newBudgetType,
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        budgetTotalExpData[index].amount.round().toString(),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-            Text(totalExp.round().toString()),
-            Text(blanceAmount.round().toString()), // balanceBudgetAmount
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                itemCount: balanceBudgetAmount.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Text(
-                        balanceBudgetAmount[index].newBudgetType,
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        balanceBudgetAmount[index].amount.round().toString(),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              height: 200,
-              child: ListView.builder(
-                itemCount: textInsigitsData.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start, // dummy data
-                    children: [
-                      Text(
-                        "\u2022",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ), //bullet text
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Card(
-                          color: textInsigitsData[index].colorType,
-                          //color: Theme.of(context).colorScheme.background,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              textInsigitsData[index].data,
-                              style: GoogleFonts.lato(
-                                textStyle: const TextStyle(
-                                  letterSpacing: .5,
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w700,
-                                ),
+      children: [
+        SingleChildScrollView(
+          child: Container(
+            height: 200,
+            margin: const EdgeInsets.all(12),
+            child: ListView.builder(
+              itemCount: textInsigitsData.length,
+              itemBuilder: (context, index) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start, // dummy data
+                  children: [
+                    Text(
+                      "\u2022",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ), //bullet text
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Card(
+                        color: textInsigitsData[index].colorType,
+                        //color: Theme.of(context).colorScheme.background,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            textInsigitsData[index].data,
+                            style: GoogleFonts.lato(
+                              textStyle: const TextStyle(
+                                letterSpacing: .5,
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
-                        ), //text
-                      ),
-                    ],
-                  );
-                },
-              ),
+                        ),
+                      ), //text
+                    ),
+                  ],
+                );
+              },
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

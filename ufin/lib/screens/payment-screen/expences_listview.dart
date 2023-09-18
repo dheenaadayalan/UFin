@@ -27,11 +27,8 @@ class _ExpencesListViewState extends State<ExpencesListView> {
             .doc(userEmail)
             .snapshots(),
         builder: (context, snapshot) {
-          Widget contex = Center(
-            child: Text(
-              'There is no expences',
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
+          Widget contex = const Center(
+            child: CircularProgressIndicator(),
           );
           if (snapshot.hasData) {
             List userExpences = snapshot.data!['Current Expences data'];

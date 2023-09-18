@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
+// import 'package:toggle_switch/toggle_switch.dart';
 
 import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/screens/setup-screens/commitment/new_commit_dropdown.dart';
+
+const List<Widget> fruits = <Widget>[
+  Text('Monthly'),
+  Text('Yealy'),
+];
 
 class NewCommitment extends StatefulWidget {
   const NewCommitment({super.key, required this.onAddCommit});
@@ -22,6 +27,21 @@ class _NewCommitmentState extends State<NewCommitment> {
   num commitAmount = 0;
   bool monthlycommitdata = true;
   String commitdatetype = 'Monthly';
+  DateTime selectedDate = DateTime.now();
+  final List<bool> _selectedFruits = <bool>[true, false];
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2023, 1),
+        lastDate: DateTime(2024, 2));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
 
   void saveCommitmentType() {
     final isValid = _form.currentState!.validate();
@@ -36,7 +56,7 @@ class _NewCommitmentState extends State<NewCommitment> {
         title: commitName,
         amount: commitAmount,
         commitType: commitType,
-        date: commitDate,
+        date: selectedDate,
         commitdatetype: commitdatetype,
       ),
     );
@@ -104,66 +124,102 @@ class _NewCommitmentState extends State<NewCommitment> {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 10),
-                            ToggleSwitch(
-                              customWidths: const [90.0, 90.0],
-                              cornerRadius: 20.0,
-                              activeBgColors: const [
-                                [Colors.green],
-                                [Colors.redAccent]
-                              ],
-                              activeFgColor: Colors.white,
-                              inactiveBgColor: Colors.grey,
-                              inactiveFgColor: Colors.white,
-                              totalSwitches: 2,
-                              labels: const ['YES', 'No, Yearly'],
-                              icons: const [null, null],
-                              onToggle: (index) {
-                                if (index == 1) {
-                                  setState(() {
-                                    monthlycommitdata = false;
-                                    commitdatetype = 'Yearly';
-                                  });
-                                } else if (index == 0) {
-                                  setState(() {
-                                    monthlycommitdata = true;
-                                  });
-                                }
+                            // ToggleSwitch(
+                            //   customWidths: const [90.0, 90.0],
+                            //   cornerRadius: 20.0,
+                            //   activeBgColors: const [
+                            //     [Colors.green],
+                            //     [Colors.redAccent]
+                            //   ],
+                            //   activeFgColor: Colors.white,
+                            //   inactiveBgColor: Colors.grey,
+                            //   inactiveFgColor: Colors.white,
+                            //   totalSwitches: 2,
+                            //   labels: const ['YES', 'No, Yearly'],
+                            //   icons: const [null, null],
+                            //   onToggle: (index) {
+                            //     if (index == 1) {
+                            //       setState(() {
+                            //         monthlycommitdata = false;
+                            //         commitdatetype = 'Yearly';
+                            //       });
+                            //     } else if (index == 0) {
+                            //       setState(() {
+                            //         monthlycommitdata = true;
+                            //       });
+                            //     }
+                            //   },
+                            // ),
+                            ToggleButtons(
+                              direction: Axis.horizontal, //Axis.vertical
+                              onPressed: (int index) {
+                                setState(() {
+                                  // The button that is tapped is set to true, and the others to false.
+                                  for (int i = 0;
+                                      i < _selectedFruits.length;
+                                      i++) {
+                                    _selectedFruits[i] = i == index;
+                                    if (index == 1) {
+                                      monthlycommitdata = false;
+                                      commitdatetype = 'Yearly';
+                                    } else if (index == 0) {
+                                      monthlycommitdata = true;
+                                    }
+                                  }
+                                });
                               },
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
+                              selectedBorderColor: Colors.red[700],
+                              selectedColor: Colors.white,
+                              fillColor: Colors.red[200],
+                              color: Colors.red[400],
+                              constraints: const BoxConstraints(
+                                minHeight: 40.0,
+                                minWidth: 80.0,
+                              ),
+                              isSelected: _selectedFruits,
+                              children: fruits,
                             ),
                           ],
                         ),
                         const SizedBox(height: 15),
-                        if (monthlycommitdata == true)
-                          Column(
-                            children: [
+                        Column(
+                          children: [
+                            if (monthlycommitdata == true)
                               Text(
-                                'On what Date of a month you pay this commitment?',
+                                'On what Date of a MONTH you pay this commitment?',
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
-                              const SizedBox(height: 10),
-                              TextFormField(
-                                maxLength: 2,
-                                decoration: const InputDecoration(
-                                  labelText: 'Date of the month',
-                                  border: OutlineInputBorder(),
-                                ),
-                                keyboardType: TextInputType.datetime,
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Enter a proper date';
-                                  } else if (int.parse(value) > 31) {
-                                    return 'Enter peoper date';
-                                  } else if (int.parse(value) < 1) {
-                                    return 'Enter peoper date';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (newValue) {
-                                  commitDate = int.parse(newValue!);
-                                },
+                            if (monthlycommitdata == false)
+                              Text(
+                                'On what Date of the YEAR you pay this commitment?',
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
-                            ],
-                          ),
+                            const SizedBox(height: 10),
+                            ElevatedButton(
+                              onPressed: () => _selectDate(context),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                ),
+                              ),
+                              child: Text(
+                                "${selectedDate.toLocal()}".split(' ')[0],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 10),
                         Row(
                           children: [

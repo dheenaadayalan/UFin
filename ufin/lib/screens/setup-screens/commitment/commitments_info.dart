@@ -27,6 +27,7 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
   int toggleValue = 0;
   num _lablityCommit = 0;
   num _assetsCommit = 0;
+  var formatter = DateFormat('d');
 
   void openCommitDiglog() {
     showDialog(
@@ -303,7 +304,7 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
                                               ),
                                               //const Spacer(),
                                               Text(
-                                                '${_newCommitment[index].date.toString()} every Month',
+                                                '${formatter.format(_newCommitment[index].date).toString()} every Month',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleMedium,

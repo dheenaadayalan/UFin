@@ -126,6 +126,7 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
             Widget contex = const Center(
               child: CircularProgressIndicator(),
             );
+
             if (snapshot.hasData) {
               List _userBudget = snapshot.data!['budget type'];
 

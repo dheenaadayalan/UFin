@@ -9,6 +9,6 @@ class Commitment {
   String title;
   final num amount;
   final String commitType;
-  final int date;
+  final DateTime date;
   final String commitdatetype;
 }

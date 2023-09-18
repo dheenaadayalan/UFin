@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var f = NumberFormat('##,##,###');
+var formatter = DateFormat('d');
 
 class CommitBuilder extends StatefulWidget {
   const CommitBuilder({super.key});
@@ -158,7 +159,10 @@ class _CommitBuilderState extends State<CommitBuilder> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      newCommitment[index]['date'].toString(),
+                                      formatter
+                                          .format(newCommitment[index]['date']
+                                              .toDate())
+                                          .toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleLarge,

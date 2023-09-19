@@ -1,0 +1,13 @@
+"filename", "language", "YAML", "C++", "Dart", "comment", "blank", "total"
+"c:\Users\dheen\Desktop\UFin\ufin\lib\models\test_insigits.dart", "Dart", 0, 0, 9, 0, 2, 11
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\payment-screen\expences_listview.dart", "Dart", 0, 0, -3, 0, 0, -3
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\payment-screen\payment_screen.dart", "Dart", 0, 0, 312, 12, 16, 340
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\budget_barchart.dart", "Dart", 0, 0, 10, 0, 1, 11
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\commit_builder.dart", "Dart", 0, 0, -1, 5, 0, 4
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text-ingsit\text_ingites_data.dart", "Dart", 0, 0, 133, 4, 14, 151
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\commit_welcom.dart", "Dart", 0, 0, 601, 5, 8, 614
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\commitments_info.dart", "Dart", 0, 0, -21, 0, 0, -21
+"c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\new_commitment.dart", "Dart", 0, 0, 26, 28, 2, 56
+"c:\Users\dheen\Desktop\UFin\ufin\pubspec.yaml", "YAML", 1, 0, 0, 0, 0, 1
+"c:\Users\dheen\Desktop\UFin\ufin\windows\runner\flutter_window.cpp", "C++", 0, 1, 0, 3, 1, 5
+"Total", "-", 1, 1, 1066, 57, 44, 1169

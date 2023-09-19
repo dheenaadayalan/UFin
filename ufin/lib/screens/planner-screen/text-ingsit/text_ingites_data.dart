@@ -10,6 +10,8 @@ import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/models/expences_modes.dart';
 import 'package:ufin/models/test_insigits.dart';
 
+var f = NumberFormat('##,###');
+
 class TextIngsitiesData extends StatefulWidget {
   const TextIngsitiesData({super.key});
 
@@ -92,7 +94,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
             textInsigitsData.add(
               TextInsigits(
                 data:
-                    'You still have $balancedate days lest for your ${commitmentList[i].title} payment',
+                    'You still have $balancedate days left for your ${commitmentList[i].title} payment',
                 colorType: Colors.orange,
               ),
             );
@@ -127,16 +129,6 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
         setState(() {
           totalIncome = doc['total Incom'];
         });
-
-        if (totalExp >= (totalIncome * 80 / 100)) {
-          textInsigitsData.add(
-            TextInsigits(
-              data:
-                  'You have spent $totalExp, that is more than ${(totalExp / totalIncome) * 100} of your Total Income $totalIncome',
-              colorType: Colors.red,
-            ),
-          );
-        }
       },
     );
   }
@@ -154,6 +146,29 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
   }
 
   void initializeExpences() async {
+    await FirebaseFirestore.instance
+        .collection('usersIncomeData')
+        .doc(userEmail)
+        .get()
+        .then(
+      (DocumentSnapshot doc) async {
+        setState(() {
+          totalIncome = doc['total Incom'];
+        });
+      },
+    );
+    await FirebaseFirestore.instance
+        .collection('usersBudget')
+        .doc(userEmail)
+        .get()
+        .then(
+      (DocumentSnapshot doc) async {
+        List budgetMap = doc['budget type'];
+        setState(() {
+          budgetList = convertListOfMapsToListBudget(budgetMap);
+        });
+      },
+    );
     await FirebaseFirestore.instance
         .collection('UserExpencesData')
         .doc(userEmail)
@@ -239,7 +254,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           textInsigitsData.add(
             TextInsigits(
               data:
-                  'You have spent less than 50% your Income, Your saving is $blanceAmount',
+                  'You have spent less than 50% your Income, Your saving is ₹ ${f.format(blanceAmount)}',
               colorType: Colors.green,
             ),
           );
@@ -248,6 +263,16 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
             TextInsigits(
               data:
                   'You have spent all of your Income, Your saving is 0 this month',
+              colorType: Colors.red,
+            ),
+          );
+        }
+
+        if (totalExp >= (totalIncome * 80 / 100)) {
+          textInsigitsData.add(
+            TextInsigits(
+              data:
+                  'You have spent $totalExp, that is more than ${(totalExp / totalIncome) * 100} of your Total Income $totalIncome',
               colorType: Colors.red,
             ),
           );
@@ -273,55 +298,76 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(
-        'Insights',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
-      children: [
-        SingleChildScrollView(
-          child: Container(
-            height: 200,
-            margin: const EdgeInsets.all(12),
-            child: ListView.builder(
-              itemCount: textInsigitsData.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start, // dummy data
-                  children: [
-                    Text(
-                      "\u2022",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ), //bullet text
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Card(
-                        color: textInsigitsData[index].colorType,
-                        //color: Theme.of(context).colorScheme.background,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            textInsigitsData[index].data,
-                            style: GoogleFonts.lato(
-                              textStyle: const TextStyle(
-                                letterSpacing: .5,
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.w700,
+    return Theme(
+      data: ThemeData().copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        title: Row(
+          children: [
+            Text(
+              'Insights',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(width: 10),
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                shape: BoxShape.circle,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  textInsigitsData.length.toString(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
+          ],
+        ),
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              height: 200,
+              margin: const EdgeInsets.all(12),
+              child: ListView.builder(
+                itemCount: textInsigitsData.length,
+                itemBuilder: (context, index) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${index + 1}",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Card(
+                          color: textInsigitsData[index].colorType,
+                          //color: Theme.of(context).colorScheme.background,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              textInsigitsData[index].data,
+                              style: GoogleFonts.lato(
+                                textStyle: const TextStyle(
+                                  letterSpacing: .5,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ), //text
-                    ),
-                  ],
-                );
-              },
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

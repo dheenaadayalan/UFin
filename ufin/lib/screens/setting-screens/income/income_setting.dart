@@ -40,7 +40,7 @@ class _IncomeSettingState extends State<IncomeSetting> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const Spacer(),
-                    IconButton(
+                    ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => IncomeEdit(
@@ -48,7 +48,7 @@ class _IncomeSettingState extends State<IncomeSetting> {
                           ),
                         ));
                       },
-                      icon: const Icon(Icons.edit),
+                      child: const Text('Edit'),
                     )
                   ],
                 ),
@@ -58,40 +58,7 @@ class _IncomeSettingState extends State<IncomeSetting> {
                       children: [
                         if (snapshot.hasData)
                           Container(
-                            height: 100,
-                            width: 160,
-                            padding: const EdgeInsets.all(5),
-                            child: Card(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Salary Income',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      //'₹ ${f.format(salaryIncome)}',
-                                      '₹ ${f.format(snapshot.data!['salary Income']).toString()}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        const Spacer(),
-                        if (snapshot.hasData)
-                          Container(
-                            height: 100,
+                            height: 200,
                             width: 180,
                             padding: const EdgeInsets.all(5),
                             child: Card(
@@ -101,20 +68,57 @@ class _IncomeSettingState extends State<IncomeSetting> {
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    const Icon(Icons.money, size: 80),
+                                    Text(
+                                      'Salary Income',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Text(
+                                      //'₹ ${f.format(salaryIncome)}',
+                                      '₹ ${f.format(snapshot.data!['salary Income']).toString()}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        const Spacer(),
+                        if (snapshot.hasData)
+                          Container(
+                            height: 200,
+                            width: 180,
+                            padding: const EdgeInsets.all(5),
+                            child: Card(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(Icons.business, size: 80),
                                     Text(
                                       'Business Income',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleSmall,
+                                          .titleMedium,
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 20),
                                     Text(
                                       //'₹ ${f.format(businessIncome)}',
                                       '₹ ${f.format(snapshot.data!['business Income']).toString()}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleLarge,
+                                          .headlineSmall,
                                     ),
                                   ],
                                 ),
@@ -127,40 +131,7 @@ class _IncomeSettingState extends State<IncomeSetting> {
                       children: [
                         if (snapshot.hasData)
                           Container(
-                            height: 100,
-                            width: 160,
-                            padding: const EdgeInsets.all(5),
-                            child: Card(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Investment Income',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      //'₹ ${f.format(investmentIncome)}',
-                                      '₹ ${f.format(snapshot.data!['investment Income']).toString()}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        const Spacer(),
-                        if (snapshot.hasData)
-                          Container(
-                            height: 100,
+                            height: 200,
                             width: 180,
                             padding: const EdgeInsets.all(5),
                             child: Card(
@@ -170,20 +141,58 @@ class _IncomeSettingState extends State<IncomeSetting> {
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    const Icon(Icons.bar_chart, size: 80),
+                                    Text(
+                                      'Investment Income',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Text(
+                                      //'₹ ${f.format(investmentIncome)}',
+                                      '₹ ${f.format(snapshot.data!['investment Income']).toString()}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        const Spacer(),
+                        if (snapshot.hasData)
+                          Container(
+                            height: 200,
+                            width: 180,
+                            padding: const EdgeInsets.all(5),
+                            child: Card(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(Icons.pie_chart_outline_sharp,
+                                        size: 80),
                                     Text(
                                       'Other Income',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall,
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 20),
                                     Text(
                                       //'₹ ${f.format(otherIncome)}',
                                       '₹ ${f.format(snapshot.data!['other Income']).toString()}', // '₹ ${}'
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleLarge,
+                                          .headlineSmall,
                                     ),
                                   ],
                                 ),

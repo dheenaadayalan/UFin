@@ -61,7 +61,7 @@ class _SavingCalState extends State<SavingCal> {
             children: [
               Text(
                 'Now lets Budget you Income',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(height: 20),
               Text(

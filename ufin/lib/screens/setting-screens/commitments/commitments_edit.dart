@@ -7,6 +7,7 @@ import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/screens/setup-screens/commitment/new_commitment.dart';
 
 var f = NumberFormat('##,##,###');
+var formatterMonth = DateFormat('Md');
 
 class CommitmentsEdit extends StatefulWidget {
   const CommitmentsEdit(
@@ -59,7 +60,7 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
     return List.generate(listOfMaps.length, (index) {
       return Commitment(
         title: listOfMaps[index]['title'],
-        date: listOfMaps[index]['date'],
+        date: listOfMaps[index]['date'].toDate(),
         amount: listOfMaps[index]['amount'],
         commitType: listOfMaps[index]['type'],
         commitdatetype: listOfMaps[index]['commitDateType'],
@@ -377,7 +378,11 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.fromLTRB(
-                                                      12, 8, 12, 8),
+                                                12,
+                                                8,
+                                                12,
+                                                8,
+                                              ),
                                               child: Row(
                                                 children: [
                                                   Text(
@@ -397,15 +402,7 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
                                                   Column(
                                                     children: [
                                                       Text(
-                                                        _newCommitment[index]
-                                                            .commitType,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleMedium,
-                                                      ),
-                                                      //const Spacer(),
-                                                      Text(
-                                                        '${_newCommitment[index].date.toString()} every Month',
+                                                        '${formatterMonth.format(_newCommitment[index].date).toString()} \n  every Month',
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleMedium,

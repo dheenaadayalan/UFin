@@ -33,103 +33,122 @@ class _CommitmentsSettingState extends State<CommitmentsSetting> {
         );
         if (snapshot.hasData) {
           List newCommitment = snapshot.data!['commitemt'];
-          contex = Container(
-            margin: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Monthly Commitments',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () async {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => CommitmentsEdit(
-                                userMailId: widget.userMailId,
-                                newCommitment: newCommitment),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.edit),
-                    )
-                  ],
+          contex = InkWell(
+            onTap: () async {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => CommitmentsEdit(
+                      userMailId: widget.userMailId,
+                      newCommitment: newCommitment),
                 ),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (snapshot.hasData)
-                          Container(
-                            decoration: const BoxDecoration(
-                                border: Border(right: BorderSide())),
-                            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Monthly assets\n payout amount',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  // '₹ ${f.format(assetsCommitments)}',
-                                  '₹ ${f.format(snapshot.data!['assets commitment']).toString()}',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                              ],
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Monthly Commitments',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const Spacer(),
+                      // IconButton(
+                      //   onPressed: () async {
+                      //     Navigator.of(context).push(
+                      //       MaterialPageRoute(
+                      //         builder: (context) => CommitmentsEdit(
+                      //             userMailId: widget.userMailId,
+                      //             newCommitment: newCommitment),
+                      //       ),
+                      //     );
+                      //   },
+                      //   icon: const Icon(Icons.edit),
+                      // )
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (snapshot.hasData)
+                            Container(
+                              decoration: const BoxDecoration(
+                                border: Border(),
+                              ),
+                              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Assets payout',
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    // '₹ ${f.format(assetsCommitments)}',
+                                    '₹ ${f.format(snapshot.data!['assets commitment']).toString()}',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        const Spacer(),
-                        if (snapshot.hasData)
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Monthly liablity\n payout amount',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  //'₹ ${f.format(lablityCommitment)}',
-                                  '₹ ${f.format(snapshot.data!['lablity commitment']).toString()}', //   '₹${}'
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                              ],
+                          const Spacer(),
+                          if (snapshot.hasData)
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Liablity payout ',
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    //'₹ ${f.format(lablityCommitment)}',
+                                    '₹ ${f.format(snapshot.data!['lablity commitment']).toString()}', //   '₹${}'
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        const Spacer(),
-                        if (snapshot.hasData)
-                          Container(
-                            decoration: const BoxDecoration(
-                                border: Border(left: BorderSide())),
-                            padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Total ',
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  // '₹ ${f.format(totalCommitments)}',
-                                  '₹ ${f.format(snapshot.data!['lablity commitment'] + snapshot.data!['assets commitment']).toString()}',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                              ],
+                          const Spacer(),
+                          if (snapshot.hasData)
+                            Container(
+                              decoration: const BoxDecoration(
+                                  border: Border(left: BorderSide())),
+                              padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Total ',
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    // '₹ ${f.format(totalCommitments)}',
+                                    '₹ ${f.format(snapshot.data!['lablity commitment'] + snapshot.data!['assets commitment']).toString()}',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }

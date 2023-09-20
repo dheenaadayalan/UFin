@@ -46,6 +46,31 @@ class _BudgetScreenState extends State<BudgetScreen> {
   }
 
   void saveBudget() async {
+    if (_budget.isEmpty) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Add Budget for your Income'),
+        ),
+      );
+      return;
+    }
+
+    num totalBudgetAmount = 0;
+    for (int index = 0; index < _budget.length; index++) {
+      totalBudgetAmount += _budget[index].amount;
+    }
+
+    if (totalBudgetAmount != widget.balanceBuget) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'You still have to add ₹${f.format(widget.balanceBuget - totalBudgetAmount)} to your budget'),
+        ),
+      );
+      return;
+    }
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
@@ -53,11 +78,6 @@ class _BudgetScreenState extends State<BudgetScreen> {
         },
       ),
     );
-
-    num totalBudgetAmount = 0;
-    for (int index = 0; index < _budget.length; index++) {
-      totalBudgetAmount += _budget[index].amount;
-    }
 
     List<Map<String, Object>> data = [
       for (var index in _budget)

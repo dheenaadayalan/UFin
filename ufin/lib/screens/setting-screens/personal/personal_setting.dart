@@ -33,17 +33,18 @@ class _PersonalSettingInfoState extends State<PersonalSettingInfo> {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PersonalSettingEdit(
-                                userMailId: widget.userMailId),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.edit))
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PersonalSettingEdit(
+                              userMailId: widget.userMailId),
+                        ),
+                      );
+                    },
+                    child: const Text('Edit'),
+                  ),
                 ],
               ),
               Card(

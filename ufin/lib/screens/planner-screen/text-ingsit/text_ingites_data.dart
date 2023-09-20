@@ -31,8 +31,11 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
   List<BudgetTotalExp> budgetTotalExpData = [];
   num totalExp = 0;
   num blanceAmount = 0;
+  num last6DaysExp = 0;
   List<BudgetTotalExp> balanceBudgetAmount = [];
   List<TextInsigits> textInsigitsData = [];
+  num totalAssetsCommit = 0;
+  num totalLiablityCommit = 0;
   var now = DateTime.now();
   var formatterMonth = DateFormat('MM');
   var formatterMonthYear = DateFormat('d');
@@ -83,8 +86,11 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
         .then(
       (DocumentSnapshot doc) async {
         List commitmentMap = doc['commitemt'];
+
         setState(() {
           commitmentList = convertListOfMapsToListCommitment(commitmentMap);
+          totalAssetsCommit = doc['assets commitment'];
+          totalLiablityCommit = doc['lablity commitment'];
         });
         for (var i = 0; i < commitmentList.length; i++) {
           int balancedate =
@@ -99,6 +105,15 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
               ),
             );
           }
+        }
+        if (totalLiablityCommit > totalAssetsCommit) {
+          textInsigitsData.add(
+            TextInsigits(
+              data:
+                  'Your making more liability payment of ₹${f.format(totalLiablityCommit)}, than assets payment, try increasing your asset payment to increaing your assets ',
+              colorType: Colors.blue,
+            ),
+          );
         }
       },
     );
@@ -197,6 +212,24 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           }
         }
 
+        for (var index = 0; index < commitMap.length; index++) {
+          int currentDay = int.parse(formatterMonthYear.format(now));
+          if (int.parse(formatterMonthYear
+                  .format(commitMap[index]['Date'].toDate())) >=
+              (currentDay - 5)) {
+            last6DaysExp += commitMap[index]['Amount'];
+          }
+        }
+        if (last6DaysExp > (totalIncome * 23 / 100)) {
+          textInsigitsData.add(
+            TextInsigits(
+              data:
+                  "You have spent more than 20% of your Income in just 5 day's, At this rate you can't achieve savings Targrt ",
+              colorType: Colors.red,
+            ),
+          );
+        }
+
         Map<String, double> totalAmounts = {};
 
         for (String budgetType in targetBudgetTypes) {
@@ -231,7 +264,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
             textInsigitsData.add(
               TextInsigits(
                 data:
-                    'You have spent ${(budgetTotalExpData[i].amount / budgetList[i].amount) * 100} of your budget on ${budgetList[i].title}',
+                    'You have spent ${((budgetTotalExpData[i].amount / budgetList[i].amount) * 100).toStringAsPrecision(3)} of your budget on ${budgetList[i].title}',
                 colorType: Theme.of(context).colorScheme.secondary,
               ),
             );
@@ -298,6 +331,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
   @override
   Widget build(BuildContext context) {
+    print(totalLiablityCommit);
     return Theme(
       data: ThemeData().copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(

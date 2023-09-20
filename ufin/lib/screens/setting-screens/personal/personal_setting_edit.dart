@@ -129,7 +129,7 @@ class _PersonalSettingEditState extends State<PersonalSettingEdit> {
                                   .primaryContainer,
                             ),
                             onPressed: summit,
-                            child: const Text('Summit'),
+                            child: const Text('Save'),
                           )
                         ],
                       ),

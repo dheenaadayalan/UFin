@@ -332,7 +332,7 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
                                     .primaryContainer,
                               ),
                               onPressed: summit,
-                              child: const Text('Summit'),
+                              child: const Text('Save'),
                             )
                           ],
                         ),

@@ -157,7 +157,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                                   .primaryContainer,
                             ),
                             onPressed: summit,
-                            child: const Text('Summit'),
+                            child: const Text('Save'),
                           )
                         ],
                       ),

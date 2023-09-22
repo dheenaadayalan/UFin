@@ -433,7 +433,7 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
                                             .primaryContainer,
                                       ),
                                       onPressed: summit,
-                                      child: const Text('Summit'),
+                                      child: const Text('Save'),
                                     )
                                   ],
                                 ),

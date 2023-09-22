@@ -17,7 +17,6 @@ class BudgetReorder extends StatefulWidget {
 }
 
 class _BudgetReorderState extends State<BudgetReorder> {
-  List<Budget> _budget = [];
   void save() async {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
@@ -29,12 +28,11 @@ class _BudgetReorderState extends State<BudgetReorder> {
     );
 
     List<Map<String, Object>> data = [
-      for (var index in _budget)
+      for (var index in widget.budget)
         {
           'title': index.title,
           'amount': index.amount,
           'perferance type': index.perferance,
-          'index': index,
         }
     ];
 
@@ -112,10 +110,9 @@ class _BudgetReorderState extends State<BudgetReorder> {
                   }
                   final item = widget.budget.removeAt(oldIndex);
                   widget.budget.insert(newIndex, item);
-                  _budget = widget.budget;
                 });
                 for (int index = 0; index < widget.budget.length; index += 1) {
-                  print(_budget[index].title);
+                  print(widget.budget[index].title);
                 }
               },
             ),

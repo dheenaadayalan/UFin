@@ -71,7 +71,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
       );
       return;
     }
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           return BudgetReorder(

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/budget_model.dart';
-import 'package:ufin/screens/home_tabs.dart';
+import 'package:ufin/screens/setup-screens/budget/budget_reorder.dart';
 import 'package:ufin/screens/setup-screens/budget/add-newBudget/new_budget.dart';
 
 var f = NumberFormat('##,##,###');
@@ -74,7 +74,10 @@ class _BudgetScreenState extends State<BudgetScreen> {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
-          return const HomeTabsScreen();
+          return BudgetReorder(
+            userMailId: widget.userMailId,
+            budget: _budget,
+          );
         },
       ),
     );

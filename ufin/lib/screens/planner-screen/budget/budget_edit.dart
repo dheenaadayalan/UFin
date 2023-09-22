@@ -73,6 +73,31 @@ class _BudgetEditState extends State<BudgetEdit> {
   }
 
   void _openAddBudgetOverlay() {
+    if (_budget.isEmpty) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Add Budget for your Income'),
+        ),
+      );
+      return;
+    }
+
+    num totalBudgetAmount = 0;
+    for (int index = 0; index < _budget.length; index++) {
+      totalBudgetAmount += _budget[index].amount;
+    }
+
+    if (totalBudgetAmount != balanceBuget) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'You still have to add ₹${f.format(balanceBuget - totalBudgetAmount)} to your budget'),
+        ),
+      );
+      return;
+    }
     Navigator.push(
       context,
       MaterialPageRoute(

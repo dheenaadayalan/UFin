@@ -24,7 +24,7 @@ class _NewBudgetState extends State<NewBudget> {
   final _form = GlobalKey<FormState>();
 
   var budgetTitle = '';
-  String perferance = '';
+  String perferance = 'In between';
   num amount = 0;
   final List<BudgetSubtype> _budgetSubtypeList = [];
 

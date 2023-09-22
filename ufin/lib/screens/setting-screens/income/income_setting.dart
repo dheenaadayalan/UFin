@@ -30,7 +30,7 @@ class _IncomeSettingState extends State<IncomeSetting> {
 
         return Center(
           child: Container(
-            margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+            margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: Column(
               children: [
                 Row(

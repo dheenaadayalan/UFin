@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var f = NumberFormat('##,##,###');
+var formatterMonth = DateFormat('MM');
+var now = DateTime.now();
 
 class PlanerHeader extends StatefulWidget {
   const PlanerHeader({super.key});
@@ -100,10 +102,13 @@ class _HeaderState extends State<PlanerHeader> {
                   if (snapshot.hasData) {
                     List data = snapshot.data!['Current Expences data'];
 
-                    for (var i = 0; i < data.length; i++) {
-                      totalExp += data[i]['Amount'];
+                    for (var index = 0; index < data.length; index++) {
+                      String currentmonth = formatterMonth.format(now);
+                      if (formatterMonth.format(data[index]['Date'].toDate()) ==
+                          currentmonth) {
+                        totalExp += data[index]['Amount'];
+                      }
                     }
-
                     contex = Row(
                       children: [
                         if (snapshot.data == null) const Text('Wlcome'),

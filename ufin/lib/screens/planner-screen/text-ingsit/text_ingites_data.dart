@@ -39,6 +39,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
   var now = DateTime.now();
   var formatterMonth = DateFormat('MM');
   var formatterMonthYear = DateFormat('d');
+  var formatterMonthDateYear = DateFormat('Md');
 
   @override
   void initState() {
@@ -214,10 +215,17 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
         for (var index = 0; index < commitMap.length; index++) {
           int currentDay = int.parse(formatterMonthYear.format(now));
-          if (int.parse(formatterMonthYear
-                  .format(commitMap[index]['Date'].toDate())) >=
-              (currentDay - 5)) {
-            last6DaysExp += commitMap[index]['Amount'];
+          String currentmonth = formatterMonth.format(now);
+          if (formatterMonth.format(commitMap[index]['Date'].toDate()) ==
+              currentmonth) {
+            if (int.parse(formatterMonthYear
+                        .format(commitMap[index]['Date'].toDate())) >=
+                    (currentDay - 5) &&
+                int.parse(formatterMonthYear
+                        .format(commitMap[index]['Date'].toDate())) <=
+                    currentDay) {
+              last6DaysExp += commitMap[index]['Amount'];
+            }
           }
         }
         if (last6DaysExp > (totalIncome * 23 / 100)) {
@@ -276,7 +284,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
             textInsigitsData.add(
               TextInsigits(
                 data:
-                    'You have spent 100% of your budget on ${budgetList[i].title}',
+                    'You have spent ${((budgetTotalExpData[i].amount / budgetList[i].amount) * 100).toStringAsPrecision(3)} % of your budget on ${budgetList[i].title}',
                 colorType: Colors.red,
               ),
             );
@@ -331,7 +339,6 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
   @override
   Widget build(BuildContext context) {
-    print(totalLiablityCommit);
     return Theme(
       data: ThemeData().copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(

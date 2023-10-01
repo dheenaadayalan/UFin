@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 var f = NumberFormat('##,###');
+var formatter = DateFormat('MM');
+var now = DateTime.now();
 
 class ExpencesListView extends StatefulWidget {
   const ExpencesListView({super.key});
@@ -45,19 +47,28 @@ class _ExpencesListViewState extends State<ExpencesListView> {
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 5),
                   child: Row(
                     children: [
-                      if (userExpences[index]['Amount'] > 1)
+                      if (userExpences[index]['Amount'] > 1 &&
+                          formatter.format(
+                                  userExpences[index]['Date'].toDate()) ==
+                              formatter.format(now))
                         Text(
                           userExpences[index]['Budget'].toString(),
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       const Spacer(),
-                      if (userExpences[index]['Amount'] > 1)
+                      if (userExpences[index]['Amount'] > 1 &&
+                          formatter.format(
+                                  userExpences[index]['Date'].toDate()) ==
+                              formatter.format(now))
                         Text(
                           '₹ ${f.format(amount[index]).toString()}',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       const Spacer(),
-                      if (userExpences[index]['Amount'] > 1)
+                      if (userExpences[index]['Amount'] > 1 &&
+                          formatter.format(
+                                  userExpences[index]['Date'].toDate()) ==
+                              formatter.format(now))
                         Text(
                           DateFormat.yMMMMd('en_US')
                               .format(userExpences[index]['Date'].toDate())

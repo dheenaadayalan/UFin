@@ -377,7 +377,7 @@ class _RefactorChooseState extends State<RefactorChoose> {
                               ),
                             );
                           },
-                          child: const Text('Commit'),
+                          child: const Text('Continue'),
                         ),
                       ),
                     ),

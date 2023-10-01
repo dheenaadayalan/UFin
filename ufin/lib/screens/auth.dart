@@ -92,6 +92,13 @@ class _AuthScreenState extends State<AuthScreen> {
           'email': _enteredEmail,
           'image_url': imageUrl,
         });
+
+        await FirebaseFirestore.instance
+            .collection('userSetupProcess')
+            .doc(_enteredEmail)
+            .set({
+          'processDone': false,
+        });
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {

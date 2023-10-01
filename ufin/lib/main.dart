@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:ufin/screens/home_tabs.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:ufin/screens/auth.dart';
+
+import 'package:ufin/screens/home_tabs.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,19 +30,7 @@ class App extends StatelessWidget {
           seedColor: const Color.fromARGB(245, 29, 161, 242), //29 161 242
         ),
       ),
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          }
-          if (snapshot.hasData) {
-            return const HomeTabsScreen();
-          } else {
-            return const AuthScreen();
-          }
-        },
-      ),
+      home: const HomeTabsScreen(),
     );
   }
 }

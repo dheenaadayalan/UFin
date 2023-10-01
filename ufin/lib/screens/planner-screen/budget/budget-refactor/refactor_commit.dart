@@ -142,18 +142,19 @@ class _RefactorCommitState extends State<RefactorCommit> {
       body: Column(
         children: [
           Card(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
+            margin: EdgeInsets.all(12),
+            color: Theme.of(context).colorScheme.tertiaryContainer,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 '₹ ${f.format(widget.refactorAmount)} form the your ${widget.selectedBudgetToRefactored.title} will added to ${widget.selectedBudget.title} untill this month end.',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: Theme.of(context).colorScheme.primaryContainer,
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          // const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -161,25 +162,68 @@ class _RefactorCommitState extends State<RefactorCommit> {
               style: Theme.of(context).textTheme.titleSmall!.copyWith(),
             ),
           ),
+          const SizedBox(height: 25),
+          Text(
+            'Your New Budget',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 25),
+          Container(
+            margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+            child: Row(
+              children: [
+                Text(
+                  'Budget name',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const Spacer(),
+                Text(
+                  'Perority',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(width: 30),
+                Text(
+                  'New Amount',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
+            ),
+          ),
           SizedBox(
-            height: 250,
+            height: 300,
             child: Container(
               margin: const EdgeInsets.all(12),
-              child: ListView.builder(
-                itemCount: userCommitBudget.length,
-                itemBuilder: (context, index) => Row(
-                  children: [
-                    Text(userCommitBudget[index].title),
-                    const SizedBox(width: 10),
-                    Text(userCommitBudget[index].amount.toString()),
-                    const SizedBox(width: 10),
-                    Text(userCommitBudget[index].perferance),
-                    const SizedBox(width: 10),
-                    Text((userCommitBudget[index].amount -
-                            widget.userBudgetExp[index].amount)
-                        .round()
-                        .toString()),
-                  ],
+              child: Card(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: userCommitBudget.length,
+                    itemBuilder: (context, index) => Card(
+                      color: Theme.of(context).colorScheme.background,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              userCommitBudget[index].title,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const Spacer(),
+                            Text(
+                              userCommitBudget[index].perferance,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const SizedBox(width: 30),
+                            Text(
+                              userCommitBudget[index].amount.toString(),
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

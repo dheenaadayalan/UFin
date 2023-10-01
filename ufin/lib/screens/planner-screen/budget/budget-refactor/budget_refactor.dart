@@ -442,7 +442,7 @@ class _BudgetRefactorState extends State<BudgetRefactor> {
                               ),
                             );
                           },
-                          child: const Text('Commit'),
+                          child: const Text('Continue'),
                         ),
                       ),
                     ),

@@ -133,6 +133,15 @@ class _BudgetScreenState extends State<BudgetScreen> {
         'budget type': data,
       },
     );
+
+    await FirebaseFirestore.instance
+        .collection('userSetupProcess')
+        .doc(widget.userMailId)
+        .set(
+      {
+        'processDone': true,
+      },
+    );
   }
 
   @override

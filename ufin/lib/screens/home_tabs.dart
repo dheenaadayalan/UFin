@@ -27,7 +27,7 @@ class _HomeTabsScreenState extends State<HomeTabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget activeScreen = const PlannerScreen();
+    Widget activeScreen = PlannerScreen(selectedPageIndex: selectedPageIndex);
 
     if (selectedPageIndex == 0) {
       activeScreen = const PaymentScreen();

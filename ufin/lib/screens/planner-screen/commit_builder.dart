@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -131,58 +132,85 @@ class _CommitBuilderState extends State<CommitBuilder> {
               if (snapshot.hasData) {
                 final PageController controller = PageController();
                 List newCommitment = snapshot.data!['commitemt'];
-                contex = PageView.builder(
-                  itemCount: newCommitment.length,
-                  controller: controller,
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Card(
-                          // color:
-                          //     Theme.of(context).colorScheme.tertiaryContainer,
+                contex = CarouselSlider(
+                  items: [
+                    PageView.builder(
+                      itemCount: newCommitment.length,
+                      controller: controller,
+                      itemBuilder: (context, index) {
+                        return SizedBox(
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 18, 25, 18),
-                            child: Row(
+                            padding: const EdgeInsets.all(10),
+                            child: Stack(
                               children: [
-                                Text(
-                                  newCommitment[index]['title'].toString(),
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                const Spacer(),
-                                Text(
-                                  '₹ ${f.format(newCommitment[index]['amount']).toString()}',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                const Spacer(),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      formatter
-                                          .format(newCommitment[index]['date']
-                                              .toDate())
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
+                                Card(
+                                  // color:
+                                  //     Theme.of(context).colorScheme.tertiaryContainer,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        25, 18, 25, 18),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          newCommitment[index]['title']
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          '₹ ${f.format(newCommitment[index]['amount']).toString()}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              formatter
+                                                  .format(newCommitment[index]
+                                                          ['date']
+                                                      .toDate())
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              'Every Month',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall,
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      'Every Month',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    )
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ],
+                  options: CarouselOptions(
+                    height: 195.0,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    aspectRatio: 16 / 9,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                    viewportFraction: 0.8,
+                  ),
                 );
               }
               return contex;

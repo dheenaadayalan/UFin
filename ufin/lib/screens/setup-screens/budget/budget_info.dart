@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/budget_model.dart';
-import 'package:ufin/screens/setup-screens/budget/budget_reorder.dart';
+import 'package:ufin/screens/home_tabs.dart';
 import 'package:ufin/screens/setup-screens/budget/add-newBudget/new_budget.dart';
 
 var f = NumberFormat('##,##,###');
@@ -71,15 +71,13 @@ class _BudgetScreenState extends State<BudgetScreen> {
       );
       return;
     }
-    Navigator.of(context).push(
+    Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
         builder: (context) {
-          return BudgetReorder(
-            userMailId: widget.userMailId,
-            budget: _budget,
-          );
+          return const HomeTabsScreen();
         },
       ),
+      (Route route) => false,
     );
 
     List<Map<String, Object>> data = [
@@ -116,6 +114,25 @@ class _BudgetScreenState extends State<BudgetScreen> {
         .set({
       'Current Expences data': data1,
     });
+
+    await FirebaseFirestore.instance
+        .collection('budgetRefactor')
+        .doc(widget.userMailId)
+        .set(
+      {
+        'bool': false,
+        'Month': DateTime.now(),
+      },
+    );
+
+    await FirebaseFirestore.instance
+        .collection('usersBudgetPerority')
+        .doc(widget.userMailId)
+        .set(
+      {
+        'budget type': data,
+      },
+    );
   }
 
   @override

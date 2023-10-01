@@ -44,6 +44,25 @@ class _BudgetReorderState extends State<BudgetReorder> {
         'budget type': data,
       },
     );
+
+    await FirebaseFirestore.instance
+        .collection('budgetRefactor')
+        .doc(widget.userMailId)
+        .set(
+      {
+        'bool': false,
+        'Month': DateTime.now(),
+      },
+    );
+
+    await FirebaseFirestore.instance
+        .collection('userSetupProcess')
+        .doc(widget.userMailId)
+        .set(
+      {
+        'processDone': true,
+      },
+    );
   }
 
   @override

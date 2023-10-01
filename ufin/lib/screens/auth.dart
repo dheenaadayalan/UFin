@@ -45,9 +45,15 @@ class _AuthScreenState extends State<AuthScreen> {
         _isAuthenticating = true;
       });
       if (_isLogin) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeTabsScreen()),
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) {
+              return const HomeTabsScreen();
+            },
+          ),
+          (Route route) => false,
         );
+
         final userCredentials = await _firebase.signInWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
 
@@ -59,6 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 userName: _enteredUsername, userMailId: _enteredEmail),
           ),
         );
+
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
 
@@ -71,7 +78,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
         if (_selectedImage == null) {
           imageUrl =
-              'https://firebasestorage.googleapis.com/v0/b/ufin-4195c.appspot.com/o/user_images%2FD5IF2DWfYvQdpu91cjQeE4XcLB82.jpg?alt=media&token=aa36add8-e901-4f02-a30e-3c5ef5390fa6';
+              'https://firebasestorage.googleapis.com/v0/b/ufin-4195c.appspot.com/o/user_images%2F6769264_60111.jpg?alt=media&token=6684fe7b-93ff-49df-bf9c-219e76c1c576';
         } else {
           await storageRef.putFile(_selectedImage!);
           imageUrl = await storageRef.getDownloadURL();

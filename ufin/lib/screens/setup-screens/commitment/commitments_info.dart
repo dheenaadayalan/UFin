@@ -83,10 +83,11 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
           'amount': index.amount,
           'type': index.commitType,
           'date': index.date,
-          'commitDateType': index.commitdatetype
+          'commitDateType': index.commitdatetype,
+          'bool': index.paidStatus,
         }
     ];
-    print(data);
+
     await FirebaseFirestore.instance
         .collection('users Monthly Commitment')
         .doc(widget.userMailId)

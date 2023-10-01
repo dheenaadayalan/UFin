@@ -64,6 +64,7 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
         amount: listOfMaps[index]['amount'],
         commitType: listOfMaps[index]['type'],
         commitdatetype: listOfMaps[index]['commitDateType'],
+        paidStatus: listOfMaps[index]['bool'],
       );
     });
   }
@@ -343,7 +344,8 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
                                     ),
                                     const SizedBox(height: 20),
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                      margin:
+                                          const EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Row(
                                         children: [
                                           Text(

@@ -58,6 +58,7 @@ class _NewCommitmentState extends State<NewCommitment> {
         commitType: commitType,
         date: selectedDate,
         commitdatetype: commitdatetype,
+        paidStatus: false,
       ),
     );
 

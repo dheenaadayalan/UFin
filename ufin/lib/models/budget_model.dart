@@ -32,3 +32,18 @@ class BudgetPerority {
   final num amount;
   final num index;
 }
+
+class BudgetRefactor1 {
+  BudgetRefactor1({
+    required this.title,
+    required this.perferance,
+    required this.budgetAmount,
+    required this.balance,
+    required this.totalExp,
+  });
+  final String title;
+  final String perferance;
+  final num budgetAmount;
+  final num balance;
+  final num totalExp;
+}

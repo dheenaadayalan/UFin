@@ -5,8 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:ufin/models/expences_modes.dart';
+//import 'package:ufin/screens/planner-screen/budget/barchart/budget_barchart.dart';
 import 'package:ufin/screens/planner-screen/budget/budget_edit.dart';
-import 'package:ufin/screens/planner-screen/budget/budget_refactor.dart';
+import 'package:ufin/screens/planner-screen/budget/budget-refactor/budget_refactor.dart';
 
 //import 'package:ufin/models/exp_dummy_data.dart';
 
@@ -32,10 +33,15 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
   final userEmail = FirebaseAuth.instance.currentUser!.email;
   num totalExp = 0;
   //num _userTotalBudget = 0;
+  bool newBudget = false;
+  var now = DateTime.now();
+  var formatter = DateFormat('MM');
+  var newBudgetMonth = 0;
 
   @override
   void initState() {
     initialize(); //   have it for now and remove it later if not needed
+    initialize2();
     super.initState();
   }
 
@@ -50,6 +56,19 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
         // print(userTotalBudget);
       },
     );
+  }
+
+  void initialize2() async {
+    await FirebaseFirestore.instance
+        .collection('budgetRefactor')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        newBudget = doc['bool'];
+        newBudgetMonth = int.parse(formatter.format(doc['Month'].toDate()));
+      });
+    });
   }
 
   @override
@@ -356,7 +375,37 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                   Widget contex = const Center(
                     child: CircularProgressIndicator(),
                   );
-                  if (snapshot.hasData) {
+                  if (newBudget == true &&
+                      newBudgetMonth == int.parse(formatter.format(now)) &&
+                      snapshot.hasData) {
+                    List userBudget = snapshot.data!['new Budget'];
+                    contex = ListView.builder(
+                      itemCount: userBudget.length,
+                      itemBuilder: (context, index) => Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                userBudget[index]['title'],
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              const Spacer(),
+                              Text(
+                                '₹ ${f.format(widget.userBudgetExp[index].amount).toString()}',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              const SizedBox(width: 40),
+                              Text(
+                                '₹ ${f.format(userBudget[index]['amount'] - widget.userBudgetExp[index].amount).toString()}',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  } else if (snapshot.hasData) {
                     List userBudget = snapshot.data!['budget type'];
                     contex = ListView.builder(
                       itemCount: userBudget.length,
@@ -395,12 +444,15 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const BudgetRefactor(),
+                    builder: (context) =>
+                        BudgetRefactor(userBudgetExp: widget.userBudgetExp),
                   ),
                 );
               },
               child: const Text('Delet me later'),
             ),
+            // const SizedBox(height: 20),
+            // const BudgetBarChart(),
           ],
         ),
       ),

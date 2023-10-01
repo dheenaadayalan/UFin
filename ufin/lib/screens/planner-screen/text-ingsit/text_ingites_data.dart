@@ -40,6 +40,9 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
   var formatterMonth = DateFormat('MM');
   var formatterMonthYear = DateFormat('d');
   var formatterMonthDateYear = DateFormat('Md');
+  bool newBudget = false;
+  var newBudgetMonth = 0;
+  var formatter = DateFormat('MM');
 
   @override
   void initState() {
@@ -53,15 +56,33 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
   void initializeBudgetAmount() async {
     await FirebaseFirestore.instance
+        .collection('budgetRefactor')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        newBudget = doc['bool'];
+        newBudgetMonth = int.parse(formatter.format(doc['Month'].toDate()));
+      });
+    });
+    await FirebaseFirestore.instance
         .collection('usersBudget')
         .doc(userEmail)
         .get()
         .then(
       (DocumentSnapshot doc) async {
-        List budgetMap = doc['budget type'];
-        setState(() {
-          budgetList = convertListOfMapsToListBudget(budgetMap);
-        });
+        if (newBudget == true &&
+            newBudgetMonth == int.parse(formatter.format(now))) {
+          List budgetMap = doc['new Budget'];
+          setState(() {
+            budgetList = convertListOfMapsToListBudget(budgetMap);
+          });
+        } else {
+          List budgetMap = doc['budget type'];
+          setState(() {
+            budgetList = convertListOfMapsToListBudget(budgetMap);
+          });
+        }
       },
     );
   }
@@ -97,11 +118,20 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           int balancedate =
               int.parse(formatterMonthYear.format(commitmentList[i].date)) -
                   int.parse(formatterMonthYear.format(now));
-          if (balancedate <= 5 && balancedate >= 0) {
+          if (balancedate <= 5 && balancedate > 0) {
             textInsigitsData.add(
               TextInsigits(
                 data:
                     'You still have $balancedate days left for your ${commitmentList[i].title} payment',
+                colorType: Colors.orange,
+              ),
+            );
+          }
+          if (balancedate <= 5 && balancedate == 0) {
+            textInsigitsData.add(
+              TextInsigits(
+                data:
+                    'Your ${commitmentList[i].title} payment is due today have you paid it?',
                 colorType: Colors.orange,
               ),
             );
@@ -130,6 +160,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           amount: listOfMaps[index]['amount'],
           commitdatetype: listOfMaps[index]['commitDateType'],
           date: listOfMaps[index]['date'].toDate(),
+          paidStatus: listOfMaps[index]['bool'],
         );
       },
     );
@@ -163,6 +194,16 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
   void initializeExpences() async {
     await FirebaseFirestore.instance
+        .collection('budgetRefactor')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        newBudget = doc['bool'];
+        newBudgetMonth = int.parse(formatter.format(doc['Month'].toDate()));
+      });
+    });
+    await FirebaseFirestore.instance
         .collection('usersIncomeData')
         .doc(userEmail)
         .get()
@@ -179,10 +220,18 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
         .get()
         .then(
       (DocumentSnapshot doc) async {
-        List budgetMap = doc['budget type'];
-        setState(() {
-          budgetList = convertListOfMapsToListBudget(budgetMap);
-        });
+        if (newBudget == true &&
+            newBudgetMonth == int.parse(formatter.format(now))) {
+          List budgetMap = doc['new Budget'];
+          setState(() {
+            budgetList = convertListOfMapsToListBudget(budgetMap);
+          });
+        } else {
+          List budgetMap = doc['budget type'];
+          setState(() {
+            budgetList = convertListOfMapsToListBudget(budgetMap);
+          });
+        }
       },
     );
     await FirebaseFirestore.instance
@@ -232,7 +281,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           textInsigitsData.add(
             TextInsigits(
               data:
-                  "You have spent more than 20% of your Income in just 5 day's, At this rate you can't achieve savings Targrt ",
+                  "You have spent more than ${((last6DaysExp / totalIncome) * 100).toStringAsPrecision(3)}% of your total budget in just 5 day's, At this rate you can't achieve savings Targrt ",
               colorType: Colors.red,
             ),
           );
@@ -265,21 +314,21 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           ));
         }
 
-        for (var i = 0; i < budgetTotalExpData.length; i++) {
+        for (var i = 0; i < budgetList.length; i++) {
           if (budgetTotalExpData[i].amount >=
                   (budgetList[i].amount * 80 / 100) &&
               budgetTotalExpData[i].amount <= (budgetList[i].amount)) {
             textInsigitsData.add(
               TextInsigits(
                 data:
-                    'You have spent ${((budgetTotalExpData[i].amount / budgetList[i].amount) * 100).toStringAsPrecision(3)} of your budget on ${budgetList[i].title}',
+                    'You have spent ${((budgetTotalExpData[i].amount / budgetList[i].amount) * 100).toStringAsPrecision(3)}% of your budget on ${budgetList[i].title}',
                 colorType: Theme.of(context).colorScheme.secondary,
               ),
             );
           }
         }
 
-        for (var i = 0; i < budgetTotalExpData.length; i++) {
+        for (var i = 0; i < budgetList.length; i++) {
           if (budgetTotalExpData[i].amount >= (budgetList[i].amount)) {
             textInsigitsData.add(
               TextInsigits(
@@ -295,7 +344,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           textInsigitsData.add(
             TextInsigits(
               data:
-                  'You have spent less than 50% your Income, Your saving is ₹ ${f.format(blanceAmount)}',
+                  'You have spent less than 50% your Income, Your saving is ₹ ${f.format(blanceAmount)}', // need to be checked later
               colorType: Colors.green,
             ),
           );

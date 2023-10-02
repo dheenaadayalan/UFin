@@ -439,18 +439,47 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        BudgetRefactor(userBudgetExp: widget.userBudgetExp),
+
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Run out cash in any of your budget?',
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                );
-              },
-              child: const Text('Delet me later'),
+                  const SizedBox(height: 5),
+                  Text(
+                    'Go to refactor screen and plan according to achieve your saving target',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Spacer(),
+                      const Icon(Icons.chevron_right),
+                      const Icon(Icons.chevron_right),
+                      const Icon(Icons.chevron_right),
+                      const SizedBox(width: 5),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BudgetRefactor(
+                                  userBudgetExp: widget.userBudgetExp),
+                            ),
+                          );
+                        },
+                        child: const Text('Budget Refactor'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
+
             // const SizedBox(height: 20),
             // const BudgetBarChart(),
           ],

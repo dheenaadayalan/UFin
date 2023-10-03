@@ -422,7 +422,7 @@ class _CommitWelcomeState extends State<CommitWelcome> {
                                         ),
                                         const SizedBox(width: 5),
                                         Text(
-                                          'Health Insurance',
+                                          'Insurance',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall!

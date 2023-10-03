@@ -155,24 +155,24 @@ class _NewBudgetState extends State<NewBudget> {
                     ],
                   ),
                 const SizedBox(height: 10),
-                Text(
-                  'Would like to add sub-type your budget',
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                        '(For example Food can have \nsub-type of Resturan, Food Delivery)'),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed: _openSubtypeOver,
-                      child: const Icon(Icons.add),
-                    )
-                  ],
-                ),
+                // Text(
+                //   'Would like to add sub-type your budget',
+                //   textAlign: TextAlign.left,
+                //   style: Theme.of(context).textTheme.titleLarge,
+                // ),
+                // const SizedBox(height: 15),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     const Text(
+                //         '(For example Food can have \nsub-type of Resturan, Food Delivery)'),
+                //     const Spacer(),
+                //     ElevatedButton(
+                //       onPressed: _openSubtypeOver,
+                //       child: const Icon(Icons.add),
+                //     )
+                //   ],
+                // ),
                 if (_budgetSubtypeList.isNotEmpty)
                   SizedBox(
                     height: 200,

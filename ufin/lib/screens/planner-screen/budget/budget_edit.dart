@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/budget_model.dart';
 import 'package:ufin/models/expences_modes.dart';
+import 'package:ufin/screens/home_tabs.dart';
 import 'package:ufin/screens/setup-screens/budget/add-newBudget/new_budget.dart';
 
 var f = NumberFormat('##,##,###');
@@ -73,6 +74,28 @@ class _BudgetEditState extends State<BudgetEdit> {
   }
 
   void _openAddBudgetOverlay() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            NewBudget(onAddBudget: _addBudget, userMailId: widget.userMailId),
+      ),
+    );
+  }
+
+  void _addBudget(Budget budget) {
+    setState(() {
+      _budget.add(budget);
+    });
+  }
+
+  void _removeBudget(Budget budget) {
+    setState(() {
+      _budget.remove(budget);
+    });
+  }
+
+  void saveBudget() async {
     if (_budget.isEmpty) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -98,34 +121,14 @@ class _BudgetEditState extends State<BudgetEdit> {
       );
       return;
     }
-    Navigator.push(
-      context,
+    Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-        builder: (context) =>
-            NewBudget(onAddBudget: _addBudget, userMailId: widget.userMailId),
+        builder: (context) {
+          return const HomeTabsScreen();
+        },
       ),
+      (Route route) => false,
     );
-  }
-
-  void _addBudget(Budget budget) {
-    setState(() {
-      _budget.add(budget);
-    });
-  }
-
-  void _removeBudget(Budget budget) {
-    setState(() {
-      _budget.remove(budget);
-    });
-  }
-
-  void saveBudget() async {
-    Navigator.of(context).pop();
-
-    num totalBudgetAmount = 0;
-    for (int index = 0; index < _budget.length; index++) {
-      totalBudgetAmount += _budget[index].amount;
-    }
 
     List<Map<String, Object>> data = [
       for (var index in _budget)

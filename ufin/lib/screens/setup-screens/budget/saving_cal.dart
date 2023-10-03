@@ -173,14 +173,14 @@ class _SavingCalState extends State<SavingCal> {
                   child: Column(
                     children: [
                       Text(
-                        "It's recomends saving 20% of your Income is best pratices",
+                        "Saving 20% of your Income is best pratices",
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 20),
                       Slider(
                         value: _currentSliderValue,
                         max: 50,
-                        divisions: 5,
+                        divisions: 100,
                         label: _currentSliderValue.round().toString(),
                         onChanged: (double value) {
                           setState(() {

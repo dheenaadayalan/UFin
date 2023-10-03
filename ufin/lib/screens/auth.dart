@@ -78,7 +78,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
         if (_selectedImage == null) {
           imageUrl =
-              'https://firebasestorage.googleapis.com/v0/b/ufin-4195c.appspot.com/o/user_images%2Fprofile-user-icon.jpg?alt=media&token=c8981404-fdfb-48ba-9fd9-0b22b4e79822&_gl=1*e7g8il*_ga*MjA0NDM2NjkzMC4xNjkyNTMwODUy*_ga_CW55HF8NVT*MTY5NjIxOTM2My4xNjUuMS4xNjk2MjE5ODg1LjQ0LjAuMA..';
+              'https://firebasestorage.googleapis.com/v0/b/ufin-4195c.appspot.com/o/user_images%2Fprofile-user-icon%20(1).jpg?alt=media&token=5b28a955-b9d9-4aff-ad6e-d4dbb348b4ff&_gl=1*1ahwxeu*_ga*MjA0NDM2NjkzMC4xNjkyNTMwODUy*_ga_CW55HF8NVT*MTY5NjMxNTg5NC4xNzIuMS4xNjk2MzE3OTY0LjguMC4w';
         } else {
           await storageRef.putFile(_selectedImage!);
           imageUrl = await storageRef.getDownloadURL();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ufin/screens/setting-screens/commitments/commitments_edit.dart';
 
 class IncomeEdit extends StatefulWidget {
   const IncomeEdit({super.key, required this.userMailId});
@@ -33,7 +34,9 @@ class _IncomeEditState extends State<IncomeEdit> {
         salaryValue + businessValue + investimentValue + otherValue;
     _form.currentState!.save();
 
-    Navigator.pop(context);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => CommitmentsEdit(userMailId: widget.userMailId),
+    ));
 
     await FirebaseFirestore.instance
         .collection('usersIncomeData')

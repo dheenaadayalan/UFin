@@ -1,19 +1,19 @@
-Date : 2023-09-10 14:07:44
+Date : 2023-10-03 22:19:38
 Directory : c:\Users\dheen\Desktop\UFin\ufin
-Total : 93 files,  7505 codes, 1068 comments, 762 blanks, all 9335 lines
+Total : 102 files,  11199 codes, 1159 comments, 978 blanks, all 13336 lines
 
 Languages
 +------------+------------+------------+------------+------------+------------+
 | language   | files      | code       | comment    | blank      | total      |
 +------------+------------+------------+------------+------------+------------+
-| Dart       |         45 |      5,956 |        794 |        491 |      7,241 |
-| C++        |         16 |        540 |        118 |        181 |        839 |
+| Dart       |         54 |      9,646 |        882 |        706 |     11,234 |
+| C++        |         16 |        541 |        121 |        182 |        844 |
 | XML        |         10 |        463 |         48 |         12 |        523 |
 | JSON       |          7 |        308 |          0 |          4 |        312 |
 | Groovy     |          3 |         91 |          5 |         22 |        118 |
 | Swift      |          6 |         62 |          7 |         20 |         89 |
+| YAML       |          2 |         39 |         80 |         22 |        141 |
 | HTML       |          1 |         38 |         16 |          6 |         60 |
-| YAML       |          2 |         36 |         80 |         22 |        138 |
 | Properties |          2 |          8 |          0 |          2 |         10 |
 | Markdown   |          1 |          3 |          0 |          2 |          5 |
 +------------+------------+------------+------------+------------+------------+
@@ -22,8 +22,8 @@ Directories
 +-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | path                                                                                                            | files      | code       | comment    | blank      | total      |
 +-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
-| .                                                                                                               |         93 |      7,505 |      1,068 |        762 |      9,335 |
-| . (Files)                                                                                                       |          2 |         36 |         80 |         22 |        138 |
+| .                                                                                                               |        102 |     11,199 |      1,159 |        978 |     13,336 |
+| . (Files)                                                                                                       |          2 |         39 |         80 |         22 |        141 |
 | android                                                                                                         |         13 |        204 |         51 |         33 |        288 |
 | android (Files)                                                                                                 |          3 |         38 |          0 |         10 |         48 |
 | android\app                                                                                                     |          9 |        161 |         51 |         22 |        234 |
@@ -49,39 +49,42 @@ Directories
 | ios\Runner\Assets.xcassets\AppIcon.appiconset                                                                   |          1 |        122 |          0 |          1 |        123 |
 | ios\Runner\Assets.xcassets\LaunchImage.imageset                                                                 |          2 |         26 |          0 |          3 |         29 |
 | ios\Runner\Base.lproj                                                                                           |          2 |         61 |          2 |          2 |         65 |
-| lib                                                                                                             |         44 |      5,942 |        784 |        484 |      7,210 |
-| lib (Files)                                                                                                     |          2 |        109 |         13 |         12 |        134 |
-| lib\models                                                                                                      |          4 |         75 |         97 |         11 |        183 |
-| lib\screens                                                                                                     |         37 |      5,703 |        673 |        450 |      6,826 |
-| lib\screens (Files)                                                                                             |          2 |        275 |          2 |         31 |        308 |
-| lib\screens\payment-screen                                                                                      |          3 |        373 |          3 |         33 |        409 |
-| lib\screens\payment-screen (Files)                                                                              |          2 |         96 |          0 |         13 |        109 |
+| lib                                                                                                             |         53 |      9,632 |        872 |        699 |     11,203 |
+| lib (Files)                                                                                                     |          2 |         95 |         13 |         12 |        120 |
+| lib\models                                                                                                      |          5 |        113 |         99 |         15 |        227 |
+| lib\screens                                                                                                     |         45 |      9,369 |        759 |        661 |     10,789 |
+| lib\screens (Files)                                                                                             |          2 |        318 |          2 |         33 |        353 |
+| lib\screens\payment-screen                                                                                      |          3 |        457 |          5 |         48 |        510 |
+| lib\screens\payment-screen (Files)                                                                              |          2 |        180 |          2 |         28 |        210 |
 | lib\screens\payment-screen\addbudget                                                                            |          1 |        277 |          3 |         20 |        300 |
-| lib\screens\planner-screen                                                                                      |         10 |      1,685 |        636 |        139 |      2,460 |
-| lib\screens\planner-screen (Files)                                                                              |          4 |        639 |         22 |         26 |        687 |
-| lib\screens\planner-screen\budget                                                                               |          6 |      1,046 |        614 |        113 |      1,773 |
-| lib\screens\planner-screen\budget (Files)                                                                       |          2 |        679 |         10 |         38 |        727 |
-| lib\screens\planner-screen\budget\barchart                                                                      |          4 |        367 |        604 |         75 |      1,046 |
-| lib\screens\planner-screen\budget\barchart (Files)                                                              |          2 |        367 |          0 |         36 |        403 |
+| lib\screens\planner-screen                                                                                      |         14 |      3,850 |        652 |        266 |      4,768 |
+| lib\screens\planner-screen (Files)                                                                              |          3 |        821 |          9 |         53 |        883 |
+| lib\screens\planner-screen\budget                                                                               |          9 |      2,421 |        636 |        175 |      3,232 |
+| lib\screens\planner-screen\budget (Files)                                                                       |          2 |        787 |         13 |         42 |        842 |
+| lib\screens\planner-screen\budget\barchart                                                                      |          4 |        588 |        604 |         86 |      1,278 |
+| lib\screens\planner-screen\budget\barchart (Files)                                                              |          2 |        588 |          0 |         47 |        635 |
 | lib\screens\planner-screen\budget\barchart\BarChart example                                                     |          2 |          0 |        604 |         39 |        643 |
-| lib\screens\setting-screens                                                                                     |         10 |      1,422 |         13 |        101 |      1,536 |
+| lib\screens\planner-screen\budget\budget-refactor                                                               |          3 |      1,046 |         19 |         47 |      1,112 |
+| lib\screens\planner-screen\text-ingsit                                                                          |          2 |        608 |          7 |         38 |        653 |
+| lib\screens\setting-screens                                                                                     |         11 |      2,009 |         30 |        138 |      2,177 |
 | lib\screens\setting-screens (Files)                                                                             |          2 |        126 |          0 |         13 |        139 |
-| lib\screens\setting-screens\commitments                                                                         |          2 |        555 |          8 |         37 |        600 |
-| lib\screens\setting-screens\income                                                                              |          2 |        417 |          4 |         21 |        442 |
-| lib\screens\setting-screens\personal                                                                            |          4 |        324 |          1 |         30 |        355 |
-| lib\screens\setting-screens\personal (Files)                                                                    |          2 |        240 |          0 |         16 |        256 |
+| lib\screens\setting-screens\commitments                                                                         |          3 |      1,129 |         25 |         74 |      1,228 |
+| lib\screens\setting-screens\income                                                                              |          2 |        429 |          4 |         21 |        454 |
+| lib\screens\setting-screens\personal                                                                            |          4 |        325 |          1 |         30 |        356 |
+| lib\screens\setting-screens\personal (Files)                                                                    |          2 |        241 |          0 |         16 |        257 |
 | lib\screens\setting-screens\personal\dropdown                                                                   |          2 |         84 |          1 |         14 |         99 |
-| lib\screens\setup-screens                                                                                       |         12 |      1,948 |         19 |        146 |      2,113 |
+| lib\screens\setup-screens                                                                                       |         14 |      2,716 |         70 |        173 |      2,959 |
 | lib\screens\setup-screens (Files)                                                                               |          1 |        232 |          0 |         14 |        246 |
-| lib\screens\setup-screens\budget                                                                                |          5 |        870 |         15 |         73 |        958 |
-| lib\screens\setup-screens\budget (Files)                                                                        |          2 |        449 |          2 |         31 |        482 |
-| lib\screens\setup-screens\budget\add-newBudget                                                                  |          3 |        421 |         13 |         42 |        476 |
-| lib\screens\setup-screens\budget\add-newBudget (Files)                                                          |          2 |        377 |          1 |         30 |        408 |
+| lib\screens\setup-screens\budget                                                                                |          6 |      1,031 |         33 |         89 |      1,153 |
+| lib\screens\setup-screens\budget (Files)                                                                        |          3 |        628 |          2 |         47 |        677 |
+| lib\screens\setup-screens\budget\add-newBudget                                                                  |          3 |        403 |         31 |         42 |        476 |
+| lib\screens\setup-screens\budget\add-newBudget (Files)                                                          |          2 |        359 |         19 |         30 |        408 |
 | lib\screens\setup-screens\budget\add-newBudget\slider                                                           |          1 |         44 |         12 |         12 |         68 |
-| lib\screens\setup-screens\commitment                                                                            |          3 |        597 |          3 |         35 |        635 |
+| lib\screens\setup-screens\commitment                                                                            |          4 |      1,204 |         36 |         46 |      1,286 |
 | lib\screens\setup-screens\persoanl                                                                              |          3 |        249 |          1 |         24 |        274 |
 | lib\screens\setup-screens\persoanl (Files)                                                                      |          1 |        165 |          0 |         10 |        175 |
 | lib\screens\setup-screens\persoanl\dropdown                                                                     |          2 |         84 |          1 |         14 |         99 |
+| lib\screens\splash-screen                                                                                       |          1 |         19 |          0 |          3 |         22 |
 | lib\widget                                                                                                      |          1 |         55 |          1 |         11 |         67 |
 | linux                                                                                                           |          5 |         98 |         27 |         38 |        163 |
 | linux (Files)                                                                                                   |          3 |         86 |         18 |         27 |        131 |
@@ -97,9 +100,9 @@ Directories
 | macos\Runner\Base.lproj                                                                                         |          1 |        343 |          0 |          1 |        344 |
 | test                                                                                                            |          1 |         14 |         10 |          7 |         31 |
 | web                                                                                                             |          2 |         73 |         16 |          7 |         96 |
-| windows                                                                                                         |         10 |        441 |         91 |        142 |        674 |
+| windows                                                                                                         |         10 |        442 |         94 |        143 |        679 |
 | windows\flutter                                                                                                 |          2 |         14 |          9 |         11 |         34 |
-| windows\runner                                                                                                  |          8 |        427 |         82 |        131 |        640 |
+| windows\runner                                                                                                  |          8 |        428 |         85 |        132 |        645 |
 +-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 
 Files
@@ -130,48 +133,57 @@ Files
 | c:\Users\dheen\Desktop\UFin\ufin\ios\Runner\Runner-Bridging-Header.h                                            | C++        |          1 |          0 |          1 |          2 |
 | c:\Users\dheen\Desktop\UFin\ufin\ios\firebase_app_id_file.json                                                  | JSON       |          7 |          0 |          0 |          7 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\firebase_options.dart                                                      | Dart       |         65 |         12 |          6 |         83 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\main.dart                                                                  | Dart       |         44 |          1 |          6 |         51 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\models\budget_model.dart                                                   | Dart       |         18 |          1 |          3 |         22 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\models\commitmet_model.dart                                                | Dart       |         13 |          0 |          2 |         15 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\main.dart                                                                  | Dart       |         30 |          1 |          6 |         37 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\models\budget_model.dart                                                   | Dart       |         44 |          1 |          5 |         50 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\models\commitmet_model.dart                                                | Dart       |         16 |          2 |          2 |         20 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\models\exp_dummy_data.dart                                                 | Dart       |         20 |         96 |          3 |        119 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\models\expences_modes.dart                                                 | Dart       |         24 |          0 |          3 |         27 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\auth.dart                                                          | Dart       |        206 |          1 |         21 |        228 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\home_tabs.dart                                                     | Dart       |         69 |          1 |         10 |         80 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\models\test_insigits.dart                                                  | Dart       |          9 |          0 |          2 |         11 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\auth.dart                                                          | Dart       |        217 |          1 |         24 |        242 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\home_tabs.dart                                                     | Dart       |        101 |          1 |          9 |        111 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\payment-screen\addbudget\add_expences.dart                         | Dart       |        277 |          3 |         20 |        300 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\payment-screen\expences_listview.dart                              | Dart       |         74 |          0 |          8 |         82 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\payment-screen\payment_screen.dart                                 | Dart       |         22 |          0 |          5 |         27 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\payment-screen\expences_listview.dart                              | Dart       |         82 |          0 |          8 |         90 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\payment-screen\payment_screen.dart                                 | Dart       |         98 |          2 |         20 |        120 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\BarChart example\app_resources.dart | Dart       |          0 |          0 |          1 |          1 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\BarChart example\bar_example.dart   | Dart       |          0 |        604 |         38 |        642 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\budget_barchart.dart                | Dart       |        344 |          0 |         33 |        377 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\budget_bar_chart.dart               | Dart       |        565 |          0 |         44 |        609 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\barchart\color_extension.dart                | Dart       |         23 |          0 |          3 |         26 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget_builder.dart                          | Dart       |        375 |          8 |         14 |        397 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget_edit.dart                             | Dart       |        304 |          2 |         24 |        330 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\commit_builder.dart                                 | Dart       |        185 |          2 |          8 |        195 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\planner_header.dart                                 | Dart       |        258 |          0 |          6 |        264 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\planner_screen.dart                                 | Dart       |         27 |          5 |          8 |         40 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text_ingtits.dart                                   | Dart       |        169 |         15 |          4 |        188 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\commitments\commitments_edit.dart                  | Dart       |        425 |          5 |         28 |        458 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\commitments\commitments_setting.dart               | Dart       |        130 |          3 |          9 |        142 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\income\income_edit.dart                            | Dart       |        225 |          0 |         12 |        237 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\income\income_setting.dart                         | Dart       |        192 |          4 |          9 |        205 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget-refactor\budget_refactor.dart         | Dart       |        443 |         17 |         17 |        477 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget-refactor\refactor_choos.dart          | Dart       |        380 |          1 |         14 |        395 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget-refactor\refactor_commit.dart         | Dart       |        223 |          1 |         16 |        240 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget_builder.dart                          | Dart       |        463 |         11 |         17 |        491 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\budget\budget_edit.dart                             | Dart       |        324 |          2 |         25 |        351 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\commit_builder.dart                                 | Dart       |        212 |          7 |          8 |        227 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\planner_header.dart                                 | Dart       |        486 |          0 |         23 |        509 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\planner_screen.dart                                 | Dart       |        123 |          2 |         22 |        147 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text-ingsit\text_ingites_data.dart                  | Dart       |        427 |          4 |         33 |        464 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\planner-screen\text-ingsit\text_ingtits.dart                       | Dart       |        181 |          3 |          5 |        189 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\commitments\commitments_edit.dart                  | Dart       |        448 |          4 |         28 |        480 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\commitments\commitments_setting.dart               | Dart       |        136 |         15 |          9 |        160 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\commitments\saving_edit.dart                       | Dart       |        545 |          6 |         37 |        588 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\income\income_edit.dart                            | Dart       |        228 |          0 |         12 |        240 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\income\income_setting.dart                         | Dart       |        201 |          4 |          9 |        214 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\name_img_setting.dart                              | Dart       |         86 |          0 |          6 |         92 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\personal\dropdown\gender_dropdown.dart             | Dart       |         42 |          1 |          7 |         50 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\personal\dropdown\living_dropdown.dart             | Dart       |         42 |          0 |          7 |         49 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\personal\personal_setting.dart                     | Dart       |        103 |          0 |          6 |        109 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\personal\personal_setting.dart                     | Dart       |        104 |          0 |          6 |        110 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\personal\personal_setting_edit.dart                | Dart       |        137 |          0 |         10 |        147 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setting-screens\setting_screen.dart                                | Dart       |         40 |          0 |          7 |         47 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\add-newBudget\new_budget.dart                 | Dart       |        272 |          1 |         21 |        294 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\add-newBudget\new_budget.dart                 | Dart       |        254 |         19 |         21 |        294 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\add-newBudget\slider\budget_slider.dart       | Dart       |         44 |         12 |         12 |         68 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\add-newBudget\subtype_budget.dart             | Dart       |        105 |          0 |          9 |        114 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\budget_info.dart                              | Dart       |        254 |          0 |         20 |        274 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\budget_info.dart                              | Dart       |        299 |          0 |         24 |        323 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\budget_reorder.dart                           | Dart       |        134 |          0 |         12 |        146 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\budget\saving_cal.dart                               | Dart       |        195 |          2 |         11 |        208 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\commitments_info.dart                     | Dart       |        354 |          2 |         16 |        372 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\commit_welcom.dart                        | Dart       |        601 |          5 |          8 |        614 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\commitments_info.dart                     | Dart       |        333 |          2 |         17 |        352 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\new_commit_dropdown.dart                  | Dart       |         41 |          0 |          7 |         48 |
-| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\new_commitment.dart                       | Dart       |        202 |          1 |         12 |        215 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\commitment\new_commitment.dart                       | Dart       |        229 |         29 |         14 |        272 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\income_info.dart                                     | Dart       |        232 |          0 |         14 |        246 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\persoanl\dropdown\gender_dropdown.dart               | Dart       |         42 |          1 |          7 |         50 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\persoanl\dropdown\living_dropdown.dart               | Dart       |         42 |          0 |          7 |         49 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\screens\setup-screens\persoanl\personal_info.dart                          | Dart       |        165 |          0 |         10 |        175 |
+| c:\Users\dheen\Desktop\UFin\ufin\lib\screens\splash-screen\splash_screen.dart                                   | Dart       |         19 |          0 |          3 |         22 |
 | c:\Users\dheen\Desktop\UFin\ufin\lib\widget\user_image_picker.dart                                              | Dart       |         55 |          1 |         11 |         67 |
 | c:\Users\dheen\Desktop\UFin\ufin\linux\flutter\generated_plugin_registrant.cc                                   | C++        |          7 |          4 |          5 |         16 |
 | c:\Users\dheen\Desktop\UFin\ufin\linux\flutter\generated_plugin_registrant.h                                    | C++        |          5 |          5 |          6 |         16 |
@@ -185,13 +197,13 @@ Files
 | c:\Users\dheen\Desktop\UFin\ufin\macos\Runner\Base.lproj\MainMenu.xib                                           | XML        |        343 |          0 |          1 |        344 |
 | c:\Users\dheen\Desktop\UFin\ufin\macos\Runner\MainFlutterWindow.swift                                           | Swift      |         12 |          0 |          4 |         16 |
 | c:\Users\dheen\Desktop\UFin\ufin\macos\firebase_app_id_file.json                                                | JSON       |          7 |          0 |          0 |          7 |
-| c:\Users\dheen\Desktop\UFin\ufin\pubspec.yaml                                                                   | YAML       |         33 |         57 |         18 |        108 |
+| c:\Users\dheen\Desktop\UFin\ufin\pubspec.yaml                                                                   | YAML       |         36 |         57 |         18 |        111 |
 | c:\Users\dheen\Desktop\UFin\ufin\test\widget_test.dart                                                          | Dart       |         14 |         10 |          7 |         31 |
 | c:\Users\dheen\Desktop\UFin\ufin\web\index.html                                                                 | HTML       |         38 |         16 |          6 |         60 |
 | c:\Users\dheen\Desktop\UFin\ufin\web\manifest.json                                                              | JSON       |         35 |          0 |          1 |         36 |
 | c:\Users\dheen\Desktop\UFin\ufin\windows\flutter\generated_plugin_registrant.cc                                 | C++        |          9 |          4 |          5 |         18 |
 | c:\Users\dheen\Desktop\UFin\ufin\windows\flutter\generated_plugin_registrant.h                                  | C++        |          5 |          5 |          6 |         16 |
-| c:\Users\dheen\Desktop\UFin\ufin\windows\runner\flutter_window.cpp                                              | C++        |         48 |          4 |         15 |         67 |
+| c:\Users\dheen\Desktop\UFin\ufin\windows\runner\flutter_window.cpp                                              | C++        |         49 |          7 |         16 |         72 |
 | c:\Users\dheen\Desktop\UFin\ufin\windows\runner\flutter_window.h                                                | C++        |         20 |          5 |          9 |         34 |
 | c:\Users\dheen\Desktop\UFin\ufin\windows\runner\main.cpp                                                        | C++        |         30 |          4 |         10 |         44 |
 | c:\Users\dheen\Desktop\UFin\ufin\windows\runner\resource.h                                                      | C++        |          9 |          6 |          2 |         17 |
@@ -199,5 +211,5 @@ Files
 | c:\Users\dheen\Desktop\UFin\ufin\windows\runner\utils.h                                                         | C++        |          8 |          6 |          6 |         20 |
 | c:\Users\dheen\Desktop\UFin\ufin\windows\runner\win32_window.cpp                                                | C++        |        210 |         24 |         55 |        289 |
 | c:\Users\dheen\Desktop\UFin\ufin\windows\runner\win32_window.h                                                  | C++        |         48 |         31 |         24 |        103 |
-| Total                                                                                                           |            |      7,505 |      1,068 |        762 |      9,335 |
+| Total                                                                                                           |            |     11,199 |      1,159 |        978 |     13,336 |
 +-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

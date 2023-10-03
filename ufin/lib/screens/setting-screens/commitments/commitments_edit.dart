@@ -4,17 +4,19 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/commitmet_model.dart';
+import 'package:ufin/screens/setting-screens/commitments/saving_edit.dart';
 import 'package:ufin/screens/setup-screens/commitment/new_commitment.dart';
 
 var f = NumberFormat('##,##,###');
 var formatterMonth = DateFormat('Md');
 
 class CommitmentsEdit extends StatefulWidget {
-  const CommitmentsEdit(
-      {super.key, required this.userMailId, required this.newCommitment});
+  const CommitmentsEdit({
+    super.key,
+    required this.userMailId,
+  });
 
   final String userMailId;
-  final List newCommitment;
 
   @override
   State<CommitmentsEdit> createState() => _CommitmentsEditState();
@@ -98,50 +100,7 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
     });
   }
 
-  void summit() async {
-    final isValid = _form.currentState!.validate();
-
-    if (!isValid) {
-      return;
-    }
-
-    Navigator.of(context).pop();
-
-    final db = await FirebaseFirestore.instance
-        .collection('usersIncomeData')
-        .doc(widget.userMailId)
-        .get();
-
-    final _totalIncome = db.data()!['total Incom'];
-
-    final balanceBugetBeforSaving =
-        _totalIncome - (_assetsCommit + _lablityCommit);
-    _form.currentState!.save();
-
-    List<Map<String, Object>> data = [
-      for (var index in _newCommitment)
-        {
-          'title': index.title,
-          'amount': index.amount,
-          'type': index.commitType,
-          'date': index.date,
-          'commitDateType': index.commitdatetype
-        }
-    ];
-
-    await FirebaseFirestore.instance
-        .collection('users Monthly Commitment')
-        .doc(widget.userMailId)
-        .set(
-      {
-        'lablity commitment': _lablityCommit,
-        'assets commitment': _assetsCommit,
-        'balance budget befor saving': balanceBugetBeforSaving,
-        'total commitments': _assetsCommit + _lablityCommit,
-        'commitemt': data
-      },
-    );
-  }
+  void summit() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -434,7 +393,71 @@ class _CommitmentsEditState extends State<CommitmentsEdit> {
                                             .colorScheme
                                             .primaryContainer,
                                       ),
-                                      onPressed: summit,
+                                      onPressed: () async {
+                                        final isValid =
+                                            _form.currentState!.validate();
+
+                                        if (!isValid) {
+                                          return;
+                                        }
+
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => SavingCalEdit(
+                                              userMailId: widget.userMailId,
+                                              balanceToBudget: totalIncome -
+                                                  (_assetsCommit +
+                                                      _lablityCommit),
+                                              totalIncome: totalIncome,
+                                            ),
+                                          ),
+                                        );
+
+                                        final db = await FirebaseFirestore
+                                            .instance
+                                            .collection('usersIncomeData')
+                                            .doc(widget.userMailId)
+                                            .get();
+
+                                        final _totalIncome =
+                                            db.data()!['total Incom'];
+
+                                        final balanceBugetBeforSaving =
+                                            _totalIncome -
+                                                (_assetsCommit +
+                                                    _lablityCommit);
+                                        _form.currentState!.save();
+
+                                        List<Map<String, Object>> data = [
+                                          for (var index in _newCommitment)
+                                            {
+                                              'title': index.title,
+                                              'amount': index.amount,
+                                              'type': index.commitType,
+                                              'date': index.date,
+                                              'commitDateType':
+                                                  index.commitdatetype,
+                                              'bool': index.paidStatus,
+                                            }
+                                        ];
+
+                                        await FirebaseFirestore.instance
+                                            .collection(
+                                                'users Monthly Commitment')
+                                            .doc(widget.userMailId)
+                                            .set(
+                                          {
+                                            'lablity commitment':
+                                                _lablityCommit,
+                                            'assets commitment': _assetsCommit,
+                                            'balance budget befor saving':
+                                                balanceBugetBeforSaving,
+                                            'total commitments':
+                                                _assetsCommit + _lablityCommit,
+                                            'commitemt': data
+                                          },
+                                        );
+                                      },
                                       child: const Text('Save'),
                                     )
                                   ],

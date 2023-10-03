@@ -57,8 +57,9 @@ class _BudgetEditState extends State<BudgetEdit> {
         .get()
         .then(
       (DocumentSnapshot doc) {
-        balanceBuget = doc['balance to budget'];
-        print(balanceBuget);
+        setState(() {
+          balanceBuget = doc['balance to budget'];
+        });
       },
     );
   }

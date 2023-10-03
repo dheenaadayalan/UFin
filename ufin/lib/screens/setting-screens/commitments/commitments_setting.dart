@@ -32,14 +32,13 @@ class _CommitmentsSettingState extends State<CommitmentsSetting> {
           child: CircularProgressIndicator(),
         );
         if (snapshot.hasData) {
-          List newCommitment = snapshot.data!['commitemt'];
           contex = InkWell(
             onTap: () async {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => CommitmentsEdit(
-                      userMailId: widget.userMailId,
-                      newCommitment: newCommitment),
+                    userMailId: widget.userMailId,
+                  ),
                 ),
               );
             },

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/models/expences_modes.dart';
+import 'package:ufin/screens/payment-screen/payment_screen.dart';
 
 var f = NumberFormat('##,##,###');
 var formatterMonth = DateFormat('MM');
@@ -228,34 +229,50 @@ class _HeaderState extends State<PlanerHeader> {
                 children: [
                   SizedBox(
                     width: 170,
-                    child: Card(
-                      color: Colors.red[500],
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              'Total Expences',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Scaffold(
+                              appBar: AppBar(
+                                title: const Text('UFin'),
+                              ),
+                              body: const PaymentScreen(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        color: Colors.red[500],
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Total Expences',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                '₹ ${f.format(totalExp)}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onPrimary),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              '₹ ${f.format(totalExp)}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                            ),
-                          ],
+                                          .onPrimary,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

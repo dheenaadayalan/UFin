@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/screens/payment-screen/payment_screen.dart';
 import 'package:ufin/screens/planner-screen/planner_screen.dart';
+import 'package:ufin/screens/quick-planner/quick_plan_screen.dart';
 import 'package:ufin/screens/setting-screens/setting_screen.dart';
 import 'package:ufin/screens/auth.dart';
 import 'package:ufin/screens/setup-screens/persoanl/personal_info.dart';
@@ -64,14 +65,18 @@ class _HomeTabsScreenState extends State<HomeTabsScreen> {
                       // remove this logout laater and include sign out only in setting screen
                       IconButton(
                         onPressed: () {
-                          FirebaseAuth.instance.signOut();
+                          // FirebaseAuth.instance.signOut();
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //   builder: (context) => const AuthScreen(),
+                          // ));
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AuthScreen(),
+                            builder: (context) => const QuickPlanner(),
                           ));
                         },
                         icon: Icon(
-                          Icons.exit_to_app,
+                          Icons.add_chart_sharp,
                           color: Theme.of(context).colorScheme.primary,
+                          size: 35,
                         ),
                       ),
                     ],

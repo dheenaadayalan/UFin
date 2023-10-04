@@ -100,8 +100,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
         const BudgetBarChart(),
         const SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Over Spend any of your Budgets?',

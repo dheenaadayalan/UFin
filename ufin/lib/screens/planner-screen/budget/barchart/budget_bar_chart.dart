@@ -260,78 +260,105 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                                     }
                                   }
 
-                                  contex = BarChart(
-                                    BarChartData(
-                                      barTouchData: barTouchData,
-                                      titlesData: FlTitlesData(
-                                        show: true,
-                                        bottomTitles: AxisTitles(
-                                          axisNameSize: 30,
-                                          sideTitles: SideTitles(
-                                            showTitles: true,
-                                            reservedSize: 30,
-                                            interval: 1,
-                                            getTitlesWidget: (value, meta) {
-                                              var date = value.toInt() >=
-                                                      userBudget.length
-                                                  ? _userBudget[value.toInt()]
-                                                      ['title']
-                                                  : "hello";
-                                              return SideTitleWidget(
-                                                axisSide: meta.axisSide,
-                                                child: Text(date),
-                                              );
-                                            },
+                                  double www = 350;
+
+                                  if (_userBudget.length >= 6 &&
+                                      _userBudget.length <= 8) {
+                                    www = 400;
+                                  } else if (_userBudget.length >= 9 &&
+                                      _userBudget.length <= 11) {
+                                    www = 450;
+                                  } else if (_userBudget.length >= 12 &&
+                                      _userBudget.length <= 14) {
+                                    www = 500;
+                                  }
+
+                                  contex = SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: SizedBox(
+                                      width: www,
+                                      child: BarChart(
+                                        BarChartData(
+                                          barTouchData: barTouchData,
+                                          titlesData: FlTitlesData(
+                                            show: true,
+                                            bottomTitles: AxisTitles(
+                                              axisNameSize: 30,
+                                              sideTitles: SideTitles(
+                                                showTitles: true,
+                                                reservedSize: 30,
+                                                interval: 1,
+                                                getTitlesWidget: (value, meta) {
+                                                  var date = value.toInt() >=
+                                                          userBudget.length
+                                                      ? _userBudget[value
+                                                          .toInt()]['title']
+                                                      : "hello";
+                                                  return SideTitleWidget(
+                                                    axisSide: meta.axisSide,
+                                                    child: Text(date),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            leftTitles: const AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
+                                            topTitles: const AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
+                                            rightTitles: const AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
                                           ),
-                                        ),
-                                        leftTitles: const AxisTitles(
-                                          sideTitles:
-                                              SideTitles(showTitles: false),
-                                        ),
-                                        topTitles: const AxisTitles(
-                                          sideTitles:
-                                              SideTitles(showTitles: false),
-                                        ),
-                                        rightTitles: const AxisTitles(
-                                          sideTitles:
-                                              SideTitles(showTitles: false),
+                                          borderData: borderData,
+                                          barGroups: [
+                                            if (budgetTotalExpData1.isEmpty)
+                                              BarChartGroupData(
+                                                x: 0,
+                                              )
+                                            else
+                                              for (int i = 0;
+                                                  i < _userBudget.length;
+                                                  i++)
+                                                BarChartGroupData(
+                                                  x: i,
+                                                  barsSpace: 15,
+                                                  barRods: [
+                                                    BarChartRodData(
+                                                        toY: _userBudget[i]
+                                                                ['amount'] +
+                                                            0.0,
+                                                        width: 10,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primaryContainer),
+                                                    BarChartRodData(
+                                                        toY:
+                                                            budgetTotalExpData1[
+                                                                        i]
+                                                                    .amount
+                                                                as double)
+                                                  ],
+                                                  showingTooltipIndicators: [
+                                                    0,
+                                                    1
+                                                  ],
+                                                ),
+                                          ],
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer,
+                                          gridData:
+                                              const FlGridData(show: false),
+                                          alignment:
+                                              BarChartAlignment.spaceAround,
+                                          maxY: largestGeekValue + 1300.0,
                                         ),
                                       ),
-                                      borderData: borderData,
-                                      barGroups: [
-                                        if (budgetTotalExpData1.isEmpty)
-                                          BarChartGroupData(
-                                            x: 0,
-                                          )
-                                        else
-                                          for (int i = 0;
-                                              i < _userBudget.length;
-                                              i++)
-                                            BarChartGroupData(
-                                              x: i,
-                                              barsSpace: 15,
-                                              barRods: [
-                                                BarChartRodData(
-                                                    toY: _userBudget[i]
-                                                            ['amount'] +
-                                                        0.0,
-                                                    width: 10,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primaryContainer),
-                                                BarChartRodData(
-                                                    toY: budgetTotalExpData1[i]
-                                                        .amount as double)
-                                              ],
-                                              showingTooltipIndicators: [0, 1],
-                                            ),
-                                      ],
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryContainer,
-                                      gridData: const FlGridData(show: false),
-                                      alignment: BarChartAlignment.spaceAround,
-                                      maxY: largestGeekValue + 1300.0,
                                     ),
                                   );
                                 }
@@ -455,78 +482,103 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                                     }
                                   }
 
-                                  contex = BarChart(
-                                    BarChartData(
-                                      barTouchData: barTouchData,
-                                      titlesData: FlTitlesData(
-                                        show: true,
-                                        bottomTitles: AxisTitles(
-                                          axisNameSize: 30,
-                                          sideTitles: SideTitles(
-                                            showTitles: true,
-                                            reservedSize: 30,
-                                            interval: 1,
-                                            getTitlesWidget: (value, meta) {
-                                              var date = value.toInt() >=
-                                                      userBudget.length
-                                                  ? _userBudget[value.toInt()]
-                                                      ['title']
-                                                  : "hello";
-                                              return SideTitleWidget(
-                                                axisSide: meta.axisSide,
-                                                child: Text(date),
-                                              );
-                                            },
+                                  double www = 350;
+
+                                  if (_userBudget.length >= 6 &&
+                                      _userBudget.length <= 8) {
+                                    www = 400;
+                                  } else if (_userBudget.length >= 9 &&
+                                      _userBudget.length <= 11) {
+                                    www = 450;
+                                  } else if (_userBudget.length >= 12 &&
+                                      _userBudget.length <= 14) {
+                                    www = 500;
+                                  }
+
+                                  contex = SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: SizedBox(
+                                      width: www,
+                                      child: BarChart(
+                                        BarChartData(
+                                          barTouchData: barTouchData,
+                                          titlesData: FlTitlesData(
+                                            show: true,
+                                            bottomTitles: AxisTitles(
+                                              axisNameSize: 30,
+                                              sideTitles: SideTitles(
+                                                showTitles: true,
+                                                reservedSize: 30,
+                                                interval: 1,
+                                                getTitlesWidget: (value, meta) {
+                                                  var date = value.toInt() >=
+                                                          userBudget.length
+                                                      ? _userBudget[value
+                                                          .toInt()]['title']
+                                                      : "hello";
+                                                  return SideTitleWidget(
+                                                    axisSide: meta.axisSide,
+                                                    child: Text(date),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            leftTitles: const AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
+                                            topTitles: const AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
+                                            rightTitles: const AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
                                           ),
-                                        ),
-                                        leftTitles: const AxisTitles(
-                                          sideTitles:
-                                              SideTitles(showTitles: false),
-                                        ),
-                                        topTitles: const AxisTitles(
-                                          sideTitles:
-                                              SideTitles(showTitles: false),
-                                        ),
-                                        rightTitles: const AxisTitles(
-                                          sideTitles:
-                                              SideTitles(showTitles: false),
+                                          borderData: borderData,
+                                          barGroups: [
+                                            if (budgetTotalExpData.isEmpty)
+                                              BarChartGroupData(
+                                                x: 0,
+                                              )
+                                            else
+                                              for (int i = 0;
+                                                  i < _userBudget.length;
+                                                  i++)
+                                                BarChartGroupData(
+                                                  x: i,
+                                                  barsSpace: 15,
+                                                  barRods: [
+                                                    BarChartRodData(
+                                                        toY: _userBudget[i]
+                                                                ['amount'] +
+                                                            0.0,
+                                                        width: 10,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primaryContainer),
+                                                    BarChartRodData(
+                                                        toY: budgetTotalExpData[
+                                                                i]
+                                                            .amount as double)
+                                                  ],
+                                                  showingTooltipIndicators: [
+                                                    0,
+                                                    1
+                                                  ],
+                                                ),
+                                          ],
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer,
+                                          gridData:
+                                              const FlGridData(show: false),
+                                          alignment:
+                                              BarChartAlignment.spaceAround,
+                                          maxY: largestGeekValue + 1300.0,
                                         ),
                                       ),
-                                      borderData: borderData,
-                                      barGroups: [
-                                        if (budgetTotalExpData.isEmpty)
-                                          BarChartGroupData(
-                                            x: 0,
-                                          )
-                                        else
-                                          for (int i = 0;
-                                              i < _userBudget.length;
-                                              i++)
-                                            BarChartGroupData(
-                                              x: i,
-                                              barsSpace: 15,
-                                              barRods: [
-                                                BarChartRodData(
-                                                    toY: _userBudget[i]
-                                                            ['amount'] +
-                                                        0.0,
-                                                    width: 10,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primaryContainer),
-                                                BarChartRodData(
-                                                    toY: budgetTotalExpData[i]
-                                                        .amount as double)
-                                              ],
-                                              showingTooltipIndicators: [0, 1],
-                                            ),
-                                      ],
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryContainer,
-                                      gridData: const FlGridData(show: false),
-                                      alignment: BarChartAlignment.spaceAround,
-                                      maxY: largestGeekValue + 1300.0,
                                     ),
                                   );
                                 }

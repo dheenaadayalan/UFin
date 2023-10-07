@@ -1,47 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:ufin/screens/quick-planner/plan_function.dart';
-import 'package:ufin/screens/quick-planner/plan_list.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:ufin/models/budget_model.dart';
-import 'package:ufin/models/commitmet_model.dart';
-import 'package:ufin/models/expences_modes.dart';
-
-var f = NumberFormat('##,###');
-
-const List<Widget> month = [
-  Text('This Month'),
-  Text('Evey Month'),
-];
-
-const List<Widget> commitOrBudget = [
-  Text('Commiment'),
-  Text('  Budget '),
-];
-
-class QuickPlanner extends StatefulWidget {
-  const QuickPlanner({super.key});
-
-  @override
-  State<QuickPlanner> createState() => _QuickPlannerState();
-}
-
-class _QuickPlannerState extends State<QuickPlanner> {
-  bool showBudgetOrCommitment = false;
-  DateTime selectedDate = DateTime.now();
-  num planAmount = 0;
-  String planTitle = '';
-  String planMonth = 'This Month';
-  String planCommit = 'Commiment';
-
-  var now = DateTime.now();
-  var formatterMonth = DateFormat('MM');
-  var formatterMonthYear = DateFormat('d');
-  var formatterMonthDateYear = DateFormat('Md');
-
   final userEmail = FirebaseAuth.instance.currentUser!.email;
   List<Budget> budgetList = [];
   List<Commitment> commitmentList = [];
@@ -59,6 +15,11 @@ class _QuickPlannerState extends State<QuickPlanner> {
 
   bool newBudget = false;
   var newBudgetMonth = 0;
+  // var formatter = DateFormat('MM');
+  var now = DateTime.now();
+  var formatterMonth = DateFormat('MM');
+  var formatterMonthYear = DateFormat('d');
+  var formatterMonthDateYear = DateFormat('Md');
 
   @override
   void initState() {
@@ -281,45 +242,3 @@ class _QuickPlannerState extends State<QuickPlanner> {
       return listOfMaps[index]['Budget'];
     });
   }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2023, 1),
-        lastDate: DateTime(2024, 2));
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('UFin'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            PlanSearch(
-              budgetList: budgetList,
-              commitmentList: commitmentList,
-              totalIncome: totalIncome,
-              savingTraget: savingTraget,
-              budgetTotalExpences: budgetTotalExpences,
-              budgetTotalExpData: budgetTotalExpData,
-              totalExp: totalExp,
-              blanceAmount: blanceAmount,
-              balanceBudgetAmount: balanceBudgetAmount,
-            ),
-            const SizedBox(height: 20),
-            const PlanListView(),
-          ],
-        ),
-      ),
-    );
-  }
-}

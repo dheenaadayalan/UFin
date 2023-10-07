@@ -146,27 +146,31 @@ class _CommitBuilderState extends State<CommitBuilder> {
                                 Card(
                                   // color:
                                   //     Theme.of(context).colorScheme.tertiaryContainer,
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        25, 18, 25, 18),
-                                    child: Row(
-                                      children: [
-                                        Text(
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 0, 0, 0),
+                                        child: Text(
                                           newCommitment[index]['title']
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge,
                                         ),
-                                        const Spacer(),
-                                        Text(
-                                          '₹ ${f.format(newCommitment[index]['amount']).toString()}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
-                                        ),
-                                        const Spacer(),
-                                        Column(
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '₹ ${f.format(newCommitment[index]['amount']).toString()}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
+                                      ),
+                                      const Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 0, 10, 0),
+                                        child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
@@ -189,8 +193,8 @@ class _CommitBuilderState extends State<CommitBuilder> {
                                             )
                                           ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -217,9 +221,6 @@ class _CommitBuilderState extends State<CommitBuilder> {
             },
           ),
         ),
-        const SizedBox(height: 10),
-        const Text('<-- Swipe -->'),
-        const SizedBox(height: 10)
       ],
     );
   }

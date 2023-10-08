@@ -58,7 +58,7 @@ class _PlanListViewState extends State<PlanListView> {
             Expanded(
               child: Container(
                 child: VerticalCardPager(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   titles: titles,
                   images: images,

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ufin/screens/quick-planner/plan_function.dart';
-import 'package:ufin/screens/quick-planner/plan_list.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ufin/models/budget_model.dart';
 import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/models/expences_modes.dart';
+import 'package:ufin/screens/quick-planner/plan_function.dart';
 
 var f = NumberFormat('##,###');
 
@@ -314,9 +313,10 @@ class _QuickPlannerState extends State<QuickPlanner> {
               totalExp: totalExp,
               blanceAmount: blanceAmount,
               balanceBudgetAmount: balanceBudgetAmount,
+              userMailId: userEmail!,
             ),
             const SizedBox(height: 20),
-            const PlanListView(),
+            //const PlanListView(),
           ],
         ),
       ),

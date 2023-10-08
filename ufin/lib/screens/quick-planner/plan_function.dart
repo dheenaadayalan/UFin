@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/budget_model.dart';
 import 'package:ufin/models/commitmet_model.dart';
@@ -19,18 +22,18 @@ const List<Widget> commitOrBudget = [
 ];
 
 class PlanSearch extends StatefulWidget {
-  const PlanSearch({
-    super.key,
-    required this.budgetList,
-    required this.commitmentList,
-    required this.totalIncome,
-    required this.savingTraget,
-    required this.budgetTotalExpences,
-    required this.budgetTotalExpData,
-    required this.totalExp,
-    required this.blanceAmount,
-    required this.balanceBudgetAmount,
-  });
+  const PlanSearch(
+      {super.key,
+      required this.budgetList,
+      required this.commitmentList,
+      required this.totalIncome,
+      required this.savingTraget,
+      required this.budgetTotalExpences,
+      required this.budgetTotalExpData,
+      required this.totalExp,
+      required this.blanceAmount,
+      required this.balanceBudgetAmount,
+      required this.userMailId});
 
   final List<Budget> budgetList;
   final List<Commitment> commitmentList;
@@ -41,6 +44,7 @@ class PlanSearch extends StatefulWidget {
   final num totalExp;
   final num blanceAmount;
   final List<BudgetTotalExp> balanceBudgetAmount;
+  final String userMailId;
 
   @override
   State<PlanSearch> createState() => _PlanSearchState();
@@ -48,6 +52,9 @@ class PlanSearch extends StatefulWidget {
 
 class _PlanSearchState extends State<PlanSearch> {
   final _form = GlobalKey<FormState>();
+
+  List<String> title = [];
+  List<Widget> img = [];
 
   final List<bool> _selectedMonth = <bool>[true, false];
   final List<bool> _selectedCommit = <bool>[true, false];
@@ -59,6 +66,7 @@ class _PlanSearchState extends State<PlanSearch> {
   String planCommit = 'Commiment';
 
   List<PlanModel> plans = [];
+  List<Budget> budgetNew = [];
 
   var now = DateTime.now();
   var formatterMonth = DateFormat('MM');
@@ -78,7 +86,7 @@ class _PlanSearchState extends State<PlanSearch> {
     }
   }
 
-  void searchPlan() {
+  void searchPlan() async {
     plans = [];
     setState(() {});
     final isValid = _form.currentState!.validate();
@@ -89,10 +97,9 @@ class _PlanSearchState extends State<PlanSearch> {
 
     if (planMonth == 'This Month') {
       num totalBalanceAmountLeast = 0;
-      num counterLeast = 0;
+
       for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
         if (widget.budgetList[i].perferance == 'Least Priority') {
-          counterLeast = counterLeast + 1;
           totalBalanceAmountLeast =
               totalBalanceAmountLeast + widget.balanceBudgetAmount[i].amount;
         }
@@ -100,41 +107,20 @@ class _PlanSearchState extends State<PlanSearch> {
 
       if (totalBalanceAmountLeast > planAmount) {
         List<Budget> newBudget = [];
-        num data = 0;
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterLeast).round()) <
-                0) {
-              data = (widget.balanceBudgetAmount[i].amount -
-                  (planAmount / counterLeast));
-            }
-          }
-        }
 
         for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
           if (widget.budgetList[i].perferance == 'Least Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterLeast).round()) <
-                0) {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: widget.budgetTotalExpData[i].amount,
-                ),
-              );
-            } else {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: (widget.budgetList[i].amount -
-                          (planAmount / (counterLeast)).round()) +
-                      (data / (counterLeast - 1)).round(),
-                ),
-              );
-            }
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount -
+                    ((planAmount *
+                            (widget.balanceBudgetAmount[i].amount /
+                                totalBalanceAmountLeast)))
+                        .round(),
+              ),
+            );
           } else {
             newBudget.add(
               Budget(
@@ -146,29 +132,22 @@ class _PlanSearchState extends State<PlanSearch> {
           }
         }
 
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          plans.add(
-            PlanModel(
-              title: 'Best Possiable Plan',
-              totalIncome: widget.totalIncome,
-              totalExpance: widget.totalExp,
-              saving: widget.savingTraget,
-              totalBudget: Budget(
-                title: newBudget[i].title,
-                perferance: newBudget[i].perferance,
-                amount: newBudget[i].amount,
-              ),
-            ),
-          );
-        }
+        plans.add(
+          PlanModel(
+            title: 'Best Possiable Plan',
+            totalIncome: widget.totalIncome,
+            totalExpance: widget.totalExp,
+            saving: widget.savingTraget,
+            totalBudget: List<Budget>.from(newBudget),
+          ),
+        );
       }
 
       num totalBalanceAmountLow = 0;
-      num counterLow = 0;
+
       for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
         if (widget.budgetList[i].perferance == 'Least Priority' ||
             widget.budgetList[i].perferance == 'Low Priority') {
-          counterLow = counterLow + 1;
           totalBalanceAmountLow =
               totalBalanceAmountLow + widget.balanceBudgetAmount[i].amount;
         }
@@ -176,43 +155,21 @@ class _PlanSearchState extends State<PlanSearch> {
 
       if (totalBalanceAmountLow > planAmount) {
         List<Budget> newBudget = [];
-        num data = 0;
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterLow).round()) <
-                0) {
-              data = (widget.balanceBudgetAmount[i].amount -
-                  (planAmount / counterLow));
-            }
-          }
-        }
 
         for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
           if (widget.budgetList[i].perferance == 'Least Priority' ||
               widget.budgetList[i].perferance == 'Low Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterLow).round()) <
-                0) {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: widget.balanceBudgetAmount[i].amount,
-                ),
-              );
-            } else {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: (widget.budgetList[i].amount -
-                          (planAmount / (counterLow)).round()) +
-                      (data / (counterLow - 1)).round(),
-                ),
-              );
-            }
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount -
+                    ((planAmount *
+                            (widget.balanceBudgetAmount[i].amount /
+                                totalBalanceAmountLow)))
+                        .round(),
+              ),
+            );
           } else {
             newBudget.add(
               Budget(
@@ -224,30 +181,23 @@ class _PlanSearchState extends State<PlanSearch> {
           }
         }
 
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          plans.add(
-            PlanModel(
-              title: 'Secound Best Plan',
-              totalIncome: widget.totalIncome,
-              totalExpance: widget.totalExp,
-              saving: widget.savingTraget,
-              totalBudget: Budget(
-                title: newBudget[i].title,
-                perferance: newBudget[i].perferance,
-                amount: newBudget[i].amount,
-              ),
-            ),
-          );
-        }
+        plans.add(
+          PlanModel(
+            title: 'Secound Best Plan',
+            totalIncome: widget.totalIncome,
+            totalExpance: widget.totalExp,
+            saving: widget.savingTraget,
+            totalBudget: List<Budget>.from(newBudget),
+          ),
+        );
       }
 
       num totalBalanceAmountIn = 0;
-      num counterIn = 0;
+
       for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
         if (widget.budgetList[i].perferance == 'Least Priority' ||
             widget.budgetList[i].perferance == 'Low Priority' ||
             widget.budgetList[i].perferance == 'In between') {
-          counterIn = counterIn + 1;
           totalBalanceAmountIn =
               totalBalanceAmountIn + widget.balanceBudgetAmount[i].amount;
         }
@@ -255,45 +205,22 @@ class _PlanSearchState extends State<PlanSearch> {
 
       if (totalBalanceAmountIn > planAmount) {
         List<Budget> newBudget = [];
-        num data = 0;
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterIn).round()) <
-                0) {
-              data = (widget.balanceBudgetAmount[i].amount -
-                  (planAmount / counterIn));
-            }
-          }
-        }
 
         for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
           if (widget.budgetList[i].perferance == 'Least Priority' ||
               widget.budgetList[i].perferance == 'Low Priority' ||
               widget.budgetList[i].perferance == 'In between') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterIn).round()) <
-                0) {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: widget.budgetTotalExpData[i].amount,
-                ),
-              );
-            } else {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: (widget.budgetList[i].amount -
-                          (planAmount / (counterIn)).round()) +
-                      (data / (counterIn - 1)).round(),
-                ),
-              );
-            }
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount -
+                    ((planAmount *
+                            (widget.balanceBudgetAmount[i].amount /
+                                totalBalanceAmountIn)))
+                        .round(),
+              ),
+            );
           } else {
             newBudget.add(
               Budget(
@@ -305,165 +232,48 @@ class _PlanSearchState extends State<PlanSearch> {
           }
         }
 
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          plans.add(
-            PlanModel(
-              title: '3 Best Plan',
-              totalIncome: widget.totalIncome,
-              totalExpance: widget.totalExp,
-              saving: widget.savingTraget,
-              totalBudget: Budget(
-                title: newBudget[i].title,
-                perferance: newBudget[i].perferance,
-                amount: newBudget[i].amount,
-              ),
-            ),
-          );
-        }
+        plans.add(
+          PlanModel(
+            title: '3 Best Plan',
+            totalIncome: widget.totalIncome,
+            totalExpance: widget.totalExp,
+            saving: widget.savingTraget,
+            totalBudget: List<Budget>.from(newBudget),
+          ),
+        );
       }
 
       num totalBalanceAmountPer = 0;
-      num counterPre = 0;
 
       for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
         if (widget.budgetList[i].perferance == 'Least Priority' ||
             widget.budgetList[i].perferance == 'Low Priority' ||
             widget.budgetList[i].perferance == 'In between' ||
             widget.budgetList[i].perferance == 'Priority') {
-          counterPre = counterPre + 1;
           totalBalanceAmountPer =
               totalBalanceAmountPer + widget.balanceBudgetAmount[i].amount;
         }
       }
 
-      num counterPre1 = counterPre;
-      num counterPre2 = counterPre;
-
       if (totalBalanceAmountPer > planAmount) {
         List<Budget> newBudget = [];
-        num data = 0;
-
-        //print(counterPre2);
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between' ||
-              widget.budgetList[i].perferance == 'Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterPre).round()) <
-                0) {
-              counterPre1 = counterPre - 1;
-              counterPre2 = counterPre - 1;
-
-              data = data +
-                  (widget.balanceBudgetAmount[i].amount -
-                      (planAmount / counterPre));
-            }
-          }
-        }
-
-        num data1 = 0;
 
         for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
           if (widget.budgetList[i].perferance == 'Least Priority' ||
               widget.budgetList[i].perferance == 'Low Priority' ||
               widget.budgetList[i].perferance == 'In between' ||
               widget.budgetList[i].perferance == 'Priority') {
-            if ((widget.budgetList[i].amount -
-                            (planAmount / (counterPre)).round()) +
-                        (data / (counterPre2)).round() <
-                    widget.budgetTotalExpData[i].amount &&
-                (widget.balanceBudgetAmount[i].amount -
-                        (planAmount / counterPre).round()) >
-                    0) {
-              counterPre1 = counterPre1 - 1;
-              counterPre2 = counterPre - 1;
-              data1 = ((planAmount / (counterPre)).round() -
-                      (data / (counterPre2)).round()) -
-                  widget.balanceBudgetAmount[i].amount;
-            }
-          }
-        }
-
-        num data2 = 0;
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between' ||
-              widget.budgetList[i].perferance == 'Priority') {
-            if (((widget.budgetList[i].amount -
-                            (planAmount / (counterPre)).round()) +
-                        (data / (counterPre2 - 1))) <=
-                    0 &&
-                (widget.budgetList[i].amount -
-                            (planAmount / (counterPre)).round()) +
-                        (data / (counterPre2)).round() >
-                    widget.budgetTotalExpData[i].amount &&
-                (widget.balanceBudgetAmount[i].amount -
-                        (planAmount / counterPre).round()) >
-                    0) {
-              counterPre1 = counterPre - 1;
-              counterPre2 = counterPre - 1;
-
-              print(counterPre2);
-              data2 = ((planAmount / (counterPre)).round() -
-                      (data / (counterPre2)).round()) -
-                  widget.balanceBudgetAmount[i].amount;
-            }
-          }
-        }
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between' ||
-              widget.budgetList[i].perferance == 'Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterPre).round()) <
-                0) {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: widget.budgetTotalExpData[i].amount,
-                ),
-              );
-            } else if ((widget.budgetList[i].amount -
-                        (planAmount / (counterPre)).round()) +
-                    (data / (counterPre2)).round() <
-                widget.budgetTotalExpData[i].amount) {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: widget.budgetTotalExpData[i].amount,
-                ),
-              );
-            } else if (((widget.budgetList[i].amount -
-                        (planAmount / (counterPre)).round()) +
-                    (data / (counterPre2 - 1))) <
-                0) {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: widget.budgetTotalExpData[i].amount,
-                ),
-              );
-            } else {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: (((widget.budgetList[i].amount -
-                                  (planAmount / (counterPre)).round()) +
-                              (data / (counterPre2 - 1)).round()) -
-                          (data1 / (counterPre1))) +
-                      (data2),
-                ),
-              );
-            }
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount -
+                    ((planAmount *
+                            (widget.balanceBudgetAmount[i].amount /
+                                totalBalanceAmountPer)))
+                        .round(),
+              ),
+            );
           } else {
             newBudget.add(
               Budget(
@@ -475,32 +285,25 @@ class _PlanSearchState extends State<PlanSearch> {
           }
         }
 
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          plans.add(
-            PlanModel(
-              title: '4 Best Plan',
-              totalIncome: widget.totalIncome,
-              totalExpance: widget.totalExp,
-              saving: widget.savingTraget,
-              totalBudget: Budget(
-                title: newBudget[i].title,
-                perferance: newBudget[i].perferance,
-                amount: newBudget[i].amount,
-              ),
-            ),
-          );
-        }
+        plans.add(
+          PlanModel(
+            title: '4 Best Plan',
+            totalIncome: widget.totalIncome,
+            totalExpance: widget.totalExp,
+            saving: widget.savingTraget,
+            totalBudget: List<Budget>.from(newBudget),
+          ),
+        );
       }
 
       num totalBalanceAmountHig = 0;
-      num counterHig = 0;
+
       for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
         if (widget.budgetList[i].perferance == 'Least Priority' ||
             widget.budgetList[i].perferance == 'Low Priority' ||
             widget.budgetList[i].perferance == 'In between' ||
             widget.budgetList[i].perferance == 'Priority' ||
             widget.budgetList[i].perferance == 'Highest Priority') {
-          counterHig = counterHig + 1;
           totalBalanceAmountHig =
               totalBalanceAmountHig + widget.balanceBudgetAmount[i].amount;
         }
@@ -508,21 +311,6 @@ class _PlanSearchState extends State<PlanSearch> {
 
       if (totalBalanceAmountHig > planAmount) {
         List<Budget> newBudget = [];
-        num data = 0;
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between' ||
-              widget.budgetList[i].perferance == 'Priority' ||
-              widget.budgetList[i].perferance == 'Highest Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterHig).round()) <
-                0) {
-              data = (widget.balanceBudgetAmount[i].amount -
-                  (planAmount / counterHig));
-            }
-          }
-        }
 
         for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
           if (widget.budgetList[i].perferance == 'Least Priority' ||
@@ -530,27 +318,17 @@ class _PlanSearchState extends State<PlanSearch> {
               widget.budgetList[i].perferance == 'In between' ||
               widget.budgetList[i].perferance == 'Priority' ||
               widget.budgetList[i].perferance == 'Highest Priority') {
-            if ((widget.balanceBudgetAmount[i].amount -
-                    (planAmount / counterHig).round()) <
-                0) {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: widget.budgetTotalExpData[i].amount,
-                ),
-              );
-            } else {
-              newBudget.add(
-                Budget(
-                  title: widget.budgetList[i].title,
-                  perferance: widget.budgetList[i].perferance,
-                  amount: (widget.budgetList[i].amount -
-                          (planAmount / (counterHig)).round()) +
-                      (data / (counterHig - 1)).round(),
-                ),
-              );
-            }
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount -
+                    ((planAmount *
+                            (widget.balanceBudgetAmount[i].amount /
+                                totalBalanceAmountHig)))
+                        .round(),
+              ),
+            );
           } else {
             newBudget.add(
               Budget(
@@ -562,21 +340,15 @@ class _PlanSearchState extends State<PlanSearch> {
           }
         }
 
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          plans.add(
-            PlanModel(
-              title: '5 Possiable Plan',
-              totalIncome: widget.totalIncome,
-              totalExpance: widget.totalExp,
-              saving: widget.savingTraget,
-              totalBudget: Budget(
-                title: newBudget[i].title,
-                perferance: newBudget[i].perferance,
-                amount: newBudget[i].amount,
-              ),
-            ),
-          );
-        }
+        plans.add(
+          PlanModel(
+            title: '5 Possiable Plan',
+            totalIncome: widget.totalIncome,
+            totalExpance: widget.totalExp,
+            saving: widget.savingTraget,
+            totalBudget: List<Budget>.from(newBudget),
+          ),
+        );
       }
     }
   }
@@ -797,24 +569,51 @@ class _PlanSearchState extends State<PlanSearch> {
         ),
         SizedBox(
           height: 250,
-          child: ListView.builder(
+          child: CarouselSlider.builder(
             itemCount: plans.length,
-            itemBuilder: (context, index) {
-              if (plans.isEmpty) {
-                return const Center(child: Text('Nothing here'));
-              } else if (plans.isNotEmpty) {
-                return Column(
-                  children: [
-                    Text(plans[index].title),
-                    Text(plans[index].totalBudget.title),
-                    Text(plans[index].totalBudget.amount.toString())
-                  ],
-                );
-              }
-              return CircularProgressIndicator();
+            itemBuilder: (BuildContext context, int index, int pageViewIndex) {
+              return SizedBox(
+                height: 250,
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Text(plans[index].title),
+                        Text(plans[index].saving.toString()),
+                        for (var i = 0;
+                            i < plans[index].totalBudget.length;
+                            i++)
+                          Row(
+                            children: [
+                              Text(
+                                plans[index].totalBudget[i].amount.toString(),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
             },
+            options: CarouselOptions(
+              height: 400,
+              aspectRatio: 16 / 9,
+              viewportFraction: 0.8,
+              initialPage: 0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: false,
+              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              enlargeFactor: 0.3,
+              scrollDirection: Axis.vertical,
+            ),
           ),
-        )
+        ),
       ],
     );
   }

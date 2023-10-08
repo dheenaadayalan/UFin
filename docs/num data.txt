@@ -1,0 +1,134 @@
+num data = 0;
+
+num counterPre1 = counterPre;
+      num counterPre2 = counterPre;
+
+        //print(counterPre2);
+        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+          if (widget.budgetList[i].perferance == 'Least Priority' ||
+              widget.budgetList[i].perferance == 'Low Priority' ||
+              widget.budgetList[i].perferance == 'In between' ||
+              widget.budgetList[i].perferance == 'Priority') {
+            if ((widget.balanceBudgetAmount[i].amount -
+                    (planAmount / counterPre).round()) <
+                0) {
+              counterPre1 = counterPre - 1;
+              counterPre2 = counterPre - 1;
+
+              data = data +
+                  (widget.balanceBudgetAmount[i].amount -
+                      (planAmount / counterPre));
+            }
+          }
+        }
+
+        num data1 = 0;
+        print(counterPre1);
+        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+          if (widget.budgetList[i].perferance == 'Least Priority' ||
+              widget.budgetList[i].perferance == 'Low Priority' ||
+              widget.budgetList[i].perferance == 'In between' ||
+              widget.budgetList[i].perferance == 'Priority') {
+            if ((widget.budgetList[i].amount -
+                            (planAmount / (counterPre)).round()) +
+                        (data / (counterPre2)).round() <
+                    widget.budgetTotalExpData[i].amount &&
+                (widget.balanceBudgetAmount[i].amount -
+                        (planAmount / counterPre).round()) >
+                    0) {
+              data1 = ((planAmount / (counterPre)).round() -
+                      (data / (counterPre2)).round()) -
+                  widget.balanceBudgetAmount[i].amount;
+              counterPre1 = counterPre1 - 1;
+              counterPre2 = counterPre - 1;
+            }
+          }
+        }
+
+        num data2 = 0;
+
+        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+          if (widget.budgetList[i].perferance == 'Least Priority' ||
+              widget.budgetList[i].perferance == 'Low Priority' ||
+              widget.budgetList[i].perferance == 'In between' ||
+              widget.budgetList[i].perferance == 'Priority') {
+            if (((widget.budgetList[i].amount -
+                            (planAmount / (counterPre)).round()) +
+                        (data / (counterPre2 - 1))) <=
+                    0 &&
+                (widget.budgetList[i].amount -
+                            (planAmount / (counterPre)).round()) +
+                        (data / (counterPre2)).round() >
+                    widget.budgetTotalExpData[i].amount &&
+                (widget.balanceBudgetAmount[i].amount -
+                        (planAmount / counterPre).round()) >
+                    0) {
+              data2 = ((planAmount / (counterPre)).round() -
+                      (data / (counterPre2)).round()) -
+                  widget.balanceBudgetAmount[i].amount;
+              counterPre1 = counterPre - 1;
+              counterPre2 = counterPre - 3;
+            }
+          }
+        }
+
+        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+          if (widget.budgetList[i].perferance == 'Least Priority' ||
+              widget.budgetList[i].perferance == 'Low Priority' ||
+              widget.budgetList[i].perferance == 'In between' ||
+              widget.budgetList[i].perferance == 'Priority') {
+            if ((widget.balanceBudgetAmount[i].amount -
+                    (planAmount / counterPre).round()) <
+                0) {
+              newBudget.add(
+                Budget(
+                  title: widget.budgetList[i].title,
+                  perferance: widget.budgetList[i].perferance,
+                  amount: widget.budgetTotalExpData[i].amount,
+                ),
+              );
+            } else if ((widget.budgetList[i].amount -
+                        (planAmount / (counterPre)).round()) +
+                    (data / (counterPre2)).round() <
+                widget.budgetTotalExpData[i].amount) {
+              newBudget.add(
+                Budget(
+                  title: widget.budgetList[i].title,
+                  perferance: widget.budgetList[i].perferance,
+                  amount: widget.budgetTotalExpData[i].amount,
+                ),
+              );
+            } else if (((widget.budgetList[i].amount -
+                        (planAmount / (counterPre)).round()) +
+                    (data / (counterPre2))) <
+                0) {
+              newBudget.add(
+                Budget(
+                  title: widget.budgetList[i].title,
+                  perferance: widget.budgetList[i].perferance,
+                  amount: widget.budgetTotalExpData[i].amount,
+                ),
+              );
+            } else {
+              newBudget.add(
+                Budget(
+                  title: widget.budgetList[i].title,
+                  perferance: widget.budgetList[i].perferance,
+                  amount: (((widget.budgetList[i].amount -
+                                  (planAmount / (counterPre)).round()) +
+                              (data / (counterPre2)).round()) -
+                          (data1 / (counterPre1))) +
+                      (data2),
+                ),
+              );
+            }
+          } else {
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount,
+              ),
+            );
+          }
+        }

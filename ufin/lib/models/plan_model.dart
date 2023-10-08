@@ -12,5 +12,5 @@ class PlanModel {
   final num totalIncome;
   final num totalExpance;
   final num saving;
-  final Budget totalBudget;
+  final List<Budget> totalBudget;
 }

@@ -7,7 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ufin/models/budget_model.dart';
 import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/models/expences_modes.dart';
+import 'package:ufin/models/plan_model.dart';
 import 'package:ufin/screens/quick-planner/plan_function.dart';
+import 'package:ufin/screens/quick-planner/plan_list.dart';
 
 var f = NumberFormat('##,###');
 
@@ -55,6 +57,7 @@ class _QuickPlannerState extends State<QuickPlanner> {
   List<BudgetTotalExp> balanceBudgetAmount = [];
   num totalAssetsCommit = 0;
   num totalLiablityCommit = 0;
+  List<PlanModel> plans = [];
 
   bool newBudget = false;
   var newBudgetMonth = 0;
@@ -314,9 +317,32 @@ class _QuickPlannerState extends State<QuickPlanner> {
               blanceAmount: blanceAmount,
               balanceBudgetAmount: balanceBudgetAmount,
               userMailId: userEmail!,
+              onPickBudget: (pickedBudget) {
+                setState(() {
+                  plans = pickedBudget;
+                });
+              },
+              onPickPlanAmount: (pickedPlanAmount) {
+                setState(() {
+                  planAmount = pickedPlanAmount;
+                });
+              },
+              onPickPlanName: (pickedPlanName) {
+                setState(() {
+                  planTitle = pickedPlanName;
+                });
+              },
             ),
             const SizedBox(height: 20),
-            //const PlanListView(),
+            PlanListView(
+              totalExp: totalExp,
+              budgetList: budgetList,
+              savingTraget: savingTraget,
+              plans: plans,
+              totalIncome: totalIncome,
+              planAmount: planAmount,
+              planTitle: planTitle,
+            ),
           ],
         ),
       ),

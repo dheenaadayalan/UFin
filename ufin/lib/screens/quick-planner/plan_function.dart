@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ufin/models/budget_model.dart';
 import 'package:ufin/models/commitmet_model.dart';
@@ -22,18 +19,22 @@ const List<Widget> commitOrBudget = [
 ];
 
 class PlanSearch extends StatefulWidget {
-  const PlanSearch(
-      {super.key,
-      required this.budgetList,
-      required this.commitmentList,
-      required this.totalIncome,
-      required this.savingTraget,
-      required this.budgetTotalExpences,
-      required this.budgetTotalExpData,
-      required this.totalExp,
-      required this.blanceAmount,
-      required this.balanceBudgetAmount,
-      required this.userMailId});
+  const PlanSearch({
+    super.key,
+    required this.budgetList,
+    required this.commitmentList,
+    required this.totalIncome,
+    required this.savingTraget,
+    required this.budgetTotalExpences,
+    required this.budgetTotalExpData,
+    required this.totalExp,
+    required this.blanceAmount,
+    required this.balanceBudgetAmount,
+    required this.userMailId,
+    required this.onPickBudget,
+    required this.onPickPlanAmount,
+    required this.onPickPlanName,
+  });
 
   final List<Budget> budgetList;
   final List<Commitment> commitmentList;
@@ -45,6 +46,9 @@ class PlanSearch extends StatefulWidget {
   final num blanceAmount;
   final List<BudgetTotalExp> balanceBudgetAmount;
   final String userMailId;
+  final void Function(List<PlanModel> pickedBudget) onPickBudget;
+  final void Function(String pickedPlanName) onPickPlanName;
+  final void Function(num pickedPlanAmount) onPickPlanAmount;
 
   @override
   State<PlanSearch> createState() => _PlanSearchState();
@@ -360,7 +364,7 @@ class _PlanSearchState extends State<PlanSearch> {
         }
       }
       totalBalanceAmountSav = totalBalanceAmountSav + widget.savingTraget;
-      print(totalBalanceAmountSav);
+
       if (totalBalanceAmountSav > planAmount) {
         List<Budget> newBudget = [];
 
@@ -406,6 +410,9 @@ class _PlanSearchState extends State<PlanSearch> {
       }
       setState(() {});
     }
+    widget.onPickPlanAmount(planAmount);
+    widget.onPickBudget(plans);
+    widget.onPickPlanName(planTitle);
   }
 
   @override
@@ -622,285 +629,6 @@ class _PlanSearchState extends State<PlanSearch> {
             ),
           ),
         ),
-        const SizedBox(height: 20),
-        if (plans.isEmpty)
-          Container(
-            margin: const EdgeInsets.all(15),
-            height: 400,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome to UFin Planner',
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Currently under beta mode',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ],
-            ),
-          ),
-        if (plans.isNotEmpty)
-          SizedBox(
-            height: 400,
-            child: CarouselSlider.builder(
-              itemCount: plans.length,
-              itemBuilder:
-                  (BuildContext context, int index, int pageViewIndex) {
-                num userPlantotalBudget = 0;
-                List<String> title = [
-                  'Best Possible Plan',
-                  '2nd Possible Plan',
-                  '3ed Possible Plan',
-                  '4th Possible Plan',
-                  '5th Possible Plan',
-                  '6th Possible Plan'
-                ];
-                for (var i = 0; i < plans[index].totalBudget.length; i++) {
-                  userPlantotalBudget =
-                      userPlantotalBudget + plans[index].totalBudget[i].amount;
-                }
-                return SizedBox(
-                  height: 400,
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: Card(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          margin: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              Text(
-                                title[index],
-                                style:
-                                    Theme.of(context).textTheme.headlineMedium,
-                              ),
-                              const SizedBox(height: 30),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Your total Income amount',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    widget.totalIncome.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Your expances amount',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    widget.totalExp.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Your saving amount',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    plans[index].saving.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 0),
-                              if (plans[index].saving < widget.savingTraget)
-                                Text(
-                                  '(This plan will reduce your savings amount)',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                              const SizedBox(height: 5),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Your $planTitle amount',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    planAmount.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Your Total Budget',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    userPlantotalBudget.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 15),
-                              Card(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .tertiaryContainer,
-                                child: ExpansionTile(
-                                  title: Text(
-                                    'List of your Budget',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onTertiaryContainer,
-                                        ),
-                                  ),
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.fromLTRB(
-                                              15, 5, 15, 0),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Title:',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium!
-                                                        .copyWith(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .onTertiaryContainer,
-                                                        ),
-                                                  ),
-                                                  const Spacer(),
-                                                  Text(
-                                                    'Amount:',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium!
-                                                        .copyWith(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .onTertiaryContainer,
-                                                        ),
-                                                  ),
-                                                  const Spacer(),
-                                                  Text(
-                                                    'Due date:',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium!
-                                                        .copyWith(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .onTertiaryContainer,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        for (var i = 0;
-                                            i < plans[index].totalBudget.length;
-                                            i++)
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                10, 5, 10, 5),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  plans[index]
-                                                      .totalBudget[i]
-                                                      .title
-                                                      .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleLarge,
-                                                ),
-                                                const Spacer(),
-                                                Text(
-                                                  plans[index]
-                                                      .totalBudget[i]
-                                                      .amount
-                                                      .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleLarge,
-                                                ),
-                                                const SizedBox(width: 20),
-                                                Text(
-                                                  widget.budgetList[i].amount
-                                                      .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleLarge,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-              options: CarouselOptions(
-                height: 400,
-                aspectRatio: 16 / 9,
-                viewportFraction: 0.8,
-                initialPage: 0,
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: false, //change this later to true
-                autoPlayInterval: const Duration(seconds: 3),
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: false, //change this later to true
-                enlargeFactor: 0.3,
-                scrollDirection: Axis.vertical,
-              ),
-            ),
-          ),
       ],
     );
   }

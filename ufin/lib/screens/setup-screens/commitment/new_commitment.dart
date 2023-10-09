@@ -125,32 +125,6 @@ class _NewCommitmentState extends State<NewCommitment> {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 10),
-                            // ToggleSwitch(
-                            //   customWidths: const [90.0, 90.0],
-                            //   cornerRadius: 20.0,
-                            //   activeBgColors: const [
-                            //     [Colors.green],
-                            //     [Colors.redAccent]
-                            //   ],
-                            //   activeFgColor: Colors.white,
-                            //   inactiveBgColor: Colors.grey,
-                            //   inactiveFgColor: Colors.white,
-                            //   totalSwitches: 2,
-                            //   labels: const ['YES', 'No, Yearly'],
-                            //   icons: const [null, null],
-                            //   onToggle: (index) {
-                            //     if (index == 1) {
-                            //       setState(() {
-                            //         monthlycommitdata = false;
-                            //         commitdatetype = 'Yearly';
-                            //       });
-                            //     } else if (index == 0) {
-                            //       setState(() {
-                            //         monthlycommitdata = true;
-                            //       });
-                            //     }
-                            //   },
-                            // ),
                             ToggleButtons(
                               direction: Axis.horizontal, //Axis.vertical
                               onPressed: (int index) {

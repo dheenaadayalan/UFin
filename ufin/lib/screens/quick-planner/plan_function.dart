@@ -53,9 +53,6 @@ class PlanSearch extends StatefulWidget {
 class _PlanSearchState extends State<PlanSearch> {
   final _form = GlobalKey<FormState>();
 
-  List<String> title = [];
-  List<Widget> img = [];
-
   final List<bool> _selectedMonth = <bool>[true, false];
   final List<bool> _selectedCommit = <bool>[true, false];
   bool showBudgetOrCommitment = false;
@@ -88,7 +85,7 @@ class _PlanSearchState extends State<PlanSearch> {
 
   void searchPlan() async {
     plans = [];
-    setState(() {});
+
     final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
@@ -350,6 +347,64 @@ class _PlanSearchState extends State<PlanSearch> {
           ),
         );
       }
+      num totalBalanceAmountSav = 0;
+
+      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+        if (widget.budgetList[i].perferance == 'Least Priority' ||
+            widget.budgetList[i].perferance == 'Low Priority' ||
+            widget.budgetList[i].perferance == 'In between' ||
+            widget.budgetList[i].perferance == 'Priority' ||
+            widget.budgetList[i].perferance == 'Highest Priority') {
+          totalBalanceAmountSav =
+              totalBalanceAmountSav + widget.balanceBudgetAmount[i].amount;
+        }
+      }
+      totalBalanceAmountSav = totalBalanceAmountSav + widget.savingTraget;
+      print(totalBalanceAmountSav);
+      if (totalBalanceAmountSav > planAmount) {
+        List<Budget> newBudget = [];
+
+        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+          if (widget.budgetList[i].perferance == 'Least Priority' ||
+              widget.budgetList[i].perferance == 'Low Priority' ||
+              widget.budgetList[i].perferance == 'In between' ||
+              widget.budgetList[i].perferance == 'Priority' ||
+              widget.budgetList[i].perferance == 'Highest Priority') {
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount -
+                    ((planAmount *
+                            ((widget.balanceBudgetAmount[i].amount) /
+                                totalBalanceAmountSav)))
+                        .round(),
+              ),
+            );
+          } else {
+            newBudget.add(
+              Budget(
+                title: widget.budgetList[i].title,
+                perferance: widget.budgetList[i].perferance,
+                amount: widget.budgetList[i].amount,
+              ),
+            );
+          }
+        }
+
+        plans.add(
+          PlanModel(
+            title: '6 Possiable Plan',
+            totalIncome: widget.totalIncome,
+            totalExpance: widget.totalExp,
+            saving: (widget.savingTraget) -
+                ((planAmount * ((widget.savingTraget) / totalBalanceAmountSav)))
+                    .round(),
+            totalBudget: List<Budget>.from(newBudget),
+          ),
+        );
+      }
+      setState(() {});
     }
   }
 
@@ -567,53 +622,285 @@ class _PlanSearchState extends State<PlanSearch> {
             ),
           ),
         ),
-        SizedBox(
-          height: 250,
-          child: CarouselSlider.builder(
-            itemCount: plans.length,
-            itemBuilder: (BuildContext context, int index, int pageViewIndex) {
-              return SizedBox(
-                height: 250,
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Text(plans[index].title),
-                        Text(plans[index].saving.toString()),
-                        for (var i = 0;
-                            i < plans[index].totalBudget.length;
-                            i++)
-                          Row(
+        const SizedBox(height: 20),
+        if (plans.isEmpty)
+          Container(
+            margin: const EdgeInsets.all(15),
+            height: 400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Welcome to UFin Planner',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Currently under beta mode',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
+            ),
+          ),
+        if (plans.isNotEmpty)
+          SizedBox(
+            height: 400,
+            child: CarouselSlider.builder(
+              itemCount: plans.length,
+              itemBuilder:
+                  (BuildContext context, int index, int pageViewIndex) {
+                num userPlantotalBudget = 0;
+                List<String> title = [
+                  'Best Possible Plan',
+                  '2nd Possible Plan',
+                  '3ed Possible Plan',
+                  '4th Possible Plan',
+                  '5th Possible Plan',
+                  '6th Possible Plan'
+                ];
+                for (var i = 0; i < plans[index].totalBudget.length; i++) {
+                  userPlantotalBudget =
+                      userPlantotalBudget + plans[index].totalBudget[i].amount;
+                }
+                return SizedBox(
+                  height: 400,
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: Card(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          margin: const EdgeInsets.all(20),
+                          child: Column(
                             children: [
                               Text(
-                                plans[index].totalBudget[i].amount.toString(),
+                                title[index],
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
+                              ),
+                              const SizedBox(height: 30),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Your total Income amount',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.totalIncome.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Your expances amount',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.totalExp.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Your saving amount',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    plans[index].saving.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 0),
+                              if (plans[index].saving < widget.savingTraget)
+                                Text(
+                                  '(This plan will reduce your savings amount)',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Your $planTitle amount',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    planAmount.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Your Total Budget',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    userPlantotalBudget.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 15),
+                              Card(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .tertiaryContainer,
+                                child: ExpansionTile(
+                                  title: Text(
+                                    'List of your Budget',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onTertiaryContainer,
+                                        ),
+                                  ),
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              15, 5, 15, 0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Title:',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium!
+                                                        .copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .onTertiaryContainer,
+                                                        ),
+                                                  ),
+                                                  const Spacer(),
+                                                  Text(
+                                                    'Amount:',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium!
+                                                        .copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .onTertiaryContainer,
+                                                        ),
+                                                  ),
+                                                  const Spacer(),
+                                                  Text(
+                                                    'Due date:',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium!
+                                                        .copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .onTertiaryContainer,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        for (var i = 0;
+                                            i < plans[index].totalBudget.length;
+                                            i++)
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 5, 10, 5),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  plans[index]
+                                                      .totalBudget[i]
+                                                      .title
+                                                      .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge,
+                                                ),
+                                                const Spacer(),
+                                                Text(
+                                                  plans[index]
+                                                      .totalBudget[i]
+                                                      .amount
+                                                      .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge,
+                                                ),
+                                                const SizedBox(width: 20),
+                                                Text(
+                                                  widget.budgetList[i].amount
+                                                      .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                      ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-            options: CarouselOptions(
-              height: 400,
-              aspectRatio: 16 / 9,
-              viewportFraction: 0.8,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: false,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enlargeCenterPage: true,
-              enlargeFactor: 0.3,
-              scrollDirection: Axis.vertical,
+                );
+              },
+              options: CarouselOptions(
+                height: 400,
+                aspectRatio: 16 / 9,
+                viewportFraction: 0.8,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: false, //change this later to true
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: false, //change this later to true
+                enlargeFactor: 0.3,
+                scrollDirection: Axis.vertical,
+              ),
             ),
           ),
-        ),
       ],
     );
   }

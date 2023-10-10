@@ -34,6 +34,7 @@ class PlanSearch extends StatefulWidget {
     required this.onPickBudget,
     required this.onPickPlanAmount,
     required this.onPickPlanName,
+    required this.onPickDateTime,
   });
 
   final List<Budget> budgetList;
@@ -49,6 +50,7 @@ class PlanSearch extends StatefulWidget {
   final void Function(List<PlanModel> pickedBudget) onPickBudget;
   final void Function(String pickedPlanName) onPickPlanName;
   final void Function(num pickedPlanAmount) onPickPlanAmount;
+  final void Function(DateTime pickedDateTime) onPickDateTime;
 
   @override
   State<PlanSearch> createState() => _PlanSearchState();
@@ -413,6 +415,7 @@ class _PlanSearchState extends State<PlanSearch> {
     widget.onPickPlanAmount(planAmount);
     widget.onPickBudget(plans);
     widget.onPickPlanName(planTitle);
+    widget.onPickDateTime(selectedDate);
   }
 
   @override

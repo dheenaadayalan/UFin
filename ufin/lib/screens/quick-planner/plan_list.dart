@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:ufin/models/budget_model.dart';
+import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/models/plan_model.dart';
 
 import 'package:ufin/screens/quick-planner/planner_diglogbox.dart';
@@ -19,6 +20,8 @@ class PlanListView extends StatefulWidget {
     required this.totalIncome,
     required this.planAmount,
     required this.planTitle,
+    required this.commitmentList,
+    required this.selectedDate,
   });
 
   final List<PlanModel> plans;
@@ -28,6 +31,8 @@ class PlanListView extends StatefulWidget {
   final num totalExp;
   final num planAmount;
   final String planTitle;
+  final List<Commitment> commitmentList;
+  final DateTime selectedDate;
 
   @override
   State<PlanListView> createState() => _PlanListViewState();
@@ -359,32 +364,35 @@ class _PlanListViewState extends State<PlanListView> {
             ),
           ),
         const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: () {
-            num userPlantotalBudget = 0;
-            var index = selectedIndex;
-            for (var i = 0; i < widget.plans[index].totalBudget.length; i++) {
-              userPlantotalBudget = userPlantotalBudget +
-                  widget.plans[index].totalBudget[i].amount;
-            }
+        if (widget.plans.isNotEmpty)
+          ElevatedButton(
+            onPressed: () {
+              num userPlantotalBudget = 0;
+              var index = selectedIndex;
+              for (var i = 0; i < widget.plans[index].totalBudget.length; i++) {
+                userPlantotalBudget = userPlantotalBudget +
+                    widget.plans[index].totalBudget[i].amount;
+              }
 
-            showDialog(
-              context: context,
-              builder: (context) => PlannerConfirmDiglogBox(
-                budgetList: widget.budgetList,
-                planAmount: widget.planAmount,
-                planTitle: widget.planTitle,
-                plans: widget.plans,
-                savingTraget: widget.savingTraget,
-                totalExp: widget.totalExp,
-                totalIncome: widget.totalIncome,
-                selectedIndex: selectedIndex,
-                budgetTotalAmount: userPlantotalBudget,
-              ),
-            );
-          },
-          child: const Text('Continue'),
-        )
+              showDialog(
+                context: context,
+                builder: (context) => PlannerConfirmDiglogBox(
+                  budgetList: widget.budgetList,
+                  planAmount: widget.planAmount,
+                  planTitle: widget.planTitle,
+                  plans: widget.plans,
+                  savingTraget: widget.savingTraget,
+                  totalExp: widget.totalExp,
+                  totalIncome: widget.totalIncome,
+                  selectedIndex: selectedIndex,
+                  budgetTotalAmount: userPlantotalBudget,
+                  commitmentList: widget.commitmentList,
+                  selectedDate: widget.selectedDate,
+                ),
+              );
+            },
+            child: const Text('Continue'),
+          )
       ],
     );
   }

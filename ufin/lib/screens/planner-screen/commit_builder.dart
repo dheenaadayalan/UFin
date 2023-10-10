@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 var f = NumberFormat('##,##,###');
 var formatter = DateFormat('d');
+var formatterMonth = DateFormat('MM');
+var nowM = DateTime.now();
 
 class CommitBuilder extends StatefulWidget {
   const CommitBuilder({super.key});
@@ -17,6 +19,29 @@ class CommitBuilder extends StatefulWidget {
 
 class _CommitBuilderState extends State<CommitBuilder> {
   final userEmail = FirebaseAuth.instance.currentUser!.email;
+
+  bool newCommit = false;
+  var newCommitMonth = 0;
+
+  @override
+  void initState() {
+    initialize();
+    super.initState();
+  }
+
+  void initialize() async {
+    await FirebaseFirestore.instance
+        .collection('commitmentRefactor')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        newCommit = doc['bool'];
+        newCommitMonth =
+            int.parse(formatterMonth.format(doc['Month'].toDate()));
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +155,15 @@ class _CommitBuilderState extends State<CommitBuilder> {
               );
 
               if (snapshot.hasData) {
+                List newCommitment = [];
                 final PageController controller = PageController();
-                List newCommitment = snapshot.data!['commitemt'];
+                if (newCommit == true &&
+                    newCommitMonth == int.parse(formatterMonth.format(nowM))) {
+                  newCommitment = snapshot.data!['new commitemt'];
+                } else {
+                  newCommitment = snapshot.data!['commitemt'];
+                }
+
                 contex = CarouselSlider(
                   items: [
                     PageView.builder(
@@ -186,7 +218,8 @@ class _CommitBuilderState extends State<CommitBuilder> {
                                             ),
                                             const SizedBox(height: 10),
                                             Text(
-                                              'Every Month',
+                                              newCommitment[index]
+                                                  ['commitDateType'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleSmall,

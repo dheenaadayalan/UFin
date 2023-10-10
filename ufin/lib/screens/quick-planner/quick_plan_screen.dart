@@ -284,19 +284,6 @@ class _QuickPlannerState extends State<QuickPlanner> {
     });
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2023, 1),
-        lastDate: DateTime(2024, 2));
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -332,6 +319,11 @@ class _QuickPlannerState extends State<QuickPlanner> {
                   planTitle = pickedPlanName;
                 });
               },
+              onPickDateTime: (pickedDateTime) {
+                setState(() {
+                  selectedDate = pickedDateTime;
+                });
+              },
             ),
             const SizedBox(height: 20),
             PlanListView(
@@ -342,6 +334,8 @@ class _QuickPlannerState extends State<QuickPlanner> {
               totalIncome: totalIncome,
               planAmount: planAmount,
               planTitle: planTitle,
+              commitmentList: commitmentList,
+              selectedDate: selectedDate,
             ),
           ],
         ),

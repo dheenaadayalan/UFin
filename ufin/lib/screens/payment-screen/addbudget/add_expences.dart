@@ -34,9 +34,8 @@ class _AddNewExpencesState extends State<AddNewExpences> {
         .collection('UserExpencesData')
         .doc(userEmail)
         .get()
-        .then((DocumentSnapshot doc) {
-      List commitMap = doc['Current Expences data'];
-
+        .then((DocumentSnapshot doc) async {
+      List commitMap = await doc['Current Expences data'];
       // budgetTotalExpences = [for (var i in doc['Current Expences data']) {}];
       _newExpences = convertListOfMapsToList(commitMap);
       // print(_newExpences);
@@ -82,22 +81,26 @@ class _AddNewExpencesState extends State<AddNewExpences> {
         amount: enteredAmount,
       ),
     );
+    if (_newExpences.length > 1) {
+      List<Map<String, Object>> data = [
+        for (var i in _newExpences)
+          {
+            'Amount': i.amount,
+            'Date': i.dateTime,
+            'Budget': i.newBudgetType,
+          }
+      ];
 
-    List<Map<String, Object>> data = [
-      for (var i in _newExpences)
-        {
-          'Amount': i.amount,
-          'Date': i.dateTime,
-          'Budget': i.newBudgetType,
-        }
-    ];
-
-    await FirebaseFirestore.instance
-        .collection('UserExpencesData')
-        .doc(userEmail)
-        .set({
-      'Current Expences data': data,
-    });
+      await FirebaseFirestore.instance
+          .collection('UserExpencesData')
+          .doc(userEmail)
+          .set({
+        'Current Expences data': data,
+      });
+      setState(() {});
+    } else {
+      return;
+    }
   }
 
   @override

@@ -39,6 +39,9 @@ class _HeaderState extends State<PlanerHeader> {
   num balanceBeforeBuget = 0;
   num totalCommit = 0;
 
+  bool newCommit = false;
+  var newCommitMonth = 0;
+
   @override
   void initState() {
     initialize();
@@ -61,20 +64,43 @@ class _HeaderState extends State<PlanerHeader> {
     }
 
     await FirebaseFirestore.instance
+        .collection('commitmentRefactor')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        newCommit = doc['bool'];
+        newCommitMonth =
+            int.parse(formatterMonth.format(doc['Month'].toDate()));
+      });
+    });
+
+    await FirebaseFirestore.instance
         .collection('users Monthly Commitment')
         .doc(userEmail)
         .get()
         .then(
       (DocumentSnapshot doc) async {
-        List commitmentMap = doc['commitemt'];
         assetsCommit = doc['assets commitment'];
         liabilityCommit = doc['lablity commitment'];
         balanceBeforeBuget = doc['balance budget befor saving'];
         totalCommit = doc['total commitments'];
-        setState(() {
-          commitmentList = convertListOfMapsToListCommitment(commitmentMap);
-          commitmentList1 = convertListOfMapsToListCommitment(commitmentMap);
-        });
+
+        if (newCommit == true &&
+            newCommitMonth == int.parse(formatterMonth.format(now))) {
+          List commitmentMap = doc['new commitemt'];
+          setState(() {
+            commitmentList = convertListOfMapsToListCommitment(commitmentMap);
+            commitmentList1 = convertListOfMapsToListCommitment(commitmentMap);
+          });
+        } else {
+          List commitmentMap = doc['commitemt'];
+          setState(() {
+            commitmentList = convertListOfMapsToListCommitment(commitmentMap);
+            commitmentList1 = convertListOfMapsToListCommitment(commitmentMap);
+          });
+        }
+
         if (formatterDay.format(now) == '01') {
           for (var i = 0; i < commitmentList1.length; i++) {
             commitmentListMonthHolder.add(
@@ -423,67 +449,142 @@ class _HeaderState extends State<PlanerHeader> {
                         ),
                         const Spacer(),
                         ElevatedButton(
-                          onPressed: () {
-                            setState(() {});
-                            _newExpences.add(
-                              Expences(
-                                newBudgetType: commitmentList[i].title,
-                                dateTime: DateTime.now(),
-                                amount: commitmentList[i].amount,
-                              ),
-                            );
-
-                            commitmentList.remove(commitmentList[i]);
-
-                            commitmentList.add(
-                              Commitment(
-                                title: commitmentList1[i].title,
-                                amount: commitmentList1[i].amount,
-                                commitType: commitmentList1[i].commitType,
-                                date: commitmentList1[i].date,
-                                commitdatetype:
-                                    commitmentList1[i].commitdatetype,
-                                paidStatus: true,
-                              ),
-                            );
-
-                            List<Map<String, Object>> data1 = [
-                              for (var i in commitmentList)
+                          onPressed: () async {
+                            if (newCommit == true &&
+                                newCommitMonth ==
+                                    int.parse(formatterMonth.format(now))) {
+                              await FirebaseFirestore.instance
+                                  .collection('commitmentRefactor')
+                                  .doc(userEmail)
+                                  .set(
                                 {
-                                  'amount': i.amount,
-                                  'date': i.date,
-                                  'bool': i.paidStatus,
-                                  'commitDateType': i.commitdatetype,
-                                  'title': i.title,
-                                  'type': i.commitType,
-                                }
-                            ];
+                                  'bool': false,
+                                  'Month': DateTime.now(),
+                                },
+                              );
 
-                            List<Map<String, Object>> data = [
-                              for (var i in _newExpences)
-                                {
-                                  'Amount': i.amount,
-                                  'Date': i.dateTime,
-                                  'Budget': i.newBudgetType,
-                                }
-                            ];
+                              commitmentList.remove(commitmentList[i]);
 
-                            FirebaseFirestore.instance
-                                .collection('UserExpencesData')
-                                .doc(userEmail)
-                                .set({
-                              'Current Expences data': data,
-                            });
+                              commitmentList.add(
+                                Commitment(
+                                  title: commitmentList1[i].title,
+                                  amount: commitmentList1[i].amount,
+                                  commitType: commitmentList1[i].commitType,
+                                  date: commitmentList1[i].date,
+                                  commitdatetype:
+                                      commitmentList1[i].commitdatetype,
+                                  paidStatus: true,
+                                ),
+                              );
 
-                            FirebaseFirestore.instance
-                                .collection("users Monthly Commitment")
-                                .doc(userEmail)
-                                .set({
-                              'commitemt': data1,
-                              'assets commitment': assetsCommit,
-                              'lablity commitment': liabilityCommit,
-                              'balance budget befor saving': balanceBeforeBuget,
-                              'total commitments': totalCommit
+                              List<Map<String, Object>> data1 = [
+                                for (var i in commitmentList)
+                                  {
+                                    'amount': i.amount,
+                                    'date': i.date,
+                                    'bool': i.paidStatus,
+                                    'commitDateType': i.commitdatetype,
+                                    'title': i.title,
+                                    'type': i.commitType,
+                                  }
+                              ];
+
+                              FirebaseFirestore.instance
+                                  .collection("users Monthly Commitment")
+                                  .doc(userEmail)
+                                  .update({
+                                'new commitemt': data1,
+                              });
+
+                              _newExpences.add(
+                                Expences(
+                                  newBudgetType: commitmentList[i].title,
+                                  dateTime: DateTime.now(),
+                                  amount: commitmentList[i].amount,
+                                ),
+                              );
+
+                              List<Map<String, Object>> data = [
+                                for (var i in _newExpences)
+                                  {
+                                    'Amount': i.amount,
+                                    'Date': i.dateTime,
+                                    'Budget': i.newBudgetType,
+                                  }
+                              ];
+
+                              await FirebaseFirestore.instance
+                                  .collection('UserExpencesData')
+                                  .doc(userEmail)
+                                  .set({
+                                'Current Expences data': data,
+                              });
+                            } else {
+                              setState(() {});
+                              _newExpences.add(
+                                Expences(
+                                  newBudgetType: commitmentList[i].title,
+                                  dateTime: DateTime.now(),
+                                  amount: commitmentList[i].amount,
+                                ),
+                              );
+
+                              commitmentList.remove(commitmentList[i]);
+
+                              commitmentList.add(
+                                Commitment(
+                                  title: commitmentList1[i].title,
+                                  amount: commitmentList1[i].amount,
+                                  commitType: commitmentList1[i].commitType,
+                                  date: commitmentList1[i].date,
+                                  commitdatetype:
+                                      commitmentList1[i].commitdatetype,
+                                  paidStatus: true,
+                                ),
+                              );
+
+                              List<Map<String, Object>> data1 = [
+                                for (var i in commitmentList)
+                                  {
+                                    'amount': i.amount,
+                                    'date': i.date,
+                                    'bool': i.paidStatus,
+                                    'commitDateType': i.commitdatetype,
+                                    'title': i.title,
+                                    'type': i.commitType,
+                                  }
+                              ];
+
+                              List<Map<String, Object>> data = [
+                                for (var i in _newExpences)
+                                  {
+                                    'Amount': i.amount,
+                                    'Date': i.dateTime,
+                                    'Budget': i.newBudgetType,
+                                  }
+                              ];
+
+                              FirebaseFirestore.instance
+                                  .collection('UserExpencesData')
+                                  .doc(userEmail)
+                                  .set({
+                                'Current Expences data': data,
+                              });
+
+                              FirebaseFirestore.instance
+                                  .collection("users Monthly Commitment")
+                                  .doc(userEmail)
+                                  .set({
+                                'commitemt': data1,
+                                'assets commitment': assetsCommit,
+                                'lablity commitment': liabilityCommit,
+                                'balance budget befor saving':
+                                    balanceBeforeBuget,
+                                'total commitments': totalCommit
+                              });
+                            }
+                            setState(() {
+                              newCommit = false;
                             });
                           },
                           style: ButtonStyle(

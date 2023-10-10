@@ -39,7 +39,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
   void initialize() async {
     await FirebaseFirestore.instance
         .collection('UserExpencesData')
-        .doc('test2@gmail.com')
+        .doc(userMail)
         .get()
         .then((DocumentSnapshot doc) async {
       List commitMap = doc['Current Expences data'];

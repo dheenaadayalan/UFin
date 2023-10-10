@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:ufin/models/budget_model.dart';
+import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/models/plan_model.dart';
+import 'package:ufin/screens/home_tabs.dart';
 
 var f = NumberFormat('##,###');
 
@@ -18,6 +23,8 @@ class PlannerConfirmDiglogBox extends StatefulWidget {
     required this.planTitle,
     required this.selectedIndex,
     required this.budgetTotalAmount,
+    required this.commitmentList,
+    required this.selectedDate,
   });
 
   final List<PlanModel> plans;
@@ -29,6 +36,8 @@ class PlannerConfirmDiglogBox extends StatefulWidget {
   final String planTitle;
   final int selectedIndex;
   final num budgetTotalAmount;
+  final List<Commitment> commitmentList;
+  final DateTime selectedDate;
 
   @override
   State<PlannerConfirmDiglogBox> createState() =>
@@ -36,6 +45,90 @@ class PlannerConfirmDiglogBox extends StatefulWidget {
 }
 
 class _PlannerConfirmDiglogBoxState extends State<PlannerConfirmDiglogBox> {
+  final userEmail = FirebaseAuth.instance.currentUser!.email;
+  var now = DateTime.now();
+
+  void savePlan() async {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) {
+          return const HomeTabsScreen();
+        },
+      ),
+      (Route route) => false,
+    );
+    widget.commitmentList.add(
+      Commitment(
+        title: widget.planTitle,
+        amount: widget.planAmount,
+        commitType: 'Liability',
+        date: widget.selectedDate,
+        commitdatetype: 'Monthly',
+        paidStatus: false,
+      ),
+    );
+
+    var index = widget.selectedIndex;
+    List<Map<String, Object>> data = [
+      for (var i = 0; i < widget.plans[index].totalBudget.length; i++)
+        {
+          'title': widget.plans[index].totalBudget[i].title,
+          'amount': widget.plans[index].totalBudget[i].amount,
+          'perferance type': widget.plans[index].totalBudget[i].perferance,
+        }
+    ];
+
+    List<Map<String, Object>> data1 = [
+      for (var index in widget.commitmentList)
+        {
+          'title': index.title,
+          'amount': index.amount,
+          'type': index.commitType,
+          'date': index.date,
+          'commitDateType': index.commitdatetype,
+          'bool': index.paidStatus,
+        }
+    ];
+
+    await FirebaseFirestore.instance
+        .collection('usersBudget')
+        .doc(userEmail)
+        .update(
+      {
+        'new Budget': data,
+      },
+    );
+
+    await FirebaseFirestore.instance
+        .collection('users Monthly Commitment')
+        .doc(userEmail)
+        .update(
+      {
+        'new commitemt': data1,
+      },
+    );
+
+    await FirebaseFirestore.instance
+        .collection('budgetRefactor')
+        .doc(userEmail)
+        .update(
+      {
+        'bool': true,
+        'Month': DateTime.now(),
+      },
+    );
+
+    await FirebaseFirestore.instance
+        .collection('commitmentRefactor')
+        .doc(userEmail)
+        .set(
+      {
+        'bool': true,
+        'Month': DateTime.now(),
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<String> title = [
@@ -247,6 +340,11 @@ class _PlannerConfirmDiglogBoxState extends State<PlannerConfirmDiglogBox> {
             ),
           ),
         ),
+        const SizedBox(height: 10),
+        const Text(
+          'NOTE: IF YOU SAVE THIS YOUR BUDGET, SAVING TRAGET AND COMMITMENT WILL BE CHANGED FOR THIS MONTH',
+          style: TextStyle(color: Color.fromARGB(255, 247, 21, 21)),
+        ),
         Row(
           children: [
             const Spacer(),
@@ -257,7 +355,17 @@ class _PlannerConfirmDiglogBoxState extends State<PlannerConfirmDiglogBox> {
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                savePlan();
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
+                foregroundColor: MaterialStatePropertyAll(
+                  Theme.of(context).colorScheme.primaryContainer,
+                ),
+              ),
               child: const Text('Save'),
             )
           ],

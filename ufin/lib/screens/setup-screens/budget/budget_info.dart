@@ -236,7 +236,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             children: [
-              const Text('Your list of budget'),
+              const Text('List of your budgets'),
               const Spacer(),
               ElevatedButton(
                 onPressed: _openAddBudgetOverlay,
@@ -257,7 +257,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 ),
                 const Spacer(),
                 Text(
-                  'Perferance',
+                  'Preference',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const Spacer(),

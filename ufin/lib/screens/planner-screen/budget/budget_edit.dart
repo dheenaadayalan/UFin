@@ -101,7 +101,7 @@ class _BudgetEditState extends State<BudgetEdit> {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Add Budget for your Income'),
+          content: Text('You have to Budget your Income'),
         ),
       );
       return;

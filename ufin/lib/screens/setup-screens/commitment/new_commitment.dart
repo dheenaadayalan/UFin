@@ -199,7 +199,7 @@ class _NewCommitmentState extends State<NewCommitment> {
                         Row(
                           children: [
                             Text(
-                              'Is it a Asset or Liablity',
+                              'Is this commitment a Asset or Liablity',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const Spacer(),

@@ -61,6 +61,8 @@ class _QuickPlannerState extends State<QuickPlanner> {
 
   bool newBudget = false;
   var newBudgetMonth = 0;
+  bool newCommit = false;
+  var newCommitMonth = 0;
 
   @override
   void initState() {
@@ -103,11 +105,32 @@ class _QuickPlannerState extends State<QuickPlanner> {
     );
 
     await FirebaseFirestore.instance
+        .collection('commitmentRefactor')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        newCommit = doc['bool'];
+        newCommitMonth =
+            int.parse(formatterMonth.format(doc['Month'].toDate()));
+      });
+    });
+
+    await FirebaseFirestore.instance
         .collection('users Monthly Commitment')
         .doc(userEmail)
         .get()
-        .then(
-      (DocumentSnapshot doc) async {
+        .then((DocumentSnapshot doc) async {
+      if (newCommit == true &&
+          newCommitMonth == int.parse(formatterMonth.format(now))) {
+        List commitmentMap = doc['new commitemt'];
+
+        setState(() {
+          commitmentList = convertListOfMapsToListCommitment(commitmentMap);
+          totalAssetsCommit = doc['assets commitment'];
+          totalLiablityCommit = doc['lablity commitment'];
+        });
+      } else {
         List commitmentMap = doc['commitemt'];
 
         setState(() {
@@ -115,8 +138,8 @@ class _QuickPlannerState extends State<QuickPlanner> {
           totalAssetsCommit = doc['assets commitment'];
           totalLiablityCommit = doc['lablity commitment'];
         });
-      },
-    );
+      }
+    });
 
     await FirebaseFirestore.instance
         .collection('usersIncomeData')

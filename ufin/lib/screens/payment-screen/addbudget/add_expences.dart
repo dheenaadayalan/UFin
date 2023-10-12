@@ -74,6 +74,16 @@ class _AddNewExpencesState extends State<AddNewExpences> {
 
     _form.currentState!.save();
 
+    if (_newExpences.isEmpty) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Try again Or check your Internet Speed.'),
+        ),
+      );
+      return;
+    }
+
     _newExpences.add(
       Expences(
         newBudgetType: selectedBudget,
@@ -118,7 +128,7 @@ class _AddNewExpencesState extends State<AddNewExpences> {
                   Row(
                     children: [
                       Text(
-                        'Enter your expences',
+                        'Enter your expense',
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   color: Theme.of(context)

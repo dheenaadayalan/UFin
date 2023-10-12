@@ -38,7 +38,7 @@ class _CommitWelcomeState extends State<CommitWelcome> {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    "A financial commitment is a promise to pay a certain amount of money in the future.",
+                    "A financial commitment is a promise to pay a certain amount of money regularly every month. These are compulsory payment and can not be avoided",
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!
@@ -256,7 +256,7 @@ class _CommitWelcomeState extends State<CommitWelcome> {
                                         ),
                                         const SizedBox(width: 5),
                                         Text(
-                                          'Rent',
+                                          'House Rent',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall!

@@ -162,16 +162,32 @@ class _BudgetBarChartState extends State<BudgetBarChart> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                'Total Budget ${f.format(snapshot.data!['userTotalBudget'])}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimaryContainer),
-                              ),
+                              if (newBudget == false &&
+                                  newBudgetMonth !=
+                                      int.parse(formatter.format(now)))
+                                Text(
+                                  'Total Budget ${f.format(snapshot.data!['userTotalBudget'])}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer),
+                                ),
+                              if (newBudget == true &&
+                                  newBudgetMonth ==
+                                      int.parse(formatter.format(now)))
+                                Text(
+                                  'New Budget ', //${f.format(snapshot.data!['userTotalBudget'])}
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer),
+                                ),
                               const Spacer(),
                               ElevatedButton(
                                 onPressed: () {

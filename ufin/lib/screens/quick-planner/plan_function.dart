@@ -474,39 +474,6 @@ class _PlanSearchState extends State<PlanSearch> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    if (_selectedMonth[0] == true)
-                      Row(
-                        children: [
-                          const Text(
-                            'At what Date to have pay \nthis commitment',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          const Spacer(),
-                          ElevatedButton(
-                            onPressed: () => _selectDate(context),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                              ),
-                            ),
-                            child: Text(
-                              "${selectedDate.toLocal()}".split(' ')[0],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondaryContainer,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
                     if (_selectedMonth[1] == true)
                       Row(
                         children: [
@@ -547,6 +514,39 @@ class _PlanSearchState extends State<PlanSearch> {
                             ),
                             isSelected: _selectedCommit,
                             children: commitOrBudget,
+                          ),
+                        ],
+                      ),
+                    if (_selectedMonth[0] == true || _selectedCommit[0] == true)
+                      Row(
+                        children: [
+                          const Text(
+                            'At what date you have to use \nthis amount ',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () => _selectDate(context),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                Theme.of(context)
+                                    .colorScheme
+                                    .secondaryContainer,
+                              ),
+                            ),
+                            child: Text(
+                              "${selectedDate.toLocal()}".split(' ')[0],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer,
+                                  ),
+                            ),
                           ),
                         ],
                       ),

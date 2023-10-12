@@ -142,12 +142,12 @@ class _RefactorCommitState extends State<RefactorCommit> {
       body: Column(
         children: [
           Card(
-            margin: EdgeInsets.all(12),
+            margin: const EdgeInsets.all(12),
             color: Theme.of(context).colorScheme.tertiaryContainer,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                '₹ ${f.format(widget.refactorAmount)} form the your ${widget.selectedBudgetToRefactored.title} will added to ${widget.selectedBudget.title} untill this month end.',
+                '₹ ${f.format(widget.refactorAmount)} form the your ${widget.selectedBudgetToRefactored.title} will added to ${widget.selectedBudget.title} untill end this month.',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       color: Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
@@ -178,7 +178,7 @@ class _RefactorCommitState extends State<RefactorCommit> {
                 ),
                 const Spacer(),
                 Text(
-                  'Perority',
+                  'Priority',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 const SizedBox(width: 30),

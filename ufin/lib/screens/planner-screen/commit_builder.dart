@@ -76,7 +76,7 @@ class _CommitBuilderState extends State<CommitBuilder> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Total Assets Commit',
+                              'Assets Commitments',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 10),
@@ -97,7 +97,7 @@ class _CommitBuilderState extends State<CommitBuilder> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Total Liability Commit',
+                              'Liability Commitments',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 10),

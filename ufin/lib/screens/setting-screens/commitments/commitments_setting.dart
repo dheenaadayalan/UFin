@@ -53,18 +53,6 @@ class _CommitmentsSettingState extends State<CommitmentsSetting> {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const Spacer(),
-                      // IconButton(
-                      //   onPressed: () async {
-                      //     Navigator.of(context).push(
-                      //       MaterialPageRoute(
-                      //         builder: (context) => CommitmentsEdit(
-                      //             userMailId: widget.userMailId,
-                      //             newCommitment: newCommitment),
-                      //       ),
-                      //     );
-                      //   },
-                      //   icon: const Icon(Icons.edit),
-                      // )
                     ],
                   ),
                   const SizedBox(height: 20),

@@ -43,6 +43,8 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
   bool newBudget = false;
   var newBudgetMonth = 0;
   var formatter = DateFormat('MM');
+  bool newCommit = false;
+  var newCommitMonth = 0;
 
   @override
   void initState() {
@@ -102,18 +104,42 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
 
   void initializeCommitment() async {
     await FirebaseFirestore.instance
+        .collection('commitmentRefactor')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        newCommit = doc['bool'];
+        newCommitMonth =
+            int.parse(formatterMonth.format(doc['Month'].toDate()));
+      });
+    });
+
+    await FirebaseFirestore.instance
         .collection('users Monthly Commitment')
         .doc(userEmail)
         .get()
         .then(
       (DocumentSnapshot doc) async {
-        List commitmentMap = doc['commitemt'];
+        if (newCommit == true &&
+            newCommitMonth == int.parse(formatterMonth.format(now))) {
+          List commitmentMap = doc['new commitemt'];
 
-        setState(() {
-          commitmentList = convertListOfMapsToListCommitment(commitmentMap);
-          totalAssetsCommit = doc['assets commitment'];
-          totalLiablityCommit = doc['lablity commitment'];
-        });
+          setState(() {
+            commitmentList = convertListOfMapsToListCommitment(commitmentMap);
+            totalAssetsCommit = doc['assets commitment'];
+            totalLiablityCommit = doc['lablity commitment'];
+          });
+        } else {
+          List commitmentMap = doc['commitemt'];
+
+          setState(() {
+            commitmentList = convertListOfMapsToListCommitment(commitmentMap);
+            totalAssetsCommit = doc['assets commitment'];
+            totalLiablityCommit = doc['lablity commitment'];
+          });
+        }
+
         for (var i = 0; i < commitmentList.length; i++) {
           int balancedate =
               int.parse(formatterMonthYear.format(commitmentList[i].date)) -
@@ -281,7 +307,7 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           textInsigitsData.add(
             TextInsigits(
               data:
-                  "You have spent more than ${((last6DaysExp / totalIncome) * 100).toStringAsPrecision(3)}% of your total budget in just 5 day's, At this rate you can't achieve savings Targrt ",
+                  "You have spent more than ${((last6DaysExp / totalIncome) * 100).toStringAsPrecision(3)}% of your total budget in just 5 day's, At this rate you can't achieve savings Target ",
               colorType: Colors.red,
             ),
           );
@@ -315,20 +341,6 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
         }
 
         for (var i = 0; i < budgetList.length; i++) {
-          if (budgetTotalExpData[i].amount >=
-                  (budgetList[i].amount * 80 / 100) &&
-              budgetTotalExpData[i].amount <= (budgetList[i].amount)) {
-            textInsigitsData.add(
-              TextInsigits(
-                data:
-                    'You have spent ${((budgetTotalExpData[i].amount / budgetList[i].amount) * 100).toStringAsPrecision(3)}% of your budget on ${budgetList[i].title}',
-                colorType: Theme.of(context).colorScheme.secondary,
-              ),
-            );
-          }
-        }
-
-        for (var i = 0; i < budgetList.length; i++) {
           if (budgetTotalExpData[i].amount >= (budgetList[i].amount)) {
             textInsigitsData.add(
               TextInsigits(
@@ -340,11 +352,27 @@ class _TextIngsitiesDataState extends State<TextIngsitiesData> {
           }
         }
 
+        for (var i = 0; i < budgetList.length; i++) {
+          if (budgetTotalExpData[i].amount >=
+                  (budgetList[i].amount * 80 / 100) &&
+              (budgetTotalExpData[i].amount <
+                  (budgetList[i].amount * 100 / 100)) &&
+              budgetTotalExpData[i].amount <= (budgetList[i].amount)) {
+            textInsigitsData.add(
+              TextInsigits(
+                data:
+                    'You have spent ${((budgetTotalExpData[i].amount / budgetList[i].amount) * 100).toStringAsPrecision(3)}% of your budget on ${budgetList[i].title}',
+                colorType: Theme.of(context).colorScheme.secondary,
+              ),
+            );
+          }
+        }
+
         if (blanceAmount > (totalExp * 50 / 100)) {
           textInsigitsData.add(
             TextInsigits(
               data:
-                  'You have spent less than 50% your Income, Your saving is ₹ ${f.format(blanceAmount)}', // need to be checked later
+                  'You have spent ${((totalExp / totalIncome) * 100).toStringAsPrecision(3)} your Income, Your saving is ₹ ${f.format(blanceAmount)}', // need to be checked later
               colorType: Colors.green,
             ),
           );

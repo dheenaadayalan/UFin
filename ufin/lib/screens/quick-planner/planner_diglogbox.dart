@@ -159,7 +159,7 @@ class _PlannerConfirmDiglogBoxState extends State<PlannerConfirmDiglogBox> {
                     Row(
                       children: [
                         Text(
-                          'Your total Income amount',
+                          'Your total Income',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const Spacer(),
@@ -173,7 +173,7 @@ class _PlannerConfirmDiglogBoxState extends State<PlannerConfirmDiglogBox> {
                     Row(
                       children: [
                         Text(
-                          'Your expense amount',
+                          'Your expense',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const Spacer(),

@@ -132,7 +132,7 @@ class _PlanListViewState extends State<PlanListView> {
                                 Row(
                                   children: [
                                     Text(
-                                      'Your total Income amount',
+                                      'Your total Income',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,
@@ -150,7 +150,7 @@ class _PlanListViewState extends State<PlanListView> {
                                 Row(
                                   children: [
                                     Text(
-                                      'Your expense amount',
+                                      'Your total expense',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium,

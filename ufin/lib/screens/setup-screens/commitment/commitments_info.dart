@@ -100,6 +100,16 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
         'commitemt': data,
       },
     );
+
+    await FirebaseFirestore.instance
+        .collection('commitmentRefactor')
+        .doc(widget.userMailId)
+        .set(
+      {
+        'bool': false,
+        'Month': DateTime.now(),
+      },
+    );
   }
 
   @override

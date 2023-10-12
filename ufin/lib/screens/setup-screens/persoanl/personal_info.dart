@@ -91,7 +91,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                       child: Column(
                         children: [
                           Text(
-                            'Welcom ${widget.userName.toUpperCase()}',
+                            'Welcome ${widget.userName.toUpperCase()}',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineMedium!
@@ -129,7 +129,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                           ),
                           Row(
                             children: [
-                              const Text('What is your Gender'),
+                              const Text('Gender'),
                               const Spacer(),
                               GenderDropdownButton(
                                 onPickedGender: (pickedGender) {
@@ -140,7 +140,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                           ),
                           Row(
                             children: [
-                              const Text('What do you do for living'),
+                              const Text('What you do for living'),
                               const Spacer(),
                               LivingDropdownButton(
                                 onPickLiving: (pickedLiving) {

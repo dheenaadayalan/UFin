@@ -101,7 +101,7 @@ class _PersonalSettingEditState extends State<PersonalSettingEdit> {
                           ),
                           Row(
                             children: [
-                              const Text('What is your Gender'),
+                              const Text('Gender'),
                               const Spacer(),
                               GenderDropdownButton(
                                 onPickedGender: (pickedGender) {
@@ -112,7 +112,7 @@ class _PersonalSettingEditState extends State<PersonalSettingEdit> {
                           ),
                           Row(
                             children: [
-                              const Text('What do you do for living'),
+                              const Text('What you do for living'),
                               const Spacer(),
                               LivingDropdownButton(
                                 onPickLiving: (pickedLiving) {

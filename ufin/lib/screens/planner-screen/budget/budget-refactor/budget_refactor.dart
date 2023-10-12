@@ -237,12 +237,12 @@ class _BudgetRefactorState extends State<BudgetRefactor> {
                     child: Column(
                       children: [
                         Text(
-                          'We have found ${fliteredBudget.length} of your Budget that can be Refactored',
+                          'We have found ${fliteredBudget.length} of your budget that can be refactored',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'How much amount you needed to refactor',
+                          'How much amount you needed to be refactored',
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                         const SizedBox(height: 10),

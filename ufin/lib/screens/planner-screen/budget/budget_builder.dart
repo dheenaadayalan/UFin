@@ -249,7 +249,7 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                                     ),
                                     const Spacer(),
                                     Text(
-                                      'Due date:',
+                                      'Preference',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
@@ -352,7 +352,7 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                   ),
                   const Spacer(),
                   Text(
-                    'Budget Used Amount',
+                    'Budget Amount',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(width: 40),
@@ -451,7 +451,7 @@ class _BudgetBuilderState extends State<BudgetBuilder> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Go to refactor screen and plan according to achieve your saving target',
+                    'Use budget refactor to plan according in a minute. So that you do not miss your saving target',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 10),

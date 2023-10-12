@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ufin/widget/user_image_picker.dart';
@@ -31,16 +32,21 @@ class _NameImgScreenState extends State<NameImgScreen> {
                   if (snapshot.hasData)
                     Column(
                       children: [
-                        Text(
-                          snapshot.data!['username'].toUpperCase() as String,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer),
-                          textAlign: TextAlign.left,
+                        SizedBox(
+                          width: 200,
+                          height: 50,
+                          child: AutoSizeText(
+                            snapshot.data!['username'].toUpperCase() as String,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer),
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Text(

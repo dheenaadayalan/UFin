@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experience the Power of UFin</title>
+  <style>
+    body {
+      background-color: #00008B;
+      color: #ffffff;
+      font-family: sans-serif;
+      font-size: 16px;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 36px;
+      text-align: center;
+    }
+
+    p {
+      color: #ffffff;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .download-button {
+      background-color: #000000;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .download-button::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    .download-button::after {
+      content: "Download Now";
+    }
+
+    @media (max-width: 576px) {
+      .download-button {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Experience the Power of UFin</h1>
+  <p>Open this Webpage in your android device and click the download button to download and use the Application</p>
+  <a href="app.apk" class="download-button">
+    <!-- <span>Download Now</span> -->
+  </a>
+
+</body>
+
+</html>
+

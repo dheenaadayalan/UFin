@@ -157,7 +157,7 @@ class _RefactorChooseState extends State<RefactorChoose> {
           ),
           // const SizedBox(height: 30),
           Text(
-            'There no need to Refactor your budget for now- Your all good❤️',
+            'You spent almost all of your Budget, It cant be refactored- Try with a lesser amount❤️',
             style: Theme.of(context).textTheme.headlineSmall,
             textAlign: TextAlign.center,
           ),

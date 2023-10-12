@@ -444,7 +444,7 @@ class _HeaderState extends State<PlanerHeader> {
                     child: Row(
                       children: [
                         Text(
-                          'Have you paid your ${commitmentList[i].title}',
+                          'Have you paid your ${commitmentList[i].title} bill',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const Spacer(),

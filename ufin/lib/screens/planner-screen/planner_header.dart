@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ufin/models/commitmet_model.dart';
 import 'package:ufin/models/expences_modes.dart';
 import 'package:ufin/screens/payment-screen/payment_screen.dart';
+import 'package:ufin/screens/planner-screen/add_addtional_income.dart';
 
 var f = NumberFormat('##,##,###');
 var formatterMonth = DateFormat('MM');
@@ -42,6 +43,11 @@ class _HeaderState extends State<PlanerHeader> {
   bool newCommit = false;
   var newCommitMonth = 0;
 
+  num salaryIncome = 0;
+  num businessIncome = 0;
+  num investmentIncome = 0;
+  num otherIncome = 0;
+
   @override
   void initState() {
     initialize();
@@ -59,6 +65,32 @@ class _HeaderState extends State<PlanerHeader> {
           .update(
         {
           'bool': false,
+        },
+      );
+    }
+
+    await FirebaseFirestore.instance
+        .collection('usersIncomeData')
+        .doc(userEmail)
+        .get()
+        .then((DocumentSnapshot doc) async {
+      setState(() {
+        salaryIncome = doc['salary Income'];
+        businessIncome = doc['business Income'];
+        investmentIncome = doc['investment Income'];
+        otherIncome = doc['other Income'];
+      });
+    });
+
+    if (formatterDay.format(now) == '01') {
+      FirebaseFirestore.instance
+          .collection('usersIncomeData')
+          .doc(userEmail)
+          .update(
+        {
+          'total Incom':
+              salaryIncome + businessIncome + investmentIncome + otherIncome,
+          'addtional Incom': 0,
         },
       );
     }
@@ -205,45 +237,55 @@ class _HeaderState extends State<PlanerHeader> {
                     .doc(userEmail)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  return Row(
-                    children: [
-                      if (snapshot.data == null) const Text('Wlcome'),
-                      if (snapshot.hasData)
-                        SizedBox(
-                          width: 170,
-                          child: Card(
-                            color: Colors.green[500],
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Total Income',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimary),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    '₹ ${f.format(snapshot.data!['total Incom'])}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimary),
-                                  ),
-                                ],
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddtionalIncome(),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        if (snapshot.data == null) const Text('Wlcome'),
+                        if (snapshot.hasData)
+                          SizedBox(
+                            width: 170,
+                            child: Card(
+                              color: Colors.green[500],
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Total Income',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      '₹ ${f.format(snapshot.data!['total Incom'])}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                    ],
+                          )
+                      ],
+                    ),
                   );
                 },
               ),

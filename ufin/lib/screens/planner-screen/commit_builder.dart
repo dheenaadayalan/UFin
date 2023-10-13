@@ -156,7 +156,7 @@ class _CommitBuilderState extends State<CommitBuilder> {
 
               if (snapshot.hasData) {
                 List newCommitment = [];
-                final PageController controller = PageController();
+
                 if (newCommit == true &&
                     newCommitMonth == int.parse(formatterMonth.format(nowM))) {
                   newCommitment = snapshot.data!['new commitemt'];
@@ -164,79 +164,72 @@ class _CommitBuilderState extends State<CommitBuilder> {
                   newCommitment = snapshot.data!['commitemt'];
                 }
 
-                contex = CarouselSlider(
-                  items: [
-                    PageView.builder(
-                      itemCount: newCommitment.length,
-                      controller: controller,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Stack(
-                              children: [
-                                Card(
-                                  // color:
-                                  //     Theme.of(context).colorScheme.tertiaryContainer,
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            10, 0, 0, 0),
-                                        child: Text(
-                                          newCommitment[index]['title']
+                contex = CarouselSlider.builder(
+                  itemCount: newCommitment.length,
+                  itemBuilder: (context, index, realIndex) {
+                    return SizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Stack(
+                          children: [
+                            Card(
+                              // color:
+                              //     Theme.of(context).colorScheme.tertiaryContainer,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: Text(
+                                      newCommitment[index]['title'].toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '₹ ${f.format(newCommitment[index]['amount']).toString()}',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  const Spacer(),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          formatter
+                                              .format(newCommitment[index]
+                                                      ['date']
+                                                  .toDate())
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge,
                                         ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        '₹ ${f.format(newCommitment[index]['amount']).toString()}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge,
-                                      ),
-                                      const Spacer(),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            0, 0, 10, 0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              formatter
-                                                  .format(newCommitment[index]
-                                                          ['date']
-                                                      .toDate())
-                                                  .toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              newCommitment[index]
-                                                  ['commitDateType'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          newCommitment[index]
+                                              ['commitDateType'],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                   options: CarouselOptions(
                     height: 195.0,
                     enlargeCenterPage: true,

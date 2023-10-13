@@ -76,6 +76,8 @@ class _PlanSearchState extends State<PlanSearch> {
   var formatterMonthYear = DateFormat('d');
   var formatterMonthDateYear = DateFormat('Md');
 
+  bool beta = false;
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -97,6 +99,12 @@ class _PlanSearchState extends State<PlanSearch> {
       return;
     }
     _form.currentState!.save();
+
+    if (planMonth == 'Every Month') {
+      setState(() {
+        beta = true;
+      });
+    }
 
     if (planMonth == 'This Month') {
       num totalBalanceAmountLeast = 0;
@@ -450,7 +458,7 @@ class _PlanSearchState extends State<PlanSearch> {
                                 _selectedMonth[i] = i == index;
                               }
                               if (index == 1) {
-                                planMonth = 'Evey Month';
+                                planMonth = 'Every Month';
                               }
                               if (index == 0) {
                                 planMonth = 'This Month';
@@ -632,6 +640,25 @@ class _PlanSearchState extends State<PlanSearch> {
             ),
           ),
         ),
+        if (beta == true)
+          Container(
+            margin: const EdgeInsets.all(15),
+            height: 400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Quick planner for "Every Month" will be available soon!',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Its currently beening tested internaly',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
+            ),
+          ),
       ],
     );
   }

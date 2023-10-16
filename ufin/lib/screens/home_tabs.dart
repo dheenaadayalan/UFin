@@ -62,23 +62,38 @@ class _HomeTabsScreenState extends State<HomeTabsScreen> {
                     leading: null,
                     title: const Text('UFin'),
                     actions: [
-                      // remove this logout laater and include sign out only in setting screen
-                      IconButton(
-                        onPressed: () {
-                          // FirebaseAuth.instance.signOut();
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //   builder: (context) => const AuthScreen(),
-                          // ));
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const QuickPlanner(),
-                          ));
-                        },
-                        icon: Icon(
-                          Icons.add_chart_sharp,
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 35,
+                      if (selectedPageIndex == 2)
+                        TextButton.icon(
+                          onPressed: () {
+                            FirebaseAuth.instance.signOut();
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const AuthScreen(),
+                            ));
+                          },
+                          icon: Icon(
+                            Icons.logout,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 35,
+                          ),
+                          label: const Text('Logg-Out'),
                         ),
-                      ),
+                      if (selectedPageIndex == 0 || selectedPageIndex == 1)
+                        IconButton(
+                          onPressed: () {
+                            // FirebaseAuth.instance.signOut();
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //   builder: (context) => const AuthScreen(),
+                            // ));
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const QuickPlanner(),
+                            ));
+                          },
+                          icon: Icon(
+                            Icons.add_chart_sharp,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 35,
+                          ),
+                        ),
                     ],
                   ),
                   body: activeScreen,

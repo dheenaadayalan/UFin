@@ -4,7 +4,7 @@ const List<String> list = <String>[
   'Select',
   'Assets',
   'Liability',
-  'Can not be categorized'
+  'Can not be \ncategorized'
 ];
 
 class CommitmentDropdownButton extends StatefulWidget {

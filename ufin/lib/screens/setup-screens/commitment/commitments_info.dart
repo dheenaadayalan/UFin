@@ -27,6 +27,7 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
   int toggleValue = 0;
   num _lablityCommit = 0;
   num _assetsCommit = 0;
+  num _cantBeCatorzied = 0;
   var formatter = DateFormat('d');
 
   void openCommitDiglog() {
@@ -43,6 +44,8 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
         _assetsCommit += commit.amount;
       } else if (commit.commitType == 'Liability') {
         _lablityCommit += commit.amount;
+      } else if (commit.commitType == 'Can not be \ncategorized') {
+        _cantBeCatorzied += commit.amount;
       }
     });
   }
@@ -54,6 +57,8 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
         _assetsCommit -= commit.amount;
       } else if (commit.commitType == 'Liability') {
         _lablityCommit -= commit.amount;
+      } else if (commit.commitType == 'Can not be \ncategorized') {
+        _cantBeCatorzied -= commit.amount;
       }
     });
   }
@@ -64,8 +69,8 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
     if (!isValid) {
       return;
     }
-    final balanceBugetBeforSaving =
-        widget.totalIncome - (_assetsCommit + _lablityCommit);
+    final balanceBugetBeforSaving = widget.totalIncome -
+        (_assetsCommit + _lablityCommit + _cantBeCatorzied);
     _form.currentState!.save();
 
     Navigator.of(context).push(MaterialPageRoute(
@@ -96,7 +101,7 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
         'lablity commitment': _lablityCommit,
         'assets commitment': _assetsCommit,
         'balance budget befor saving': balanceBugetBeforSaving,
-        'total commitments': _assetsCommit + _lablityCommit,
+        'total commitments': _assetsCommit + _lablityCommit + _cantBeCatorzied,
         'commitemt': data,
       },
     );
@@ -216,7 +221,7 @@ class _CommitmentsScreenState extends State<CommitmentsScreen> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            '₹${f.format(_assetsCommit + _lablityCommit)}',
+                                            '₹${f.format(_assetsCommit + _lablityCommit + _cantBeCatorzied)}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium!

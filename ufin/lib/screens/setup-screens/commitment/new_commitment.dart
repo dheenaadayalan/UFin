@@ -199,14 +199,17 @@ class _NewCommitmentState extends State<NewCommitment> {
                         Row(
                           children: [
                             Text(
-                              'Is this commitment a Asset or Liablity',
+                              'Is this commitment a\nAsset or Liablity',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const Spacer(),
-                            CommitmentDropdownButton(
-                              onPickLiving: (pickedLiving) {
-                                commitType = pickedLiving;
-                              },
+                            SizedBox(
+                              width: 100,
+                              child: CommitmentDropdownButton(
+                                onPickLiving: (pickedLiving) {
+                                  commitType = pickedLiving;
+                                },
+                              ),
                             )
                           ],
                         ),

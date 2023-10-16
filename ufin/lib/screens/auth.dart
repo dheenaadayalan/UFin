@@ -30,7 +30,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredUsername = '';
   File? _selectedImage;
   var _isAuthenticating = false;
-  bool _passwordVisible = true;
+  bool _passwordVisible = false;
 
   void _submit() async {
     final isValid = _form.currentState!.validate();
@@ -195,8 +195,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _passwordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                   color: Theme.of(context).primaryColorDark,
                                 ),
                                 onPressed: () {

@@ -25,6 +25,8 @@ class PlannerConfirmDiglogBox extends StatefulWidget {
     required this.budgetTotalAmount,
     required this.commitmentList,
     required this.selectedDate,
+    required this.planMonth,
+    required this.planCommit,
   });
 
   final List<PlanModel> plans;
@@ -38,6 +40,8 @@ class PlannerConfirmDiglogBox extends StatefulWidget {
   final num budgetTotalAmount;
   final List<Commitment> commitmentList;
   final DateTime selectedDate;
+  final String planMonth;
+  final String planCommit;
 
   @override
   State<PlannerConfirmDiglogBox> createState() =>
@@ -49,84 +53,94 @@ class _PlannerConfirmDiglogBoxState extends State<PlannerConfirmDiglogBox> {
   var now = DateTime.now();
 
   void savePlan() async {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) {
-          return const HomeTabsScreen();
+    if (widget.planMonth == 'This Month') {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) {
+            return const HomeTabsScreen();
+          },
+        ),
+        (Route route) => false,
+      );
+      widget.commitmentList.add(
+        Commitment(
+          title: widget.planTitle,
+          amount: widget.planAmount,
+          commitType: 'Liability',
+          date: widget.selectedDate,
+          commitdatetype: 'Monthly',
+          paidStatus: false,
+        ),
+      );
+
+      var index = widget.selectedIndex;
+      List<Map<String, Object>> data = [
+        for (var i = 0; i < widget.plans[index].totalBudget.length; i++)
+          {
+            'title': widget.plans[index].totalBudget[i].title,
+            'amount': widget.plans[index].totalBudget[i].amount,
+            'perferance type': widget.plans[index].totalBudget[i].perferance,
+          }
+      ];
+
+      List<Map<String, Object>> data1 = [
+        for (var index in widget.commitmentList)
+          {
+            'title': index.title,
+            'amount': index.amount,
+            'type': index.commitType,
+            'date': index.date,
+            'commitDateType': index.commitdatetype,
+            'bool': index.paidStatus,
+          }
+      ];
+
+      await FirebaseFirestore.instance
+          .collection('usersBudget')
+          .doc(userEmail)
+          .update(
+        {
+          'new Budget': data,
         },
-      ),
-      (Route route) => false,
-    );
-    widget.commitmentList.add(
-      Commitment(
-        title: widget.planTitle,
-        amount: widget.planAmount,
-        commitType: 'Liability',
-        date: widget.selectedDate,
-        commitdatetype: 'Monthly',
-        paidStatus: false,
-      ),
-    );
+      );
 
-    var index = widget.selectedIndex;
-    List<Map<String, Object>> data = [
-      for (var i = 0; i < widget.plans[index].totalBudget.length; i++)
+      await FirebaseFirestore.instance
+          .collection('users Monthly Commitment')
+          .doc(userEmail)
+          .update(
         {
-          'title': widget.plans[index].totalBudget[i].title,
-          'amount': widget.plans[index].totalBudget[i].amount,
-          'perferance type': widget.plans[index].totalBudget[i].perferance,
-        }
-    ];
+          'new commitemt': data1,
+        },
+      );
 
-    List<Map<String, Object>> data1 = [
-      for (var index in widget.commitmentList)
+      await FirebaseFirestore.instance
+          .collection('budgetRefactor')
+          .doc(userEmail)
+          .update(
         {
-          'title': index.title,
-          'amount': index.amount,
-          'type': index.commitType,
-          'date': index.date,
-          'commitDateType': index.commitdatetype,
-          'bool': index.paidStatus,
-        }
-    ];
+          'bool': true,
+          'Month': DateTime.now(),
+        },
+      );
 
-    await FirebaseFirestore.instance
-        .collection('usersBudget')
-        .doc(userEmail)
-        .update(
-      {
-        'new Budget': data,
-      },
-    );
-
-    await FirebaseFirestore.instance
-        .collection('users Monthly Commitment')
-        .doc(userEmail)
-        .update(
-      {
-        'new commitemt': data1,
-      },
-    );
-
-    await FirebaseFirestore.instance
-        .collection('budgetRefactor')
-        .doc(userEmail)
-        .update(
-      {
-        'bool': true,
-        'Month': DateTime.now(),
-      },
-    );
-
-    await FirebaseFirestore.instance
-        .collection('commitmentRefactor')
-        .doc(userEmail)
-        .set(
-      {
-        'bool': true,
-        'Month': DateTime.now(),
-      },
-    );
+      await FirebaseFirestore.instance
+          .collection('commitmentRefactor')
+          .doc(userEmail)
+          .set(
+        {
+          'bool': true,
+          'Month': DateTime.now(),
+        },
+      );
+    } else if (widget.planMonth == 'Every Month' &&
+        widget.planCommit == 'Commiment') {
+      print(widget.planMonth);
+      print(widget.planCommit);
+    } else if (widget.planMonth == 'Every Month' &&
+        widget.planCommit == '  Budget ') {
+      print(widget.planMonth);
+      print(widget.planCommit);
+    }
   }
 
   @override

@@ -22,6 +22,8 @@ class PlanListView extends StatefulWidget {
     required this.planTitle,
     required this.commitmentList,
     required this.selectedDate,
+    required this.planMonth,
+    required this.planCommit,
   });
 
   final List<PlanModel> plans;
@@ -33,6 +35,8 @@ class PlanListView extends StatefulWidget {
   final String planTitle;
   final List<Commitment> commitmentList;
   final DateTime selectedDate;
+  final String planMonth;
+  final String planCommit;
 
   @override
   State<PlanListView> createState() => _PlanListViewState();
@@ -43,7 +47,7 @@ class _PlanListViewState extends State<PlanListView> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    //print(widget.plans.length);
+    print(widget.planMonth);
     return Column(
       children: [
         if (widget.plans.isEmpty)
@@ -67,7 +71,7 @@ class _PlanListViewState extends State<PlanListView> {
           ),
         if (widget.plans.isNotEmpty)
           SizedBox(
-            height: 400,
+            height: 360,
             child: CarouselSlider.builder(
               itemCount: widget.plans.length,
               itemBuilder:
@@ -113,7 +117,7 @@ class _PlanListViewState extends State<PlanListView> {
                     );
                   },
                   title: SizedBox(
-                    height: 400,
+                    height: 360,
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(5, 0, 5, 15),
                       child: Card(
@@ -388,6 +392,8 @@ class _PlanListViewState extends State<PlanListView> {
                   budgetTotalAmount: userPlantotalBudget,
                   commitmentList: widget.commitmentList,
                   selectedDate: widget.selectedDate,
+                  planMonth: widget.planMonth,
+                  planCommit: widget.planCommit,
                 ),
               );
             },

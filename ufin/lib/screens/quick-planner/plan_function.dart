@@ -35,6 +35,8 @@ class PlanSearch extends StatefulWidget {
     required this.onPickPlanAmount,
     required this.onPickPlanName,
     required this.onPickDateTime,
+    required this.onPickPlanMonth,
+    required this.onPickPlanCommit,
   });
 
   final List<Budget> budgetList;
@@ -51,6 +53,8 @@ class PlanSearch extends StatefulWidget {
   final void Function(String pickedPlanName) onPickPlanName;
   final void Function(num pickedPlanAmount) onPickPlanAmount;
   final void Function(DateTime pickedDateTime) onPickDateTime;
+  final void Function(String pickedPlanMonth) onPickPlanMonth;
+  final void Function(String pickedPlanCommit) onPickPlanCommit;
 
   @override
   State<PlanSearch> createState() => _PlanSearchState();
@@ -91,6 +95,321 @@ class _PlanSearchState extends State<PlanSearch> {
     }
   }
 
+  void planFunction() {
+    num totalBalanceAmountLeast = 0;
+
+    for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+      if (widget.budgetList[i].perferance == 'Least Priority') {
+        totalBalanceAmountLeast =
+            totalBalanceAmountLeast + widget.balanceBudgetAmount[i].amount;
+      }
+    }
+
+    if (totalBalanceAmountLeast > planAmount) {
+      List<Budget> newBudget = [];
+
+      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+        if (widget.budgetList[i].perferance == 'Least Priority') {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount -
+                  ((planAmount *
+                          (widget.balanceBudgetAmount[i].amount /
+                              totalBalanceAmountLeast)))
+                      .round(),
+            ),
+          );
+        } else {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount,
+            ),
+          );
+        }
+      }
+
+      plans.add(
+        PlanModel(
+          title: 'Best Possiable Plan',
+          totalIncome: widget.totalIncome,
+          totalExpance: widget.totalExp,
+          saving: widget.savingTraget,
+          totalBudget: List<Budget>.from(newBudget),
+        ),
+      );
+    }
+
+    num totalBalanceAmountLow = 0;
+
+    for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+      if (widget.budgetList[i].perferance == 'Least Priority' ||
+          widget.budgetList[i].perferance == 'Low Priority') {
+        totalBalanceAmountLow =
+            totalBalanceAmountLow + widget.balanceBudgetAmount[i].amount;
+      }
+    }
+
+    if (totalBalanceAmountLow > planAmount) {
+      List<Budget> newBudget = [];
+
+      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+        if (widget.budgetList[i].perferance == 'Least Priority' ||
+            widget.budgetList[i].perferance == 'Low Priority') {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount -
+                  ((planAmount *
+                          (widget.balanceBudgetAmount[i].amount /
+                              totalBalanceAmountLow)))
+                      .round(),
+            ),
+          );
+        } else {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount,
+            ),
+          );
+        }
+      }
+
+      plans.add(
+        PlanModel(
+          title: 'Secound Best Plan',
+          totalIncome: widget.totalIncome,
+          totalExpance: widget.totalExp,
+          saving: widget.savingTraget,
+          totalBudget: List<Budget>.from(newBudget),
+        ),
+      );
+    }
+
+    num totalBalanceAmountIn = 0;
+
+    for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+      if (widget.budgetList[i].perferance == 'Least Priority' ||
+          widget.budgetList[i].perferance == 'Low Priority' ||
+          widget.budgetList[i].perferance == 'In between') {
+        totalBalanceAmountIn =
+            totalBalanceAmountIn + widget.balanceBudgetAmount[i].amount;
+      }
+    }
+
+    if (totalBalanceAmountIn > planAmount) {
+      List<Budget> newBudget = [];
+
+      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+        if (widget.budgetList[i].perferance == 'Least Priority' ||
+            widget.budgetList[i].perferance == 'Low Priority' ||
+            widget.budgetList[i].perferance == 'In between') {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount -
+                  ((planAmount *
+                          (widget.balanceBudgetAmount[i].amount /
+                              totalBalanceAmountIn)))
+                      .round(),
+            ),
+          );
+        } else {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount,
+            ),
+          );
+        }
+      }
+
+      plans.add(
+        PlanModel(
+          title: '3 Best Plan',
+          totalIncome: widget.totalIncome,
+          totalExpance: widget.totalExp,
+          saving: widget.savingTraget,
+          totalBudget: List<Budget>.from(newBudget),
+        ),
+      );
+    }
+
+    num totalBalanceAmountPer = 0;
+
+    for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+      if (widget.budgetList[i].perferance == 'Least Priority' ||
+          widget.budgetList[i].perferance == 'Low Priority' ||
+          widget.budgetList[i].perferance == 'In between' ||
+          widget.budgetList[i].perferance == 'Priority') {
+        totalBalanceAmountPer =
+            totalBalanceAmountPer + widget.balanceBudgetAmount[i].amount;
+      }
+    }
+
+    if (totalBalanceAmountPer > planAmount) {
+      List<Budget> newBudget = [];
+
+      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+        if (widget.budgetList[i].perferance == 'Least Priority' ||
+            widget.budgetList[i].perferance == 'Low Priority' ||
+            widget.budgetList[i].perferance == 'In between' ||
+            widget.budgetList[i].perferance == 'Priority') {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount -
+                  ((planAmount *
+                          (widget.balanceBudgetAmount[i].amount /
+                              totalBalanceAmountPer)))
+                      .round(),
+            ),
+          );
+        } else {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount,
+            ),
+          );
+        }
+      }
+
+      plans.add(
+        PlanModel(
+          title: '4 Best Plan',
+          totalIncome: widget.totalIncome,
+          totalExpance: widget.totalExp,
+          saving: widget.savingTraget,
+          totalBudget: List<Budget>.from(newBudget),
+        ),
+      );
+    }
+
+    num totalBalanceAmountHig = 0;
+
+    for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+      if (widget.budgetList[i].perferance == 'Least Priority' ||
+          widget.budgetList[i].perferance == 'Low Priority' ||
+          widget.budgetList[i].perferance == 'In between' ||
+          widget.budgetList[i].perferance == 'Priority' ||
+          widget.budgetList[i].perferance == 'Highest Priority') {
+        totalBalanceAmountHig =
+            totalBalanceAmountHig + widget.balanceBudgetAmount[i].amount;
+      }
+    }
+
+    if (totalBalanceAmountHig > planAmount) {
+      List<Budget> newBudget = [];
+
+      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+        if (widget.budgetList[i].perferance == 'Least Priority' ||
+            widget.budgetList[i].perferance == 'Low Priority' ||
+            widget.budgetList[i].perferance == 'In between' ||
+            widget.budgetList[i].perferance == 'Priority' ||
+            widget.budgetList[i].perferance == 'Highest Priority') {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount -
+                  ((planAmount *
+                          (widget.balanceBudgetAmount[i].amount /
+                              totalBalanceAmountHig)))
+                      .round(),
+            ),
+          );
+        } else {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount,
+            ),
+          );
+        }
+      }
+
+      plans.add(
+        PlanModel(
+          title: '5 Possiable Plan',
+          totalIncome: widget.totalIncome,
+          totalExpance: widget.totalExp,
+          saving: widget.savingTraget,
+          totalBudget: List<Budget>.from(newBudget),
+        ),
+      );
+    }
+    num totalBalanceAmountSav = 0;
+
+    for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+      if (widget.budgetList[i].perferance == 'Least Priority' ||
+          widget.budgetList[i].perferance == 'Low Priority' ||
+          widget.budgetList[i].perferance == 'In between' ||
+          widget.budgetList[i].perferance == 'Priority' ||
+          widget.budgetList[i].perferance == 'Highest Priority') {
+        totalBalanceAmountSav =
+            totalBalanceAmountSav + widget.balanceBudgetAmount[i].amount;
+      }
+    }
+    totalBalanceAmountSav = totalBalanceAmountSav + widget.savingTraget;
+
+    if (totalBalanceAmountSav > planAmount) {
+      List<Budget> newBudget = [];
+
+      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
+        if (widget.budgetList[i].perferance == 'Least Priority' ||
+            widget.budgetList[i].perferance == 'Low Priority' ||
+            widget.budgetList[i].perferance == 'In between' ||
+            widget.budgetList[i].perferance == 'Priority' ||
+            widget.budgetList[i].perferance == 'Highest Priority') {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount -
+                  ((planAmount *
+                          ((widget.balanceBudgetAmount[i].amount) /
+                              totalBalanceAmountSav)))
+                      .round(),
+            ),
+          );
+        } else {
+          newBudget.add(
+            Budget(
+              title: widget.budgetList[i].title,
+              perferance: widget.budgetList[i].perferance,
+              amount: widget.budgetList[i].amount,
+            ),
+          );
+        }
+      }
+
+      plans.add(
+        PlanModel(
+          title: '6 Possiable Plan',
+          totalIncome: widget.totalIncome,
+          totalExpance: widget.totalExp,
+          saving: (widget.savingTraget) -
+              ((planAmount * ((widget.savingTraget) / totalBalanceAmountSav)))
+                  .round(),
+          totalBudget: List<Budget>.from(newBudget),
+        ),
+      );
+    }
+    setState(() {});
+  }
+
   void searchPlan() async {
     plans = [];
 
@@ -100,330 +419,24 @@ class _PlanSearchState extends State<PlanSearch> {
     }
     _form.currentState!.save();
 
-    if (planMonth == 'Every Month') {
-      setState(() {
-        beta = true;
-      });
+    if (planMonth == 'Every Month' && planCommit == 'Commiment') {
+      planFunction();
     }
 
     if (planMonth == 'This Month') {
-      num totalBalanceAmountLeast = 0;
-
-      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-        if (widget.budgetList[i].perferance == 'Least Priority') {
-          totalBalanceAmountLeast =
-              totalBalanceAmountLeast + widget.balanceBudgetAmount[i].amount;
-        }
-      }
-
-      if (totalBalanceAmountLeast > planAmount) {
-        List<Budget> newBudget = [];
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority') {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount -
-                    ((planAmount *
-                            (widget.balanceBudgetAmount[i].amount /
-                                totalBalanceAmountLeast)))
-                        .round(),
-              ),
-            );
-          } else {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount,
-              ),
-            );
-          }
-        }
-
-        plans.add(
-          PlanModel(
-            title: 'Best Possiable Plan',
-            totalIncome: widget.totalIncome,
-            totalExpance: widget.totalExp,
-            saving: widget.savingTraget,
-            totalBudget: List<Budget>.from(newBudget),
-          ),
-        );
-      }
-
-      num totalBalanceAmountLow = 0;
-
-      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-        if (widget.budgetList[i].perferance == 'Least Priority' ||
-            widget.budgetList[i].perferance == 'Low Priority') {
-          totalBalanceAmountLow =
-              totalBalanceAmountLow + widget.balanceBudgetAmount[i].amount;
-        }
-      }
-
-      if (totalBalanceAmountLow > planAmount) {
-        List<Budget> newBudget = [];
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority') {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount -
-                    ((planAmount *
-                            (widget.balanceBudgetAmount[i].amount /
-                                totalBalanceAmountLow)))
-                        .round(),
-              ),
-            );
-          } else {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount,
-              ),
-            );
-          }
-        }
-
-        plans.add(
-          PlanModel(
-            title: 'Secound Best Plan',
-            totalIncome: widget.totalIncome,
-            totalExpance: widget.totalExp,
-            saving: widget.savingTraget,
-            totalBudget: List<Budget>.from(newBudget),
-          ),
-        );
-      }
-
-      num totalBalanceAmountIn = 0;
-
-      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-        if (widget.budgetList[i].perferance == 'Least Priority' ||
-            widget.budgetList[i].perferance == 'Low Priority' ||
-            widget.budgetList[i].perferance == 'In between') {
-          totalBalanceAmountIn =
-              totalBalanceAmountIn + widget.balanceBudgetAmount[i].amount;
-        }
-      }
-
-      if (totalBalanceAmountIn > planAmount) {
-        List<Budget> newBudget = [];
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between') {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount -
-                    ((planAmount *
-                            (widget.balanceBudgetAmount[i].amount /
-                                totalBalanceAmountIn)))
-                        .round(),
-              ),
-            );
-          } else {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount,
-              ),
-            );
-          }
-        }
-
-        plans.add(
-          PlanModel(
-            title: '3 Best Plan',
-            totalIncome: widget.totalIncome,
-            totalExpance: widget.totalExp,
-            saving: widget.savingTraget,
-            totalBudget: List<Budget>.from(newBudget),
-          ),
-        );
-      }
-
-      num totalBalanceAmountPer = 0;
-
-      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-        if (widget.budgetList[i].perferance == 'Least Priority' ||
-            widget.budgetList[i].perferance == 'Low Priority' ||
-            widget.budgetList[i].perferance == 'In between' ||
-            widget.budgetList[i].perferance == 'Priority') {
-          totalBalanceAmountPer =
-              totalBalanceAmountPer + widget.balanceBudgetAmount[i].amount;
-        }
-      }
-
-      if (totalBalanceAmountPer > planAmount) {
-        List<Budget> newBudget = [];
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between' ||
-              widget.budgetList[i].perferance == 'Priority') {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount -
-                    ((planAmount *
-                            (widget.balanceBudgetAmount[i].amount /
-                                totalBalanceAmountPer)))
-                        .round(),
-              ),
-            );
-          } else {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount,
-              ),
-            );
-          }
-        }
-
-        plans.add(
-          PlanModel(
-            title: '4 Best Plan',
-            totalIncome: widget.totalIncome,
-            totalExpance: widget.totalExp,
-            saving: widget.savingTraget,
-            totalBudget: List<Budget>.from(newBudget),
-          ),
-        );
-      }
-
-      num totalBalanceAmountHig = 0;
-
-      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-        if (widget.budgetList[i].perferance == 'Least Priority' ||
-            widget.budgetList[i].perferance == 'Low Priority' ||
-            widget.budgetList[i].perferance == 'In between' ||
-            widget.budgetList[i].perferance == 'Priority' ||
-            widget.budgetList[i].perferance == 'Highest Priority') {
-          totalBalanceAmountHig =
-              totalBalanceAmountHig + widget.balanceBudgetAmount[i].amount;
-        }
-      }
-
-      if (totalBalanceAmountHig > planAmount) {
-        List<Budget> newBudget = [];
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between' ||
-              widget.budgetList[i].perferance == 'Priority' ||
-              widget.budgetList[i].perferance == 'Highest Priority') {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount -
-                    ((planAmount *
-                            (widget.balanceBudgetAmount[i].amount /
-                                totalBalanceAmountHig)))
-                        .round(),
-              ),
-            );
-          } else {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount,
-              ),
-            );
-          }
-        }
-
-        plans.add(
-          PlanModel(
-            title: '5 Possiable Plan',
-            totalIncome: widget.totalIncome,
-            totalExpance: widget.totalExp,
-            saving: widget.savingTraget,
-            totalBudget: List<Budget>.from(newBudget),
-          ),
-        );
-      }
-      num totalBalanceAmountSav = 0;
-
-      for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-        if (widget.budgetList[i].perferance == 'Least Priority' ||
-            widget.budgetList[i].perferance == 'Low Priority' ||
-            widget.budgetList[i].perferance == 'In between' ||
-            widget.budgetList[i].perferance == 'Priority' ||
-            widget.budgetList[i].perferance == 'Highest Priority') {
-          totalBalanceAmountSav =
-              totalBalanceAmountSav + widget.balanceBudgetAmount[i].amount;
-        }
-      }
-      totalBalanceAmountSav = totalBalanceAmountSav + widget.savingTraget;
-
-      if (totalBalanceAmountSav > planAmount) {
-        List<Budget> newBudget = [];
-
-        for (var i = 0; i < widget.balanceBudgetAmount.length; i++) {
-          if (widget.budgetList[i].perferance == 'Least Priority' ||
-              widget.budgetList[i].perferance == 'Low Priority' ||
-              widget.budgetList[i].perferance == 'In between' ||
-              widget.budgetList[i].perferance == 'Priority' ||
-              widget.budgetList[i].perferance == 'Highest Priority') {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount -
-                    ((planAmount *
-                            ((widget.balanceBudgetAmount[i].amount) /
-                                totalBalanceAmountSav)))
-                        .round(),
-              ),
-            );
-          } else {
-            newBudget.add(
-              Budget(
-                title: widget.budgetList[i].title,
-                perferance: widget.budgetList[i].perferance,
-                amount: widget.budgetList[i].amount,
-              ),
-            );
-          }
-        }
-
-        plans.add(
-          PlanModel(
-            title: '6 Possiable Plan',
-            totalIncome: widget.totalIncome,
-            totalExpance: widget.totalExp,
-            saving: (widget.savingTraget) -
-                ((planAmount * ((widget.savingTraget) / totalBalanceAmountSav)))
-                    .round(),
-            totalBudget: List<Budget>.from(newBudget),
-          ),
-        );
-      }
-      setState(() {});
+      planFunction();
     }
+
+    if (planMonth == 'Every Month' && planCommit == '  Budget ') {
+      planFunction();
+    }
+
     widget.onPickPlanAmount(planAmount);
     widget.onPickBudget(plans);
     widget.onPickPlanName(planTitle);
     widget.onPickDateTime(selectedDate);
+    widget.onPickPlanMonth(planMonth);
+    widget.onPickPlanCommit(planCommit);
   }
 
   @override

@@ -84,6 +84,15 @@ class _AddNewExpencesState extends State<AddNewExpences> {
       return;
     }
 
+    if (selectedBudget == '0') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Select a valid budget'),
+        ),
+      );
+      return;
+    }
+
     _newExpences.add(
       Expences(
         newBudgetType: selectedBudget,
@@ -235,7 +244,7 @@ class _AddNewExpencesState extends State<AddNewExpences> {
                                       setState(() {
                                         selectedBudget = value;
                                       });
-                                      //print(value);
+                                      print(value);
                                     },
                                   ),
                                 ),

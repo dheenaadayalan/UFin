@@ -50,6 +50,7 @@ class DefaultFirebaseOptions {
     projectId: 'ufin-4195c',
     authDomain: 'ufin-4195c.firebaseapp.com',
     storageBucket: 'ufin-4195c.appspot.com',
+    measurementId: 'G-S545CV8SMV',
   );
 
   static const FirebaseOptions android = FirebaseOptions(

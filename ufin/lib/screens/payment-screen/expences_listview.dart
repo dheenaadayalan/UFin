@@ -33,7 +33,7 @@ class _ExpencesListViewState extends State<ExpencesListView> {
     }
 
     return Container(
-      height: 400, //MediaQuery.of(context).size.height / 1.5,
+      height: MediaQuery.of(context).size.height / 2, //400,
       margin: const EdgeInsets.all(8),
       child: StreamBuilder(
         stream: FirebaseFirestore.instance

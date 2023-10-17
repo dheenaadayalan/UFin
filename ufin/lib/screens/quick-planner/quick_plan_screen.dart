@@ -35,8 +35,8 @@ class _QuickPlannerState extends State<QuickPlanner> {
   DateTime selectedDate = DateTime.now();
   num planAmount = 0;
   String planTitle = '';
-  String planMonth = 'This Month';
-  String planCommit = 'Commiment';
+  String planMonth = '';
+  String planCommit = '';
 
   var now = DateTime.now();
   var formatterMonth = DateFormat('MM');
@@ -347,6 +347,16 @@ class _QuickPlannerState extends State<QuickPlanner> {
                   selectedDate = pickedDateTime;
                 });
               },
+              onPickPlanMonth: (pickedPlanMonth) {
+                setState(() {
+                  planMonth = pickedPlanMonth;
+                });
+              },
+              onPickPlanCommit: (pickedPlanCommit) {
+                setState(() {
+                  planCommit = pickedPlanCommit;
+                });
+              },
             ),
             const SizedBox(height: 20),
             PlanListView(
@@ -359,6 +369,8 @@ class _QuickPlannerState extends State<QuickPlanner> {
               planTitle: planTitle,
               commitmentList: commitmentList,
               selectedDate: selectedDate,
+              planMonth: planMonth,
+              planCommit: planCommit,
             ),
           ],
         ),

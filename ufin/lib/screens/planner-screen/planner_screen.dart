@@ -3,8 +3,9 @@ import 'package:intl/intl.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ufin/models/expences_modes.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
+import 'package:ufin/models/expences_modes.dart';
 import 'package:ufin/screens/planner-screen/budget/barchart/budget_bar_chart.dart';
 import 'package:ufin/screens/planner-screen/budget/budget-refactor/budget_refactor.dart';
 import 'package:ufin/screens/planner-screen/commit_builder.dart';
@@ -32,8 +33,16 @@ class _PlannerScreenState extends State<PlannerScreen> {
 
   @override
   void initState() {
+    setupPushNotfiaction();
     initialize();
     super.initState();
+  }
+
+  void setupPushNotfiaction() async {
+    final fcm = FirebaseMessaging.instance;
+    await fcm.requestPermission();
+    final token = await fcm.getToken();
+    print(token);
   }
 
   void initialize() async {

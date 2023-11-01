@@ -47,7 +47,6 @@ class _PlanListViewState extends State<PlanListView> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    print(widget.planMonth);
     return Column(
       children: [
         if (widget.plans.isEmpty)
